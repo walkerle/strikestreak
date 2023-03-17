@@ -1,8 +1,15 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+import Signup from './components/Signup';
+import Login from './components/Login';
 
 function App() {
+
+  const [user, setUser] = useState(null);
+  // const [errors, setErrors] = useState(false)
+
+  // Verifies cookies and sessions middleware is working
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -29,6 +36,9 @@ function App() {
       </header> */}
 
       <h1>Page Count: {count}</h1>
+
+      <Signup user={user} setUser={setUser} />
+      <Login user={user} setUser={setUser} />
     </div>
   );
 }
