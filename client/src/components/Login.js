@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Login({ user, setUser }) {
+function Login({ setUser }) {
 
   const initialForm = {
     email: "",
@@ -8,6 +8,7 @@ function Login({ user, setUser }) {
   }
 
   const [loginForm, setLoginForm] = useState(initialForm)
+  const [errors, setErrors] = useState([])
 
   const handleChange = (e) => {
     setLoginForm({...loginForm, [e.target.name]: e.target.value})
@@ -15,13 +16,33 @@ function Login({ user, setUser }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(loginForm);
+    
+    fetch("/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body:JSON.stringify(loginForm),
+    })
+    .then((res) => {
+      if (res.ok) {
+        res.json()
+        .then((user) => {
+          setUser(user);
+          console.log(user);
+          // navigate(`/`); // from useNavigate hook 'react-router-dom'
+        });
+      } else {
+        res.json()
+        .then((json) => setErrors(json.errors));
+      }
+    });
+
     setLoginForm(initialForm);
   }
 
   return (
     <div>
       <h2>Login Component</h2>
+      {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")}
       <h2>LOGIN</h2>
       <form onSubmit={handleSubmit}>
         Email:

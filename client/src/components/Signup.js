@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Signup({ user, setUser }) {
+function Signup({ setUser }) {
 
   const initialForm = {
     username: "",
@@ -18,7 +18,6 @@ function Signup({ user, setUser }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(signupForm);
     fetch("/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -29,6 +28,7 @@ function Signup({ user, setUser }) {
         res.json()
         .then((user) => {
           setUser(user);
+          console.log(user);
           // navigate(`/`); // from useNavigate hook 'react-router-dom'
         });
       } else {

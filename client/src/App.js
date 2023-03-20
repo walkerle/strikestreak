@@ -9,36 +9,36 @@ function App() {
   const [user, setUser] = useState(null);
   // const [errors, setErrors] = useState(false)
 
-  // Verifies cookies and sessions middleware is working
+  // Verifies cookies and sessions middleware is working, comment out for final product
   const [count, setCount] = useState(0);
 
-  useEffect(() => {
+  useEffect(() => { // Verifies cookies and sessions middleware is working, comment out for final product
     fetch("/hello")
       .then((res) => res.json())
       .then((data) => setCount(data.count));
   }, []);
 
+  const handleLogout = () => {
+    fetch("/logout", {
+      method: "DELETE"
+    })
+    .then(res => {
+      if(res.ok) {
+        // navigate("/login")
+        setUser(null);
+        console.log("Logged out")
+      }
+    })
+  }
+
   return (
     <div className="App">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-
       <h1>Page Count: {count}</h1>
 
-      <Signup user={user} setUser={setUser} />
-      <Login user={user} setUser={setUser} />
+      {/* <h3>{user.email}</h3> */}
+      <Signup setUser={setUser} />
+      <Login setUser={setUser} />
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 }

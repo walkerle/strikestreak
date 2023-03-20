@@ -8,7 +8,7 @@ class ApplicationController < ActionController::API
 
   # Find and sets sessions user_id in user database
   def current_user
-    user = User.find_by(id: session[:user_id])
+    @user = User.find_by(id: session[:user_id])
   end
 
   # Check for user_id in sessions
@@ -16,7 +16,7 @@ class ApplicationController < ActionController::API
     render json: {error: "Not Authorized"}, status: :unauthorized unless current_user
   end
 
-  # Verifies cookies and sessions middleware is working
+  # Verifies cookies and sessions middleware is working, comment out for final product
   def hello_world
     session[:count] = (session[:count] || 0) + 1
     render json: { count: session[:count] }
