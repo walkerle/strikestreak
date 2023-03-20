@@ -1,18 +1,18 @@
 class UsersController < ApplicationController
 
   skip_before_action :authorized_user, only: [:create]
-  before_action :set_user, only: [:show, :destroy]
+  before_action :set_user, only: :show
 
-  # Review actions to keep
   def index
     render json: User.all, status: :ok
-    # working code for sessions
-    # user = current_user
-    # render json: user, status: :ok
   end
 
   def show
     render json: @user, status: :ok
+  end
+
+  def me
+    render json: @user, status: :ok # before_action :set_user overrides @user in app_controller
   end
 
   def create
@@ -21,19 +21,14 @@ class UsersController < ApplicationController
     render json: user, status: :created
   end
 
-  def destroy
-    @user.destroy
-    head :no_content
-  end
-
   private
 
   def set_user
-    @user = User.find(params[:user_id])
+    @user = User.find(params[:id])
   end
 
   def user_params
-    params.permit(:username, :password)
+    params.permit(:username, :email, :password)
   end
 
 end
