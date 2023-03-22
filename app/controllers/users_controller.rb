@@ -8,11 +8,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    render json: @user, status: :ok
+    render json: @user, status: :ok # show the specified user, before_action :set_user overrides @user (current__user) in app_controller
   end
 
   def me
-    render json: @user, status: :ok # before_action :set_user overrides @user in app_controller
+    render json: @user, status: :ok
   end
 
   def create
