@@ -1,7 +1,17 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function GameCard({ game, myGames, setMyGames }) {
+function GameCard({ game, myGames, setMyGames, setEditGame }) {
+
+  let navigate = useNavigate();
+
+  // Set game in State and redirect to EditGameForm
+  const handleUpdate = () => {
+    setEditGame(game)
+    navigate(`/mygames/:gameId/edit`);
+  }
   
+  // DELETE
   const handleDelete = () => {
     // Frontend Render DELETE
     setMyGames(myGames.filter(g => g.id !== game.id))
@@ -15,7 +25,7 @@ function GameCard({ game, myGames, setMyGames }) {
       {/* <h3>{mySessions[0].date}</h3> */}
       <h3>Game#</h3>
 
-      <button>Update Game</button>
+      <button onClick={handleUpdate}>Update Game</button>
       <button onClick={handleDelete}>Delete Game</button>
 
       <table>

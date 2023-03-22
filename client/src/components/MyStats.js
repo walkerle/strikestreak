@@ -5,7 +5,7 @@ function MyStats({ overallStats }) {
   if(overallStats == null) {
     return (
       <div>
-        <h2>OVERALL STATS:</h2>
+        <h2>MY OVERALL STATS</h2>
 
         <h3>No Stats Recorded</h3>
       </div>
@@ -13,7 +13,7 @@ function MyStats({ overallStats }) {
   } else {
     return (
       <div>
-      <h2>OVERALL STATS:</h2>
+      <h2>MY OVERALL STATS</h2>
 
       <h3>Total Games: {overallStats.total_games}</h3>
       <h3>Total Pinfall: {overallStats.total_pinfall}</h3>

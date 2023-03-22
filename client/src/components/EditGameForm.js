@@ -1,36 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function EditGameForm () {
+function EditGameForm ({ editGame }) {
 
   let navigate = useNavigate()
 
-  const initialForm = {
-    first_frame_1: "",
-    first_frame_2: "",
-    second_frame_1: "",
-    second_frame_2: "",
-    third_frame_1: "",
-    third_frame_2: "",
-    fourth_frame_1: "",
-    fourth_frame_2: "",
-    fifth_frame_1: "",
-    fifth_frame_2: "",
-    sixth_frame_1: "",
-    sixth_frame_2: "",
-    seventh_frame_1: "",
-    seventh_frame_2: "",
-    eighth_frame_1: "",
-    eighth_frame_2: "",
-    ninth_frame_1: "",
-    ninth_frame_2: "",
-    tenth_frame_1: "",
-    tenth_frame_2: "",
-    tenth_frame_3: "",
-    score: "",
-    notes: "",
-    // game_session_id: myGames[0].game_session_id
-  }
+  const initialForm = {...editGame}
 
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState([]);
@@ -39,9 +14,29 @@ function EditGameForm () {
     setForm({...form, [e.target.name]: e.target.value})
   }
 
+  // UPDATE
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log('Submit button clicked')
+
+    const config = {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form)
+    }
+
+    fetch(`/games/${form.id}`, config)
+    .then(res => {
+      if(res.ok) {
+        res.json()
+        .then(data => {
+          setErrors([])
+          navigate('/mygames/games');
+        })
+      } else {
+        res.json().then(json => setErrors(json["errors"]))
+      }
+    })
 
     setForm(initialForm);
   }
@@ -49,7 +44,7 @@ function EditGameForm () {
   return(
     <div>
       {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")}
-      <h2>Edit My Game</h2>
+      <h2>Update My Game</h2>
 
       <form onSubmit={handleFormSubmit}>
         <table>
@@ -255,7 +250,7 @@ function EditGameForm () {
           placeholder="Enter Any Notes"
           value={form.notes}
         />
-        <button type="submit">Update My Game</button>
+        <button type="submit">Update Changes</button>
       </form>
     </div>
   )

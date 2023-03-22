@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Login({ setUser, setOverallStats }) {
 
-  let navigate = useNavigate()
+  let navigate = useNavigate();
 
   const initialForm = {
     email: "",

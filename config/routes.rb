@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :join_friends
   resources :users, only: [:index, :show, :create] do
     resources :overall_stats
+    resources :join_friends
   end
 
   post '/login', to: 'sessions#create'

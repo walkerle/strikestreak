@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
 
-  before_action :set_game, only: [:update, :destroy]
+  before_action :set_game, only: [:show, :update, :destroy]
 
   def index
     if params[:game_session_id]
@@ -10,6 +10,10 @@ class GamesController < ApplicationController
       games = Game.all
     end
     render json: games, status: :ok
+  end
+
+  def show
+    render json: @game, status: :ok
   end
 
   def create

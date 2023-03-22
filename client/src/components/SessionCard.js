@@ -36,7 +36,7 @@ function SessionCard({ session, mySessions, setMySessions, setMyGames }) {
     <div>
       <h3>Bowling Session on {session.date}</h3>
 
-      <button onClick={handleDetailsClick}>Game Details</button> {/* Dynamic Route! This needs to be a Link to another Nested Route */}
+      <button onClick={handleDetailsClick}>Game Details</button>
       <button onClick={handleDelete}>Delete Session</button>
       
       <table>
@@ -48,9 +48,9 @@ function SessionCard({ session, mySessions, setMySessions, setMyGames }) {
             <th>Session Average</th>
             <th>High Score</th>
             <th>Low Score</th>
-            <th>Number of Strikes</th>
-            <th>Number of Spares</th>
-            <th>Number of Open Frames</th>
+            <th>Total Strikes</th>
+            <th>Total Spares</th>
+            <th>Total Open Frames</th>
           </tr>
           <tr>
             <td>{session.date}</td>

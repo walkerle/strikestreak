@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useParams } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Signup from './components/Signup';
@@ -12,15 +12,20 @@ import SessionForm from './components/SessionForm';
 import GamesLayout from './components/GamesLayout';
 import MyGames from './components/MyGames';
 import GameForm from './components/GameForm';
+import EditGameForm from './components/EditGameForm';
 import FriendsList from './components/FriendsList';
 
 function App() {
 
   const [user, setUser] = useState(null);
   const [overallStats, setOverallStats] = useState(null);
-  const [mySessions, setMySessions] = useState([])
-  const [myGames, setMyGames] = useState([])
+  const [mySessions, setMySessions] = useState([]);
+  const [myGames, setMyGames] = useState([]);
+  const [editGame, setEditGame] = useState({});
+  const [myFriends, setMyFriends] = useState([]);
   const [errors, setErrors] = useState(false);
+
+  let { gameId } = useParams();
 
   useEffect(() => {
     fetch(`/me`)
@@ -30,6 +35,7 @@ function App() {
         .then(user => {
           setUser(user)
           setOverallStats(user.overall_stat)
+          setMyFriends(user.friendees)
         })
       } else {
         res.json()
@@ -63,11 +69,12 @@ function App() {
             <Route path='sessions' element={<MySessions overallStats={overallStats} mySessions={mySessions} setMySessions={setMySessions} setMyGames={setMyGames} />} />
             <Route path='newsession' element={<SessionForm overallStats={overallStats} />} />
           </Route>
-          <Route path='/mygames' element={<GamesLayout />}>
-            <Route path='games' element={<MyGames myGames={myGames} setMyGames={setMyGames} />} />
-            <Route path='newgame' element={<GameForm myGames={myGames} />} />
+          <Route path='/mygames' element={<GamesLayout />}> {/* /mysessions/# */}
+            <Route path='games' element={<MyGames myGames={myGames} setMyGames={setMyGames} setEditGame={setEditGame} />} /> {/* /mysessions/#/games */}
+            <Route path=':gameId/edit' element={<EditGameForm editGame={editGame} />} /> {/* /mysessions/#/games/# */}
+            <Route path='newgame' element={<GameForm myGames={myGames} />} /> {/* /mysessions/#/newgame */}
           </Route>
-          <Route path='/friendslist' element={<FriendsList user={user} />} />
+          <Route path='/friendslist' element={<FriendsList myFriends={myFriends} setMyFriends={setMyFriends} />} />
         </Routes>
         {(user == null ? <h3>Logged Out</h3> : <h3>User: {user.username}</h3>)}
         <h3>overall_stat.id: {(overallStats == null ? 'null' : overallStats.id )}</h3>
