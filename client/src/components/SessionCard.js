@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function SessionCard({ session, mySessions, setMySessions, setMyGames }) {
+function SessionCard({ session, mySessions, setMySessions, setMyGames, setErrors }) {
 
   let navigate = useNavigate()
-
-  const [errors, setErrors] = useState([]);
   
   // GET array of games on click
   const handleDetailsClick = () => {

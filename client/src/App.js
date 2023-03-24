@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, useParams } from 'react-router-dom';
+import { Routes, Route/*, useParams*/ } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Signup from './components/Signup';
@@ -16,6 +16,8 @@ import EditGameForm from './components/EditGameForm';
 import FriendsList from './components/FriendsList';
 import FriendStats from './components/FriendStats';
 
+// import { useAutoLoginQuery } from './app/services/userApi';
+
 function App() {
 
   const [user, setUser] = useState(null);
@@ -27,7 +29,7 @@ function App() {
   const [friendStats, setFriendStats] = useState([]);
   const [errors, setErrors] = useState(false);
 
-  let { gameId } = useParams();
+  // let { gameId } = useParams();
 
   useEffect(() => {
     fetch(`/me`)
@@ -46,6 +48,8 @@ function App() {
       }
     })
   }, [])
+
+  // const { data: user=null, isFetching } = useAutoLoginQuery();
 
   if(!user) {
     return (
