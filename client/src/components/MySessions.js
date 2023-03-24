@@ -24,7 +24,7 @@ function MySessions({ overallStats, mySessions, setMySessions, setMyGames }) {
   // DELETE - Frontend
 
   const renderMySessions = mySessions.map(session => {
-    return <SessionCard key={session.id} session={session} mySessions={mySessions} setMySessions={setMySessions} setMyGames={setMyGames} />
+    return <SessionCard key={session.id} session={session} mySessions={mySessions} setMySessions={setMySessions} setMyGames={setMyGames} setErrors={setErrors} />
   })
 
   if(overallStats == null) {
