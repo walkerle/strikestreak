@@ -14,6 +14,7 @@ import MyGames from './components/MyGames';
 import GameForm from './components/GameForm';
 import EditGameForm from './components/EditGameForm';
 import FriendsList from './components/FriendsList';
+import FriendStats from './components/FriendStats';
 
 function App() {
 
@@ -22,7 +23,8 @@ function App() {
   const [mySessions, setMySessions] = useState([]);
   const [myGames, setMyGames] = useState([]);
   const [editGame, setEditGame] = useState({});
-  const [myFriends, setMyFriends] = useState([]);
+  const [joinFriends, setJoinFriends] = useState([]);
+  const [friendStats, setFriendStats] = useState([]);
   const [errors, setErrors] = useState(false);
 
   let { gameId } = useParams();
@@ -35,7 +37,8 @@ function App() {
         .then(user => {
           setUser(user)
           setOverallStats(user.overall_stat)
-          setMyFriends(user.friendees)
+          setJoinFriends(user.join_friends)
+          console.log(`${user.username} is already logged in`); // Remove on final release
         })
       } else {
         res.json()
@@ -51,10 +54,10 @@ function App() {
         <NavBar user={user} setUser={setUser} />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/signup' element={<Signup setUser={setUser} setOverallStats={setOverallStats} />} />
-          <Route path='/login' element={<Login setUser={setUser} setOverallStats={setOverallStats} />} />
+          <Route path='/signup' element={<Signup setUser={setUser} setOverallStats={setOverallStats} setJoinFriends={setJoinFriends} />} />
+          <Route path='/login' element={<Login setUser={setUser} setOverallStats={setOverallStats} setJoinFriends={setJoinFriends} />} />
         </Routes>
-        {(user == null ? <h3>Logged Out</h3> : <h3>User: {user.username}</h3>)}
+        {/*{(user == null ? <h3>Logged Out</h3> : <h3>User: {user.username}</h3>)} {/* Remove on final release */}
       </div>
     );
   } else {
@@ -74,10 +77,11 @@ function App() {
             <Route path=':gameId/edit' element={<EditGameForm editGame={editGame} />} /> {/* /mysessions/#/games/# */}
             <Route path='newgame' element={<GameForm myGames={myGames} />} /> {/* /mysessions/#/newgame */}
           </Route>
-          <Route path='/friendslist' element={<FriendsList myFriends={myFriends} setMyFriends={setMyFriends} />} />
+          <Route path='/friendslist' element={<FriendsList user={user} joinFriends={joinFriends} setJoinFriends={setJoinFriends} setFriendStats={setFriendStats} />} />
+          <Route path='/friendslist/friendstats' element={<FriendStats friendStats={friendStats} />} />
         </Routes>
-        {(user == null ? <h3>Logged Out</h3> : <h3>User: {user.username}</h3>)}
-        <h3>overall_stat.id: {(overallStats == null ? 'null' : overallStats.id )}</h3>
+        {/*{(user == null ? <h3>Logged Out</h3> : <h3>User: {user.username}</h3>)} {/* Remove on final release */}
+        {/*<h3>overall_stat.id: {(overallStats == null ? 'null' : overallStats.id )}</h3> {/* Remove on final release */}
       </div>
     );
   }

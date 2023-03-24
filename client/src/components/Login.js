@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Login({ setUser, setOverallStats }) {
+function Login({ setUser, setOverallStats, setJoinFriends }) {
 
   let navigate = useNavigate();
 
@@ -31,7 +31,8 @@ function Login({ setUser, setOverallStats }) {
         .then((user) => {
           setUser(user);
           setOverallStats(user.overall_stat);
-          console.log(user);
+          setJoinFriends(user.join_friends)
+          console.log(user); // Remove on final release
           navigate('/mystats');
         });
       } else {

@@ -17,7 +17,6 @@ function EditGameForm ({ editGame }) {
   // UPDATE
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log('Submit button clicked')
 
     const config = {
       method: 'PATCH',

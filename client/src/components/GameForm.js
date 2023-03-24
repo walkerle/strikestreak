@@ -29,7 +29,7 @@ function GameForm({ myGames }) {
     tenth_frame_3: "",
     score: "",
     notes: "",
-    game_session_id: myGames[0].game_session_id
+    game_session_id: myGames[0].game_session_id // Review id
   }
 
   const [form, setForm] = useState(initialForm);

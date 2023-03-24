@@ -13,7 +13,7 @@ function NavBar({ user, setUser }) {
       if(res.ok) {
         navigate("/")
         setUser(null);
-        console.log("Logged out")
+        console.log("Logged out") // Remove on final release
       }
     })
   }

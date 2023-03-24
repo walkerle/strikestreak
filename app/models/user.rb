@@ -5,6 +5,11 @@ class User < ApplicationRecord
   has_many :join_friends, foreign_key: :friender_id
   has_many :friendees, through: :join_friends
 
+  # Making the association in the other direction!
+  # has_many :join_friends, foreign_key: :friendee_id
+  # has_many :frienders, through: :join_friends
+
   validates :username, :email, uniqueness: true
+  # validates :join_friends, uniqueness: { scope: :friendee } # Review validations, do not allow duplicate friends
 
 end
