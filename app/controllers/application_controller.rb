@@ -16,12 +16,6 @@ class ApplicationController < ActionController::API
     render json: {error: "Not Authorized"}, status: :unauthorized unless current_user
   end
 
-  # Verifies cookies and sessions middleware is working, comment out for final product
-  def hello_world
-    session[:count] = (session[:count] || 0) + 1
-    render json: { count: session[:count] }
-  end
-
   private
 
   def record_not_found exception

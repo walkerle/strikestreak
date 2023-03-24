@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function Login({ setUser }) {
+function Login({ setUser, setOverallStats, setJoinFriends }) {
+
+  let navigate = useNavigate();
 
   const initialForm = {
     email: "",
@@ -27,8 +30,10 @@ function Login({ setUser }) {
         res.json()
         .then((user) => {
           setUser(user);
-          console.log(user);
-          // navigate(`/`); // from useNavigate hook 'react-router-dom'
+          setOverallStats(user.overall_stat);
+          setJoinFriends(user.join_friends)
+          console.log(user); // Remove on final release
+          navigate('/mystats');
         });
       } else {
         res.json()
@@ -41,7 +46,6 @@ function Login({ setUser }) {
 
   return (
     <div>
-      <h2>Login Component</h2>
       {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")}
       <h2>LOGIN</h2>
       <form onSubmit={handleSubmit}>
