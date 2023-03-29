@@ -1,11 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAutoLoginQuery } from '../app/services/userApi';
 import { useAddFriendMutation } from '../app/services/friendsApi';
 
 function UserCard({ anUser }) {
 
   const { data: user } = useAutoLoginQuery()
-  const [addFriend] = useAddFriendMutation()
+  const [addFriend, {error}] = useAddFriendMutation()
+
+  let navigate = useNavigate();
 
   const form = {
     friender_id: user.id,
@@ -14,6 +17,7 @@ function UserCard({ anUser }) {
 
   const handleAdd = () => {
     addFriend(form)
+    navigate(`/friendslist/myfriends`);
     // const config = {
     //   method: 'POST',
     //   headers: { 'Content-Type': 'application/json' },
@@ -36,9 +40,13 @@ function UserCard({ anUser }) {
   return (
     <tr>
       <td>{anUser.username}</td>
-      <td><button onClick={handleAdd} >Add</button></td>
+      <td><button onClick={handleAdd}>{(error ? error.data.errors.map((err) => (<h4 style={{color:'red'}}>{err.toUpperCase()}</h4>)) : 'Add')}</button></td>
     </tr>
   )
 }
 
 export default UserCard;
+
+// {error?.data.errors.map((err) => (
+//   <h3 style={{color:'red'}}>{err.toUpperCase()}</h3>
+// ))}

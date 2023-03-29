@@ -6,10 +6,8 @@ import { useGetFriendStatsQuery } from '../app/services/friendStatsApi';
 function FriendStats () {
 
   const userId = useSelector(state => state.user.id)
-  console.log(userId);
 
   const { data: friendStats } = useGetFriendStatsQuery(userId);
-  console.log(friendStats)
 
   if(friendStats == null) {
     return (

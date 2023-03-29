@@ -44,8 +44,6 @@ function FriendCard({ joinFriend }) {
   return (
     <tr>
       <td>{joinFriend.friendee.username}</td>
-      <td>stuff</td>
-      <td>stuff</td>
       <td><button onClick={handleStats}>View</button></td>
       <td><button onClick={handleDelete}>Remove</button></td>
     </tr>

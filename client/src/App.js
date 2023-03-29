@@ -13,8 +13,10 @@ import GamesLayout from './components/GamesLayout';
 import MyGames from './components/MyGames';
 import EditGameForm from './components/EditGameForm';
 import GameForm from './components/GameForm';
+import FriendsLayout from './components/FriendsLayout';
 import FriendsList from './components/FriendsList';
 import FriendStats from './components/FriendStats';
+import UsersList from './components/UsersList';
 import { useAutoLoginQuery } from './app/services/userApi';
 
 function App() {
@@ -80,8 +82,11 @@ function App() {
             <Route path=':gameId/edit' element={<EditGameForm />} /> {/* /mysessions/#/games/# */}
             <Route path='newgame' element={<GameForm />} /> {/* /mysessions/#/newgame */}
           </Route>
-          <Route path='/friendslist' element={<FriendsList />} />
-          <Route path='/friendslist/friendstats' element={<FriendStats />} />
+          <Route path={`/friendslist`} element={<FriendsLayout />}>
+            <Route path='myfriends' element={<FriendsList />} />
+            <Route path='myfriends/friendstats' element={<FriendStats />} />
+            <Route path='findfriend' element={<UsersList />} />
+          </Route>
         </Routes>
         {/*{(user == null ? <h3>Logged Out</h3> : <h3>User: {user.username}</h3>)} {/* Remove on final release */}
         {/*<h3>overall_stat.id: {(overallStats == null ? 'null' : overallStats.id )}</h3> {/* Remove on final release */}

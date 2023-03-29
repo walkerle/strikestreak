@@ -3,7 +3,7 @@ import { useAutoLoginQuery } from '../app/services/userApi';
 
 function MyStats() {
 
-  const { data: user } = useAutoLoginQuery();
+  const { data: user=[] } = useAutoLoginQuery();
   // console.log(user.overall_stat.id)
 
   if(user.overall_stat == null) {

@@ -6,7 +6,7 @@ import { useAddGameMutation } from '../app/services/myGamesApi';
 function GameForm() {
 
   const sessionId = useSelector(state => state.session.id)
-  const [addGame] = useAddGameMutation()
+  const [addGame, {error}] = useAddGameMutation()
 
   let navigate = useNavigate()
 
@@ -38,7 +38,7 @@ function GameForm() {
   }
 
   const [form, setForm] = useState(initialForm);
-  const [errors, setErrors] = useState([]);
+  // const [errors, setErrors] = useState([]);
 
   const handleFormChange = (e) => {
     setForm({...form, [e.target.name]: e.target.value})
@@ -76,7 +76,10 @@ function GameForm() {
 
   return (
     <div>
-      {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")}
+      {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")} */}
+      {error?.data.errors.map((err) => (
+        <h3 style={{color:'red'}}>{err.toUpperCase()}</h3>
+      ))}
       <h2>Add New Game</h2>
 
       <form onSubmit={handleFormSubmit}>

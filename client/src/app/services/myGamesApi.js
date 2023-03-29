@@ -20,14 +20,6 @@ export const myGamesApi = createApi({
         //     ? [...result.map(({id}) => ({type: 'Games', id})), 'Games']
         //     : ['Games'],
       }),
-      // GET a game
-      getGame: builder.query({
-        query: (gameId) => ({
-          url: `/games/${gameId}`
-        }),
-        providesTags: ['Games']
-        // invalidatesTags: ['Games']
-      }),
       // CREATE
       addGame: builder.mutation({
         query: ({...body}) => ({
@@ -83,4 +75,4 @@ export const myGamesApi = createApi({
   }
 })
 
-export const { useGetMyGamesQuery, useGetGameQuery, useAddGameMutation, useUpdateGameMutation, useDeleteGameMutation } = myGamesApi
+export const { useGetMyGamesQuery, useAddGameMutation, useUpdateGameMutation, useDeleteGameMutation } = myGamesApi
