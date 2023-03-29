@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAutoLoginQuery } from '../app/services/userApi';
+import { useAddSessionMutation } from '../app/services/mySessionsApi';
 
-function SessionForm({ overallStats }) {
+function SessionForm() {
+
+  const [addSession] = useAddSessionMutation()
 
   let navigate = useNavigate()
+
+  const { data: user } = useAutoLoginQuery();
 
   const initialForm = {
     date: "",
@@ -16,7 +22,7 @@ function SessionForm({ overallStats }) {
     spares: "",
     open_frames: "",
     notes: "",
-    overall_stat_id: overallStats.id
+    overall_stat_id: user.overall_stat.id
   }
 
   const [form, setForm] = useState(initialForm);
@@ -29,27 +35,29 @@ function SessionForm({ overallStats }) {
   // CREATE
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    
+    addSession(form)
+    navigate('/mysessions/sessions');
 
     // Frontend Render and Backend CREATE
-    const config = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form)
-    }
+    // const config = {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(form)
+    // }
     
-    fetch(`/game_sessions`, config)
-    .then(res => {
-      if(res.ok) {
-        res.json()
-        .then(data => {
-          // setMySessions([...mySessions, data]) // Use Redux to avoid lifting?
-          setErrors([])
-          navigate('/mysessions/sessions');
-        })
-      } else {
-        res.json().then(json => setErrors(json["errors"]))
-      }
-    })
+    // fetch(`/game_sessions`, config)
+    // .then(res => {
+    //   if(res.ok) {
+    //     res.json()
+    //     .then(data => {
+    //       setErrors([])
+    //       navigate('/mysessions/sessions');
+    //     })
+    //   } else {
+    //     res.json().then(json => setErrors(json["errors"]))
+    //   }
+    // })
     
     setForm(initialForm);
   }

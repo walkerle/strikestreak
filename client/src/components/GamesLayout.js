@@ -12,7 +12,8 @@ function GamesLayout() {
         <NavLink to='/mysessions/sessions'>Back to Sessions</NavLink>
       </nav>
 
-      <h3>Bowling Session on XX/XX/2023</h3>
+      {/* <h3>Bowling Session on XX/XX/2023</h3> */}
+      <h3>Bowling Session</h3>
 
       <Outlet />
     </div>

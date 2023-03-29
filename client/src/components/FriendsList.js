@@ -1,24 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import FriendCard from './FriendCard';
 import UserCard from './UserCard';
+import { useAutoLoginQuery } from '../app/services/userApi';
+import { useGetMyFriendsQuery } from '../app/services/friendsApi';
+import { useGetAllUsersQuery } from '../app/services/allUsersApi';
 
-function FriendsList({ user, joinFriends, setJoinFriends, setFriendStats }) {
+function FriendsList() {
 
-  const [allUsers, setAllUsers] = useState([]);
-  const [errors, setErrors] = useState([])
+  const { data: user=null } = useAutoLoginQuery();
+  const { data: joinFriends=[] } = useGetMyFriendsQuery(user.id);
+  const { data: allUsers=[] } = useGetAllUsersQuery(user.id);
 
-  useEffect(() => {
-    fetch(`/users`)
-    .then(res => res.json())
-    .then(data => setAllUsers(data))
-  }, [])
+  // const [allUsers, setAllUsers] = useState([]);
+  // const [errors, setErrors] = useState([]);
+
+  // useEffect(() => {
+  //   fetch(`/users`)
+  //   .then(res => res.json())
+  //   .then(data => setAllUsers(data))
+  // }, [])
 
   const renderMyFriends = joinFriends.map(joinFriend => {
-    return <FriendCard key={joinFriend.id} joinFriend={joinFriend} joinFriends={joinFriends} setJoinFriends={setJoinFriends} setFriendStats={setFriendStats} />
+    return <FriendCard key={joinFriend.id} joinFriend={joinFriend} />
   })
 
   const renderAllUsers = allUsers.map(anUser => {
-    return <UserCard key={anUser.id} user={user} anUser={anUser} joinFriends={joinFriends} setJoinFriends={setJoinFriends} setErrors={setErrors} />
+    return <UserCard key={anUser.id} anUser={anUser} />
   })
 
   if(joinFriends == null) {
@@ -29,7 +36,7 @@ function FriendsList({ user, joinFriends, setJoinFriends, setFriendStats }) {
         <h3>You have no friends...</h3>
         <br/>
         <h2>FIND A FRIEND</h2>
-        {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")}
+        {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")} */}
         <table>
           <tbody>
             <tr>
@@ -59,7 +66,7 @@ function FriendsList({ user, joinFriends, setJoinFriends, setFriendStats }) {
         </table>
         <br/>
         <h2>FIND A FRIEND</h2>
-        {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")}
+        {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")} */}
         <table>
           <tbody>
             <tr>

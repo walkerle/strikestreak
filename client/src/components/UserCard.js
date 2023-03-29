@@ -1,6 +1,11 @@
 import React from 'react';
+import { useAutoLoginQuery } from '../app/services/userApi';
+import { useAddFriendMutation } from '../app/services/friendsApi';
 
-function UserCard({ user, anUser, joinFriends, setJoinFriends, setErrors }) {
+function UserCard({ anUser }) {
+
+  const { data: user } = useAutoLoginQuery()
+  const [addFriend] = useAddFriendMutation()
 
   const form = {
     friender_id: user.id,
@@ -8,23 +13,24 @@ function UserCard({ user, anUser, joinFriends, setJoinFriends, setErrors }) {
   }
 
   const handleAdd = () => {
-    const config = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form)
-    }
+    addFriend(form)
+    // const config = {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(form)
+    // }
     
-    fetch(`/join_friends`, config)
-    .then(res => {
-      if(res.ok) {
-        res.json()
-        .then(data => {
-          setJoinFriends([...joinFriends, data]) // Use Redux...
-        })
-      } else {
-        res.json().then(json => setErrors(json["errors"]))
-      }
-    })
+    // fetch(`/join_friends`, config)
+    // .then(res => {
+    //   if(res.ok) {
+    //     res.json()
+    //     .then(data => {
+    //       setJoinFriends([...joinFriends, data]) // Use Redux...
+    //     })
+    //   } else {
+    //     res.json().then(json => setErrors(json["errors"]))
+    //   }
+    // })
   }
 
   return (

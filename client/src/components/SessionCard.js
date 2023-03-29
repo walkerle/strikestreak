@@ -1,33 +1,44 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDeleteSessionMutation } from '../app/services/mySessionsApi';
+import { useDispatch } from 'react-redux';
+import { setSessionId } from '../features/session/sessionSlice';
 
-function SessionCard({ session, mySessions, setMySessions, setMyGames, setErrors }) {
+function SessionCard({ session }) {
+
+  const [deleteSession] = useDeleteSessionMutation()
+
+  const dispatch = useDispatch();
 
   let navigate = useNavigate()
   
   // GET array of games on click
   const handleDetailsClick = () => {
-    fetch(`/game_sessions/${session.id}`)
-    .then(res => {
-      if(res.ok) {
-        res.json()
-        .then(data => {
-          setMyGames(data.games);
-          navigate('/mygames/games');
-        })
-      } else {
-        res.json()
-        .then(json => setErrors(json["errors"]))
-      }
-    })
-  }
+    // Need to get Session.id on click then redirect to Games route
+    dispatch(setSessionId(session.id))
+    navigate('/mygames/games');
 
+    // fetch(`/game_sessions/${session.id}`)
+    // .then(res => {
+    //   if(res.ok) {
+    //     res.json()
+    //     .then(data => {
+    //       setMyGames(data.games);
+    //     })
+    //   } else {
+    //     res.json()
+    //     .then(json => setErrors(json["errors"]))
+    //   }
+    // })
+  }
+  
   const handleDelete = () => {
+    deleteSession(session.id)
     // Frontend Render DELETE
-    setMySessions(mySessions.filter(s => s.id !== session.id))
+    // setMySessions(mySessions.filter(s => s.id !== session.id))
     
     // Backend DELETE
-    fetch(`/game_sessions/${session.id}`, {method: "DELETE"})
+    // fetch(`/game_sessions/${session.id}`, {method: "DELETE"})
   }
 
   return (

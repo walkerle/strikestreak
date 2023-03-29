@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLoginUserMutation } from '../app/services/userApi';
 
-function Login({ setUser, setOverallStats, setJoinFriends }) {
+function Login({ setJoinFriends }) {
+
+  const [loginUser] = useLoginUserMutation();
 
   let navigate = useNavigate();
 
@@ -11,7 +14,7 @@ function Login({ setUser, setOverallStats, setJoinFriends }) {
   }
 
   const [loginForm, setLoginForm] = useState(initialForm)
-  const [errors, setErrors] = useState([])
+  // const [errors, setErrors] = useState([])
 
   const handleChange = (e) => {
     setLoginForm({...loginForm, [e.target.name]: e.target.value})
@@ -20,33 +23,35 @@ function Login({ setUser, setOverallStats, setJoinFriends }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    fetch("/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body:JSON.stringify(loginForm),
-    })
-    .then((res) => {
-      if (res.ok) {
-        res.json()
-        .then((user) => {
-          setUser(user);
-          setOverallStats(user.overall_stat);
-          setJoinFriends(user.join_friends)
-          console.log(user); // Remove on final release
-          navigate('/mystats');
-        });
-      } else {
-        res.json()
-        .then((json) => setErrors(json.errors));
-      }
-    });
+    loginUser(loginForm);
+    navigate(`/mystats`);
+    // fetch("/login", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body:JSON.stringify(loginForm),
+    // })
+    // .then((res) => {
+    //   if (res.ok) {
+    //     res.json()
+    //     .then((user) => {
+    //       setUser(user);
+    //       setOverallStats(user.overall_stat);
+    //       setJoinFriends(user.join_friends)
+    //       console.log(user); // Remove on final release
+    //       navigate('/mystats');
+    //     });
+    //   } else {
+    //     res.json()
+    //     .then((json) => setErrors(json.errors));
+    //   }
+    // });
 
     setLoginForm(initialForm);
   }
 
   return (
     <div>
-      {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")}
+      {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")} */}
       <h2>LOGIN</h2>
       <form onSubmit={handleSubmit}>
         Email:

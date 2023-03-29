@@ -32,6 +32,9 @@ OverallStat.create(user_id: 5, total_games: 0, total_pinfall: 0, average: 0, hig
 puts "Seeding GameSessions..."
 GameSession.create(overall_stat_id: 1, date: "03/11/2023", number_of_games: 2, pinfall: 341, average: 170, high_score: 171, low_score: 170, strikes: 6, spares: 9, open_frames: 5, notes: "Charlie's first session")
 GameSession.create(overall_stat_id: 1, date: "03/04/2023", number_of_games: 1, pinfall: 159, average: 159, high_score: 159, low_score: 159, strikes: 3, spares: 3, open_frames: 4, notes: "Charlie's second session")
+GameSession.create(overall_stat_id: 1, date: "03/04/2023", number_of_games: 1, pinfall: 159, average: 159, high_score: 159, low_score: 159, strikes: 3, spares: 3, open_frames: 4, notes: "Charlie's second session")
+GameSession.create(overall_stat_id: 1, date: "03/04/2023", number_of_games: 1, pinfall: 159, average: 159, high_score: 159, low_score: 159, strikes: 3, spares: 3, open_frames: 4, notes: "Charlie's second session")
+GameSession.create(overall_stat_id: 1, date: "03/04/2023", number_of_games: 1, pinfall: 159, average: 159, high_score: 159, low_score: 159, strikes: 3, spares: 3, open_frames: 4, notes: "Charlie's second session")
 GameSession.create(overall_stat_id: 2, date: "03/05/2023", number_of_games: 1, pinfall: 170, average: 170, high_score: 170, low_score: 170, strikes: 2, spares: 6, open_frames: 2, notes: "Mac's session")
 GameSession.create(overall_stat_id: 3, date: "01/01/2023", number_of_games: 0, pinfall: 0, average: 0, high_score: 0, low_score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "Dennis' session")
 GameSession.create(overall_stat_id: 4, date: "01/01/2023", number_of_games: 0, pinfall: 0, average: 0, high_score: 0, low_score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "Dee's session")
