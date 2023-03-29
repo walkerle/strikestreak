@@ -13,7 +13,6 @@ function FriendsList() {
   return (
     <div>
       <h2>FIND A FRIEND</h2>
-      {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")} */}
       {error?.data.errors.map((err) => (
         <h3 style={{color:'red'}}>{err.toUpperCase()}</h3>
       ))}

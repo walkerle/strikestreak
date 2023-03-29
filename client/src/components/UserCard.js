@@ -18,23 +18,6 @@ function UserCard({ anUser }) {
   const handleAdd = () => {
     addFriend(form)
     navigate(`/friendslist/myfriends`);
-    // const config = {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(form)
-    // }
-    
-    // fetch(`/join_friends`, config)
-    // .then(res => {
-    //   if(res.ok) {
-    //     res.json()
-    //     .then(data => {
-    //       setJoinFriends([...joinFriends, data]) // Use Redux...
-    //     })
-    //   } else {
-    //     res.json().then(json => setErrors(json["errors"]))
-    //   }
-    // })
   }
 
   return (
@@ -46,6 +29,8 @@ function UserCard({ anUser }) {
 }
 
 export default UserCard;
+
+// {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")}
 
 // {error?.data.errors.map((err) => (
 //   <h3 style={{color:'red'}}>{err.toUpperCase()}</h3>

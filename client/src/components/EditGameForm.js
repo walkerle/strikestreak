@@ -12,9 +12,10 @@ const EditGameForm = () => {
 
   let navigate = useNavigate()
 
-  const initialForm = {...game, id: game.id}
+  // const initialForm = {...game, id: game.id}
+  const initialForm = {...game}
 
-  const [form, setForm] = useState(game);
+  const [form, setForm] = useState(initialForm);
   // const [errors, setErrors] = useState([]);
   
   const handleFormChange = (e) => {
@@ -25,7 +26,8 @@ const EditGameForm = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    updateGame({id: game.id, ...form})
+    // updateGame({id: game.id, ...form})
+    updateGame(form)
     navigate('/mygames/games');
 
     setForm(initialForm);

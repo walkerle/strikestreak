@@ -11,15 +11,6 @@ function FriendsList() {
   const { data: joinFriends=null } = useGetMyFriendsQuery(user.id);
   const { data: allUsers=[] } = useGetAllUsersQuery();
 
-  // const [allUsers, setAllUsers] = useState([]);
-  // const [errors, setErrors] = useState([]);
-
-  // useEffect(() => {
-  //   fetch(`/users`)
-  //   .then(res => res.json())
-  //   .then(data => setAllUsers(data))
-  // }, [])
-
   const renderMyFriends = joinFriends?.map(joinFriend => {
     return <FriendCard key={joinFriend.id} joinFriend={joinFriend} />
   })
@@ -43,7 +34,6 @@ function FriendsList() {
       </table>
       <br/>
       <h2>FIND A FRIEND</h2>
-      {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")} */}
       <table>
         <tbody>
           <tr>
