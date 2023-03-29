@@ -5,7 +5,7 @@ import { useAddSessionMutation } from '../app/services/mySessionsApi';
 
 function SessionForm() {
 
-  const [addSession] = useAddSessionMutation()
+  const [addSession, {error}] = useAddSessionMutation()
 
   let navigate = useNavigate()
 
@@ -26,7 +26,7 @@ function SessionForm() {
   }
 
   const [form, setForm] = useState(initialForm);
-  const [errors, setErrors] = useState([]);
+  // const [errors, setErrors] = useState([]);
 
   const handleFormChange = (e) => {
     setForm({...form, [e.target.name]: e.target.value})
@@ -64,7 +64,10 @@ function SessionForm() {
 
   return (
     <div>
-      {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")}
+      {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")} */}
+      {error?.data.errors.map((err) => (
+        <h3 style={{color:'red'}}>{err.toUpperCase()}</h3>
+      ))}
       <h2>Add New Session</h2>
       <form onSubmit={handleFormSubmit}>
         <strong>Date: </strong>

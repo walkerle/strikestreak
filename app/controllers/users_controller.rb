@@ -17,6 +17,7 @@ class UsersController < ApplicationController
 
   def create
     user = User.create!(user_params)
+    user.create_overall_stat()
     session[:user_id] = user.id
     render json: user, status: :created
   end

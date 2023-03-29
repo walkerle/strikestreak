@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setGameId } from '../features/game/gameSlice';
+import { setGame } from '../features/game/gameSlice';
 import { useDeleteGameMutation } from '../app/services/myGamesApi';
 
 function GameCard({ game }) {
@@ -14,7 +14,7 @@ function GameCard({ game }) {
 
   // Set game in State and redirect to EditGameForm
   const handleUpdate = () => {
-    dispatch(setGameId(game.id))
+    dispatch(setGame(game))
     navigate(`/mygames/:gameId/edit`);
     // navigate(`/mygames/${game.id}/edit`);
   }

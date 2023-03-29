@@ -1,26 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useGetGameQuery } from '../app/services/myGamesApi';
 import { useUpdateGameMutation } from '../app/services/myGamesApi';
 
 // function EditGameForm () {
 const EditGameForm = () => {
 
-  const gameId = useSelector(state => state.game.id)
-  // console.log(gameId)
-
-  const { data: game=[] } = useGetGameQuery(gameId);
-  // console.log(game)
+  const game = useSelector(state => state.game.value)
 
   const [updateGame] = useUpdateGameMutation()
 
   let navigate = useNavigate()
 
-  const initialForm = {...game, id: gameId}
+  const initialForm = {...game, id: game.id}
 
   const [form, setForm] = useState(game);
-  const [errors, setErrors] = useState([]);
+  // const [errors, setErrors] = useState([]);
   
   const handleFormChange = (e) => {
     setForm({...form, [e.target.name]: e.target.value})
@@ -29,43 +24,23 @@ const EditGameForm = () => {
   // UPDATE
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    // console.log('from EditGameForm: gameId', gameId);
-    // console.log('from EditGameForm: form', form);
-    updateGame({id: gameId, ...form})
+
+    updateGame({id: game.id, ...form})
     navigate('/mygames/games');
-
-    // const config = {
-    //   method: 'PATCH',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(form)
-    // }
-
-    // fetch(`/games/${form.id}`, config)
-    // .then(res => {
-    //   if(res.ok) {
-    //     res.json()
-    //     .then(data => {
-    //       setErrors([])
-    //       navigate('/mygames/games');
-    //     })
-    //   } else {
-    //     res.json().then(json => setErrors(json["errors"]))
-    //   }
-    // })
 
     setForm(initialForm);
   }
 
-  // if(game == null) {
-  //   return (
-  //     <div>
-  //       <h2>Update My Game</h2>
-  //     </div>
-  //   )
-  // } else {
+  if(game == null) {
     return (
       <div>
-        {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")}
+        <h2>Update My Game</h2>
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")} */}
         <h2>Update My Game</h2>
 
         <form onSubmit={handleFormSubmit}>
@@ -276,7 +251,7 @@ const EditGameForm = () => {
         </form>
       </div>
     )
-  // }
+  }
 }
 
 export default EditGameForm;

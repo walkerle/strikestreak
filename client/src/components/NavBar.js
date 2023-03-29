@@ -36,7 +36,7 @@ function NavBar({ user }) {
         <NavLink to='/'>HOME</NavLink>
         <NavLink to='/mystats'>MY STATS</NavLink>
         <NavLink to='/mysessions/sessions'>MY SESSIONS</NavLink>
-        <NavLink to='/friendslist'>FRIENDS LIST</NavLink>
+        <NavLink to='/friendslist/myfriends'>FRIENDS LIST</NavLink>
         <NavLink to='/' onClick={handleLogout}>LOGOUT</NavLink>
       </nav>
     )
