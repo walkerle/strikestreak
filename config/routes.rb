@@ -12,8 +12,9 @@ Rails.application.routes.draw do
     resources :join_friends
   end
 
+  get '/me', to: 'users#me'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
-  get '/me', to: 'users#me'
+  post '/signup', to: 'users#create'
   
 end

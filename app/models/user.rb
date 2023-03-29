@@ -10,6 +10,5 @@ class User < ApplicationRecord
   # has_many :frienders, through: :join_friends
 
   validates :username, :email, uniqueness: true
-  # validates :join_friends, uniqueness: { scope: :friendee } # Review validations, do not allow duplicate friends
 
 end

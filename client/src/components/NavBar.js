@@ -1,21 +1,25 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { useLogoutUserMutation } from '../app/services/userApi';
 
-function NavBar({ user, setUser }) {
+function NavBar({ user }) {
 
   let navigate = useNavigate()
 
+  const [logoutUser] = useLogoutUserMutation();
+
   const handleLogout = () => {
-    fetch("/logout", {
-      method: "DELETE"
-    })
-    .then(res => {
-      if(res.ok) {
-        navigate("/")
-        setUser(null);
-        console.log("Logged out") // Remove on final release
-      }
-    })
+    logoutUser();
+    navigate("/home");
+    // fetch("/logout", {
+    //   method: "DELETE"
+    // })
+    // .then(res => {
+    //   if(res.ok) {
+    //     setUser(null);
+    //     console.log("Logged out") // Remove on final release
+    //   }
+    // })
   }
 
   if(!user) {
@@ -33,7 +37,7 @@ function NavBar({ user, setUser }) {
         <NavLink to='/mystats'>MY STATS</NavLink>
         <NavLink to='/mysessions/sessions'>MY SESSIONS</NavLink>
         <NavLink to='/friendslist'>FRIENDS LIST</NavLink>
-        <NavLink onClick={handleLogout}>LOGOUT</NavLink>
+        <NavLink to='/' onClick={handleLogout}>LOGOUT</NavLink>
       </nav>
     )
   }

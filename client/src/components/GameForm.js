@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useAddGameMutation } from '../app/services/myGamesApi';
 
-function GameForm({ myGames }) {
+function GameForm() {
+
+  const sessionId = useSelector(state => state.session.id)
+  const [addGame] = useAddGameMutation()
 
   let navigate = useNavigate()
 
@@ -29,7 +34,7 @@ function GameForm({ myGames }) {
     tenth_frame_3: "",
     score: "",
     notes: "",
-    game_session_id: myGames[0].game_session_id // Review id
+    game_session_id: sessionId
   }
 
   const [form, setForm] = useState(initialForm);
@@ -43,26 +48,28 @@ function GameForm({ myGames }) {
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
+    addGame(form)
+    navigate('/mygames/games')
+
     // Frontend Render and Backend CREATE
-    const config = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form)
-    }
+    // const config = {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(form)
+    // }
     
-    fetch(`/games`, config)
-    .then(res => {
-      if(res.ok) {
-        res.json()
-        .then(data => {
-          // setMyGames([...myGames, data]) // Use Redux to avoid lifting?
-          setErrors([])
-          navigate('/mygames/games');
-        })
-      } else {
-        res.json().then(json => setErrors(json["errors"]))
-      }
-    })
+    // fetch(`/games`, config)
+    // .then(res => {
+    //   if(res.ok) {
+    //     res.json()
+    //     .then(data => {
+    //       setErrors([])
+    //       navigate('/mygames/games');
+    //     })
+    //   } else {
+    //     res.json().then(json => setErrors(json["errors"]))
+    //   }
+    // })
     
     setForm(initialForm);
   }

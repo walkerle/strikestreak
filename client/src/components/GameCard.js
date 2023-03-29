@@ -1,29 +1,38 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setGameId } from '../features/game/gameSlice';
+import { useDeleteGameMutation } from '../app/services/myGamesApi';
 
-function GameCard({ game, myGames, setMyGames, setEditGame }) {
+function GameCard({ game }) {
+
+  const dispatch = useDispatch();
+  
+  const [deleteGame] = useDeleteGameMutation()
 
   let navigate = useNavigate();
 
   // Set game in State and redirect to EditGameForm
   const handleUpdate = () => {
-    setEditGame(game)
+    dispatch(setGameId(game.id))
     navigate(`/mygames/:gameId/edit`);
+    // navigate(`/mygames/${game.id}/edit`);
   }
   
   // DELETE
   const handleDelete = () => {
+    deleteGame(game.id)
     // Frontend Render DELETE
-    setMyGames(myGames.filter(g => g.id !== game.id))
+    // setMyGames(myGames.filter(g => g.id !== game.id))
     
     // Backend DELETE
-    fetch(`/games/${game.id}`, {method: "DELETE"})
+    // fetch(`/games/${game.id}`, {method: "DELETE"})
   }
 
   return (
     <div>
       {/* <h3>{mySessions[0].date}</h3> */}
-      <h3>Game#</h3>
+      <h3>Game Summary</h3>
 
       <button onClick={handleUpdate}>Update Game</button>
       <button onClick={handleDelete}>Delete Game</button>
@@ -55,15 +64,15 @@ function GameCard({ game, myGames, setMyGames, setEditGame }) {
             <td>{game.tenth_frame_1} | {game.tenth_frame_2} | {game.tenth_frame_3}</td>
           </tr>
           <tr>
-            <td>1F Score</td>
-            <td>2F Score</td>
-            <td>3F Score</td>
-            <td>4F Score</td>
-            <td>5F Score</td>
-            <td>6F Score</td>
-            <td>7F Score</td>
-            <td>8F Score</td>
-            <td>9F Score</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td>{game.score}</td>
           </tr>
         </tbody>
