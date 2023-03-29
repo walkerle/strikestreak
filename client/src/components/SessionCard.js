@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDeleteSessionMutation } from '../app/services/mySessionsApi';
 import { useDispatch } from 'react-redux';
-import { setSessionId } from '../features/session/sessionSlice';
+import { setSession } from '../features/session/sessionSlice';
 
 function SessionCard({ session }) {
 
@@ -15,7 +15,7 @@ function SessionCard({ session }) {
   // GET array of games on click
   const handleDetailsClick = () => {
     // Need to get Session.id on click then redirect to Games route
-    dispatch(setSessionId(session.id))
+    dispatch(setSession(session))
     navigate('/mygames/games');
 
     // fetch(`/game_sessions/${session.id}`)

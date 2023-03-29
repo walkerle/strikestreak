@@ -14,7 +14,7 @@ function FriendStats () {
       <div>
       <h2>NO STATS</h2>
   
-      <Link to='/friendslist'><button>Back to Friends List</button></Link>
+      <Link to='/friendslist/myfriends'><button>Back to Friends List</button></Link>
     </div>
     )
   } else {
@@ -30,7 +30,7 @@ function FriendStats () {
       <h3>Total Strikes: {friendStats.overall_stat.total_strikes}</h3>
       <h3>Total Spares: {friendStats.overall_stat.total_spares}</h3>
       <h3>Total Open Frames: {friendStats.overall_stat.total_open_frames}</h3>
-      <Link to='/friendslist'><button>Back to Friends List</button></Link>
+      <Link to='/friendslist/myfriends'><button>Back to Friends List</button></Link>
     </div>
     )
   }

@@ -14,12 +14,16 @@ User.create(username: "Frank", email: "frank@gmail.com", password: "1234")
 
 puts "Seeding JoinFriends..."
 JoinFriend.create(friender_id: 1, friendee_id: 2)
-JoinFriend.create(friender_id: 1, friendee_id: 4)
+JoinFriend.create(friender_id: 1, friendee_id: 3)
 JoinFriend.create(friender_id: 1, friendee_id: 5)
 JoinFriend.create(friender_id: 2, friendee_id: 1)
 JoinFriend.create(friender_id: 2, friendee_id: 3)
 JoinFriend.create(friender_id: 3, friendee_id: 1)
-JoinFriend.create(friender_id: 3, friendee_id: 2)
+JoinFriend.create(friender_id: 3, friendee_id: 4)
+JoinFriend.create(friender_id: 4, friendee_id: 1)
+JoinFriend.create(friender_id: 4, friendee_id: 2)
+JoinFriend.create(friender_id: 4, friendee_id: 3)
+JoinFriend.create(friender_id: 4, friendee_id: 5)
 JoinFriend.create(friender_id: 5, friendee_id: 1)
 
 puts "Seeding OverallStats..."
