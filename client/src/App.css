@@ -1,5 +1,12 @@
 .App {
   text-align: center;
+  color: #b2b2b2;
+  text-shadow: 1px 1px 2px #ce8600, 0 0 1em #ce8600, 0 0 0.2em #ce8600;
+  
+  /* background-image: url("../public/bowling_background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed; */
 }
 
 /* .App-logo {
@@ -37,12 +44,12 @@
   }
 } */
 
-#NavBar {
+#navBar {
   overflow: hidden;
-  background-color: #21838090;
+  background-color: #ac7205;
 }
 
-#NavBar a {
+#navBar a {
   float: left;
   display: block;
   color: #f2f2f2;
@@ -51,11 +58,19 @@
   text-decoration: none;
 }
 
-#NavBar a:hover {
-  background-color: #61dafb;
-  color: black;
-  font-weight: bold;
+#navBar a:hover {
+  background-color: #00008a;
+  color: #f2f2f2;
+  text-shadow: 1px 1px 2px #ce8600, 0 0 1em #ce8600, 0 0 0.2em #ce8600;
+  /* font-weight: bold; */
 }
+
+/* MYSTATS SECTION */
+
+/* .size {
+  margin: auto;
+  width: 30%;
+} */
 
 table {
   margin: auto;
@@ -67,7 +82,6 @@ tbody tr:nth-child(odd) {
 }
 
 tbody tr:nth-child(even) {
-  /* background-color: #ad436f80; */
   background-color: #ad436f80;
   background-image: linear-gradient(#eba7c380, #D8115980)
 }
