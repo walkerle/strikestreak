@@ -43,12 +43,14 @@ const EditGameForm = () => {
     return (
       <div>
         {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")} */}
-        <h2>Update My Game</h2>
-
+        <div className='gameContainer'>
+          <h3>Update My Game</h3>
+        </div>
+        <br/>
         <form onSubmit={handleFormSubmit}>
           <table>
             <tbody>
-              <tr>
+              <tr className='topRow'>
                 <th>1</th>
                 <th>2</th>
                 <th>3</th>
@@ -60,7 +62,7 @@ const EditGameForm = () => {
                 <th>9</th>
                 <th>10</th>
               </tr>
-              <tr>
+              <tr className='middleRow'>
                 <td>
                   <input
                     className="gameFormFrame"
@@ -218,38 +220,44 @@ const EditGameForm = () => {
                   />
                 </td>
               </tr>
-              <tr>
-                <td>1F Score</td>
-                <td>2F Score</td>
-                <td>3F Score</td>
-                <td>4F Score</td>
-                <td>5F Score</td>
-                <td>6F Score</td>
-                <td>7F Score</td>
-                <td>8F Score</td>
-                <td>9F Score</td>
+              <tr className='bottomRow'>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td>
                   <input
                     className="gameFormScore"
                     onChange={handleFormChange}
                     type="number"
                     name="score"
-                    placeholder="Score"
+                    placeholder="Total Score"
                     value={form.score}
                   />
                 </td>
               </tr>
             </tbody>
           </table>
-          <strong>Notes: </strong>
-          <input
-            onChange={handleFormChange}
-            type="text"
-            name="notes"
-            placeholder="Enter Any Notes"
-            value={form.notes}
-          />
-          <button type="submit">Update Changes</button>
+          <br/>
+          <div className='gameFormNotes'>
+            <div>
+              <strong>Notes: </strong>
+              <input
+                onChange={handleFormChange}
+                type="text"
+                name="notes"
+                placeholder="Enter Any Notes"
+                value={form.notes}
+              />
+            </div>
+          </div>
+          <br/>
+          <button type="submit"  className='addButton'>Update Changes</button>
         </form>
       </div>
     )

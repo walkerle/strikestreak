@@ -21,10 +21,13 @@ function FriendsList() {
 
   return (
     <div>
-      <h2>MY FRIENDS</h2>
+      <div className='friendContainer'>
+        <h3>My Friends</h3>
+      </div>
+      <br/>
       <table>
         <tbody>
-          <tr>
+          <tr className='topRow'>
             <th>Username</th>
             <th>View Stats</th>
             <th>Remove Friend</th>
@@ -33,16 +36,20 @@ function FriendsList() {
         </tbody>
       </table>
       <br/>
-      <h2>FIND A FRIEND</h2>
+      <div className='friendContainer'>
+        <h3>Find a Friend</h3>
+      </div>
+      <br/>
       <table>
         <tbody>
-          <tr>
+          <tr className='topRow'>
             <th>Username</th>
             <th>Add Friend</th>
           </tr>
           {renderAllUsers}
         </tbody>
       </table>
+      <br/>
     </div>
   )
 }

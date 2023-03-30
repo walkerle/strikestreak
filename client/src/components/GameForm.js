@@ -81,214 +81,224 @@ function GameForm() {
       {error?.data.errors.map((err) => (
         <h3 style={{color:'red'}}>{err.toUpperCase()}</h3>
       ))}
-      <h2>Add New Game</h2>
-
-      <form onSubmit={handleFormSubmit}>
-        <table>
-          <tbody>
-            <tr>
-              <th>1</th>
-              <th>2</th>
-              <th>3</th>
-              <th>4</th>
-              <th>5</th>
-              <th>6</th>
-              <th>7</th>
-              <th>8</th>
-              <th>9</th>
-              <th>10</th>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="first_frame_1"
-                  value={form.first_frame_1}
-                /> | <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="first_frame_2"
-                  value={form.first_frame_2}
-                />
-              </td>
-              <td>
-                <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="second_frame_1"
-                  value={form.second_frame_1}
-                /> | <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="second_frame_2"
-                  value={form.second_frame_2}
-                />
-              </td>
-              <td>
-                <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="third_frame_1"
-                  value={form.third_frame_1}
-                /> | <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="third_frame_2"
-                  value={form.third_frame_2}
-                />
-              </td>
-              <td>
-                <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="fourth_frame_1"
-                  value={form.fourth_frame_1}
-                /> | <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="fourth_frame_2"
-                  value={form.fourth_frame_2}
-                />
-              </td>
-              <td>
-                <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="fifth_frame_1"
-                  value={form.fifth_frame_1}
-                /> | <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="fifth_frame_2"
-                  value={form.fifth_frame_2}
-                />
-              </td>
-              <td>
-                <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="sixth_frame_1"
-                  value={form.sixth_frame_1}
-                /> | <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="sixth_frame_2"
-                  value={form.sixth_frame_2}
-                />
-              </td>
-              <td>
-                <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="seventh_frame_1"
-                  value={form.seventh_frame_1}
-                /> | <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="seventh_frame_2"
-                  value={form.seventh_frame_2}
-                />
-              </td>
-              <td>
-                <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="eighth_frame_1"
-                  value={form.eighth_frame_1}
-                /> | <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="eighth_frame_2"
-                  value={form.eighth_frame_2}
-                />
-              </td>
-              <td>
-                <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="ninth_frame_1"
-                  value={form.ninth_frame_1}
-                /> | <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="ninth_frame_2"
-                  value={form.ninth_frame_2}
-                />
-              </td>
-              <td>
-                <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="tenth_frame_1"
-                  value={form.tenth_frame_1}
-                /> | <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="tenth_frame_2"
-                  value={form.tenth_frame_2}
-                /> | <input
-                  className="gameFormFrame"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="tenth_frame_3"
-                  value={form.tenth_frame_3}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
-                <input
-                  className="gameFormScore"
-                  onChange={handleFormChange}
-                  type="number"
-                  name="score"
-                  placeholder="Score"
-                  value={form.score}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <strong>Notes: </strong>
-        <input
-          onChange={handleFormChange}
-          type="text"
-          name="notes"
-          placeholder="Enter Any Notes"
-          value={form.notes}
-        />
-        <button type="submit">Add New Game</button>
-      </form>
+      <div className='gameContainer'>
+        <h3>Add New Game</h3>
+      </div>
+      <br/>
+      <div className='form'>
+        <form onSubmit={handleFormSubmit}>
+          <table>
+            <tbody>
+              <tr className='topRow'>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+                <th>10</th>
+              </tr>
+              <tr className='middleRow'>
+                <td>
+                  <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="first_frame_1"
+                    value={form.first_frame_1}
+                  /> | <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="first_frame_2"
+                    value={form.first_frame_2}
+                  />
+                </td>
+                <td>
+                  <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="second_frame_1"
+                    value={form.second_frame_1}
+                  /> | <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="second_frame_2"
+                    value={form.second_frame_2}
+                  />
+                </td>
+                <td>
+                  <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="third_frame_1"
+                    value={form.third_frame_1}
+                  /> | <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="third_frame_2"
+                    value={form.third_frame_2}
+                  />
+                </td>
+                <td>
+                  <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="fourth_frame_1"
+                    value={form.fourth_frame_1}
+                  /> | <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="fourth_frame_2"
+                    value={form.fourth_frame_2}
+                  />
+                </td>
+                <td>
+                  <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="fifth_frame_1"
+                    value={form.fifth_frame_1}
+                  /> | <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="fifth_frame_2"
+                    value={form.fifth_frame_2}
+                  />
+                </td>
+                <td>
+                  <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="sixth_frame_1"
+                    value={form.sixth_frame_1}
+                  /> | <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="sixth_frame_2"
+                    value={form.sixth_frame_2}
+                  />
+                </td>
+                <td>
+                  <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="seventh_frame_1"
+                    value={form.seventh_frame_1}
+                  /> | <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="seventh_frame_2"
+                    value={form.seventh_frame_2}
+                  />
+                </td>
+                <td>
+                  <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="eighth_frame_1"
+                    value={form.eighth_frame_1}
+                  /> | <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="eighth_frame_2"
+                    value={form.eighth_frame_2}
+                  />
+                </td>
+                <td>
+                  <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="ninth_frame_1"
+                    value={form.ninth_frame_1}
+                  /> | <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="ninth_frame_2"
+                    value={form.ninth_frame_2}
+                  />
+                </td>
+                <td>
+                  <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="tenth_frame_1"
+                    value={form.tenth_frame_1}
+                  /> | <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="tenth_frame_2"
+                    value={form.tenth_frame_2}
+                  /> | <input
+                    className="gameFormFrame"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="tenth_frame_3"
+                    value={form.tenth_frame_3}
+                  />
+                </td>
+              </tr>
+              <tr className='bottomRow'>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                  <input
+                    className="gameFormScore"
+                    onChange={handleFormChange}
+                    type="number"
+                    name="score"
+                    placeholder="Total Score"
+                    value={form.score}
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br/>
+          <div className='gameFormNotes'>
+            <div>
+              <strong>Notes: </strong>
+              <input
+                onChange={handleFormChange}
+                type="text"
+                name="notes"
+                placeholder="Enter Any Notes"
+                value={form.notes}
+              />
+            </div>
+          </div>
+          <br/>
+          <button type="submit" className='addButton'>Add New Game</button>
+        </form>
+      </div>
     </div>
   )
 }

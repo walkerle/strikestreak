@@ -21,9 +21,9 @@ function UserCard({ anUser }) {
   }
 
   return (
-    <tr>
+    <tr className='multiRow'>
       <td>{anUser.username}</td>
-      <td><button onClick={handleAdd}>{(error ? error.data.errors.map((err) => (<h4 style={{color:'red'}}>{err.toUpperCase()}</h4>)) : 'Add')}</button></td>
+      <td><button onClick={handleAdd} className='addButton'>{(error ? error.data.errors.map((err) => (<h4 style={{color:'red'}}>{err.toUpperCase()}</h4>)) : 'Add')}</button></td>
     </tr>
   )
 }

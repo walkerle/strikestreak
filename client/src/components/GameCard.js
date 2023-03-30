@@ -15,7 +15,7 @@ function GameCard({ game }) {
   // Set game in State and redirect to EditGameForm
   const handleUpdate = () => {
     dispatch(setGame(game))
-    navigate(`/mygames/:gameId/edit`);
+    navigate(`/mygames/game/edit`);
     // navigate(`/mygames/${game.id}/edit`);
   }
   
@@ -32,14 +32,16 @@ function GameCard({ game }) {
   return (
     <div>
       {/* <h3>{mySessions[0].date}</h3> */}
-      <h3>Game Summary</h3>
-
-      <button onClick={handleUpdate}>Update Game</button>
-      <button onClick={handleDelete}>Delete Game</button>
-
+      <div className='gameContainer'>
+        <h3>Game Summary</h3>
+      </div>
+      <br/>
+      <button onClick={handleUpdate} className='moreButton'>Update Game</button>
+      <button onClick={handleDelete} className='deleteButton'>Delete Game</button>
+      <br/><br/>
       <table>
         <tbody>
-          <tr>
+          <tr className='topRow'>
             <th>1</th>
             <th>2</th>
             <th>3</th>
@@ -51,7 +53,7 @@ function GameCard({ game }) {
             <th>9</th>
             <th>10</th>
           </tr>
-          <tr>
+          <tr className='middleRow'>
             <td>{game.first_frame_1} | {game.first_frame_2}</td>
             <td>{game.second_frame_1} | {game.second_frame_2}</td>
             <td>{game.third_frame_1} | {game.third_frame_2}</td>
@@ -63,7 +65,7 @@ function GameCard({ game }) {
             <td>{game.ninth_frame_1} | {game.ninth_frame_2}</td>
             <td>{game.tenth_frame_1} | {game.tenth_frame_2} | {game.tenth_frame_3}</td>
           </tr>
-          <tr>
+          <tr className='bottomRow'>
             <td></td>
             <td></td>
             <td></td>
@@ -77,7 +79,13 @@ function GameCard({ game }) {
           </tr>
         </tbody>
       </table>
-      <strong>Game Notes: </strong>{game.notes}
+      <br/>
+      <div className='notes'>
+        <h4><strong>Game Notes: </strong>{game.notes}</h4>
+      </div>
+      <div className='divider'>
+        <hr className='dividerLine'/>
+      </div>
     </div>
   )
 }

@@ -12,13 +12,16 @@ function FriendsList() {
 
   return (
     <div>
-      <h2>FIND A FRIEND</h2>
+      <div className='friendContainer'>
+        <h3>Find a Friend</h3>
+      </div>
       {error?.data.errors.map((err) => (
         <h3 style={{color:'red'}}>{err.toUpperCase()}</h3>
       ))}
+      <br/>
       <table>
         <tbody>
-          <tr>
+          <tr className='topRow'>
             <th>Username</th>
             <th>Add Friend</th>
           </tr>
