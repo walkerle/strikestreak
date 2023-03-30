@@ -5,7 +5,8 @@ import { useAddGameMutation } from '../app/services/myGamesApi';
 
 function GameForm() {
 
-  const sessionId = useSelector(state => state.session.id)
+  const sessionId = useSelector(state => state.session.value.id)
+  // console.log(sessionId)
   const [addGame, {error}] = useAddGameMutation()
 
   let navigate = useNavigate()
@@ -256,15 +257,15 @@ function GameForm() {
               </td>
             </tr>
             <tr>
-              <td>1F Score</td>
-              <td>2F Score</td>
-              <td>3F Score</td>
-              <td>4F Score</td>
-              <td>5F Score</td>
-              <td>6F Score</td>
-              <td>7F Score</td>
-              <td>8F Score</td>
-              <td>9F Score</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td>
                 <input
                   className="gameFormScore"

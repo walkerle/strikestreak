@@ -24,7 +24,7 @@ function NavBar({ user }) {
 
   if(!user) {
     return (
-      <nav>
+      <nav id='navBar'>
         <NavLink to='/'>HOME</NavLink>
         <NavLink to='/signup'>SIGNUP</NavLink>
         <NavLink to='/login'>LOGIN</NavLink>
@@ -32,7 +32,7 @@ function NavBar({ user }) {
     )
   } else {
     return (
-      <nav>
+      <nav id='navBar'>
         <NavLink to='/'>HOME</NavLink>
         <NavLink to='/mystats'>MY STATS</NavLink>
         <NavLink to='/mysessions/sessions'>MY SESSIONS</NavLink>

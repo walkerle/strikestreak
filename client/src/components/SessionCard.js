@@ -46,9 +46,11 @@ function SessionCard({ session }) {
       <h3>Bowling Session on {session.date}</h3>
 
       <button onClick={handleDetailsClick}>Game Details</button>
-      <button onClick={handleDelete}>Delete Session</button>
+      <button  onClick={handleDelete}>Delete Session</button>
       
       <table>
+        <thead>
+        </thead>
         <tbody>
           <tr>
             <th>Date</th>
@@ -74,7 +76,10 @@ function SessionCard({ session }) {
           </tr>
         </tbody>
       </table>
-      <strong>Session Notes: </strong>{session.notes}
+      <div>
+        <h4><strong>Session Notes: </strong>{session.notes}</h4>
+      </div>
+      <br/>
     </div>
   )
 }
