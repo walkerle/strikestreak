@@ -43,8 +43,12 @@
   border-width: 3px;
   border-color: #ac7205;
   border-radius: 5px;
-  width: 30%;
+  width: fit-content;
   margin: auto;
+}
+
+.Headers h2 {
+  margin: 10px 20px;
 }
 
 h2 {
@@ -209,6 +213,39 @@ table {
   /* font-weight: bold; */
 }
 
+/* HOME SIGNUP LOGIN */
+
+.homeMessage {
+  background-color: #303030;
+  border: solid;
+  border-width: 3px;
+  border-color: #ac7205;
+  border-radius: 5px;
+  width: fit-content;
+  margin: auto;
+}
+
+.homeMessage h3 {
+  margin: 10px 20px;
+}
+
+.homeForm {
+  background-color: #505050;
+  border: solid;
+  border-width: 3px;
+  border-color: #ac7205;
+  border-radius: 5px;
+  width: fit-content;
+  margin: auto;
+}
+
+.homeForm form {
+  margin: 10px 10px;
+}
+
+.homeForm form strong {
+  margin: 0px 15px;
+}
 /* MYSTATS */
 
 .myStatsContainer {
@@ -217,8 +254,12 @@ table {
   border-width: 3px;
   border-color: #ac7205;
   border-radius: 5px;
-  width: 20%;
+  width: fit-content;
   margin: auto;
+}
+
+.myStatsContainer h3 {
+  margin: 10px 20px;
 }
 
 /* MYSESSIONS */
@@ -229,8 +270,12 @@ table {
   border-width: 3px;
   border-color: #ac7205;
   border-radius: 5px;
-  width: 25%;
+  width: fit-content;
   margin: auto;
+}
+
+.sessionContainer h3 {
+  margin: 10px 20px;
 }
 
 .sessionForm {
@@ -301,17 +346,6 @@ table {
   margin: 5px 20px;
 }
 
-/* .topRow {
-  background-color: #303030;
-}
-
-.topRow th {
-  color: #f2f2f2;
-  border: 1px solid;
-  border-color: #ac7205;
-  padding: 2px 10px;
-} */
-
 .multiRow:nth-child(odd) {
   background-color: #d19a34;
 }
@@ -333,25 +367,3 @@ table {
   border-color: #ac7205;
   padding: 2px 10px;
 }
-
-/* .middleRow {
-  background-color: #d19a34;
-}
-
-.middleRow td {
-  color: #f2f2f2;
-  border: 1px solid;
-  border-color: #ac7205;
-  padding: 2px 10px;
-}
-
-.bottomRow {
-  background-color: #d2d2d2;
-}
-
-.bottomRow td {
-  color: #303030;
-  border: 1px solid;
-  border-color: #ac7205;
-  padding: 2px 10px;
-} */

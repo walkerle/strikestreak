@@ -52,26 +52,32 @@ function Login({ setJoinFriends }) {
   return (
     <div>
       {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")} */}
-      <h2>LOGIN</h2>
-      <form onSubmit={handleSubmit}>
-        Email:
-        <input
-          onChange={handleChange}
-          type="text"
-          name="email"
-          placeholder="Enter Email"
-          value={loginForm.email}
-        />
-        Password:
-        <input
-          onChange={handleChange}
-          type="password"
-          name="password"
-          placeholder="Enter Password"
-          value={loginForm.password}
-        />
-        <button type="submit">Submit</button>
-      </form>
+      <br/>
+      <div className='Headers'>
+        <h2>LOGIN</h2>
+      </div>
+      <br/>
+      <div className='homeForm'>
+        <form onSubmit={handleSubmit}>
+          <strong>Email:</strong>
+          <input
+            onChange={handleChange}
+            type="text"
+            name="email"
+            placeholder="Enter Email"
+            value={loginForm.email}
+          />
+          <strong>Password:</strong>
+          <input
+            onChange={handleChange}
+            type="password"
+            name="password"
+            placeholder="Enter Password"
+            value={loginForm.password}
+          />
+          <button type="submit" className="moreButton">Submit</button>
+        </form>
+      </div>
     </div>
   )
 }
