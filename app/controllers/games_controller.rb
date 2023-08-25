@@ -38,7 +38,7 @@ class GamesController < ApplicationController
   end
 
   def game_params
-    params.permit(:game_session_id, :first_frame_1, :first_frame_2, :second_frame_1, :second_frame_2, :third_frame_1, :third_frame_2, :fourth_frame_1, :fourth_frame_2, :fifth_frame_1, :fifth_frame_2, :sixth_frame_1, :sixth_frame_2, :seventh_frame_1, :seventh_frame_2, :eighth_frame_1, :eighth_frame_2, :ninth_frame_1, :ninth_frame_2, :tenth_frame_1, :tenth_frame_2, :tenth_frame_3, :score, :notes)
+    params.permit(:game_session_id, :f1b1, :f1b2, :f2b1, :f2b2, :f3b1, :f3b2, :f4b1, :f4b2, :f5b1, :f5b2, :f6b1, :f6b2, :f7b1, :f7b2, :f8b1, :f8b2, :f9b1, :f9b2, :f10b1, :f10b2, :f10b3, :score, :notes)
   end
 
 end

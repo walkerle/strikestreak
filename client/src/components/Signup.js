@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCreateUserMutation } from '../app/services/userApi';
 
-function Signup({ setJoinFriends }) {
+function Signup() {
 
   let navigate = useNavigate();
 

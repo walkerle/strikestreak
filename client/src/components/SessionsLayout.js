@@ -13,7 +13,7 @@ function SessionsLayout() {
         <NavLink to='sessions'>View All Sessions</NavLink>
         <NavLink to='newsession'>Add New Session</NavLink>
       </nav>
-
+      <br/>
       <Outlet />
     </div>
   )

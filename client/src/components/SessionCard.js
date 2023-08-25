@@ -43,12 +43,11 @@ function SessionCard({ session }) {
 
   return (
     <div>
-      <br/>
       <div className='sessionContainer'>
         <h3>Bowling Session on {session.date}</h3>
       </div>
       <br/>
-      <button onClick={handleDetailsClick} className='moreButton'>Game Details</button>
+      <button onClick={handleDetailsClick} className='moreButton'>Session Details</button>
       <button onClick={handleDelete} className='deleteButton'>Delete Session</button>
       <br/><br/>
       <table>
@@ -83,6 +82,7 @@ function SessionCard({ session }) {
       <div className='notes'>
         <h4><strong>Session Notes: </strong>{session.notes}</h4>
       </div>
+      <br/>
       <div className='divider'>
         <hr className='dividerLine'/>
       </div>

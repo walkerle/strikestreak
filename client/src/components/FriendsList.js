@@ -8,14 +8,21 @@ import { useGetAllUsersQuery } from '../app/services/allUsersApi';
 function FriendsList() {
 
   const { data: user=null } = useAutoLoginQuery();
-  const { data: joinFriends=null } = useGetMyFriendsQuery(user.id);
+  const { data: joinFriends=[] } = useGetMyFriendsQuery(user.id);
   const { data: allUsers=[] } = useGetAllUsersQuery();
 
-  const renderMyFriends = joinFriends?.map(joinFriend => {
+  const sortJoinFriends = [...joinFriends].sort((a, b) => a.friendee.username.localeCompare(b.friendee.username))
+  // console.log(sortJoinFriends);
+
+  const renderMyFriends = sortJoinFriends?.map(joinFriend => {
     return <FriendCard key={joinFriend.id} joinFriend={joinFriend} />
   })
 
-  const renderAllUsers = allUsers?.map(anUser => {
+  const sortAllUsers = [...allUsers].sort((a, b) => a.username.localeCompare(b.username))
+  // console.log(sortAllUsers);
+
+  // const renderAllUsers = allUsers?.map(anUser => {
+  const renderAllUsers = sortAllUsers?.map(anUser => {
     return <UserCard key={anUser.id} anUser={anUser} />
   })
 

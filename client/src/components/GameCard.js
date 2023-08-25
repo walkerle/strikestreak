@@ -29,9 +29,91 @@ function GameCard({ game }) {
     // fetch(`/games/${game.id}`, {method: "DELETE"})
   }
 
+  const markSymbol = (b1, b2) => {
+    if(b1 === 10) {
+      return `X`
+    } else if(b1 + b2 === 10) {
+      return `${b1} | /`
+    } else {
+      return `${b1} | ${b2}`
+    }
+  }
+
+  const tenthMarkSymbol = (b1, b2, b3) => {
+    if(b1 === 10 && b2 === 10 && b3 === 10) {
+      return `X | X | X`
+    } else if(b1 === 10 && b2 === 10 && b3 !== 10) {
+      return `X | X | ${b3}`
+    } else if(b1 === 10 && b2 + b3 === 10) {
+      return `X | ${b2} | /`
+    } else if(b1 === 10 && b2 + b3 !== 10) {
+      return `X | ${b2} | ${b3}`
+    } else if(b1 + b2 === 10 && b3 === 10) {
+      return `${b1} | / | X`
+    } else if(b1 + b2 === 10 && b3 !== 10) {
+      return `${b1} | / | ${b3}`
+    } else {
+      return `${b1} | ${b2} | ${b3}`
+    }
+  }
+
+  let strikes = 0;
+  let spares = 0;
+  let opens = 0;
+
+  const eachFrameScore = (f1b1, f1b2, f2b1, f2b2, f3b1, prevScore) => {
+    if(f1b1 === 10 && f2b1 === 10) {
+      strikes++;
+      return f1b1 + f2b1 + f3b1 + prevScore;
+    } else if(f1b1 === 10 && f2b1 !== 10) {
+      strikes++;
+      return f1b1 + f2b1 + f2b2 + prevScore;
+    } else if(f1b1 + f1b2 === 10) {
+      spares++;
+      return f1b1 + f1b2 + f2b1 + prevScore;
+    } else {
+      opens++;
+      return f1b1 + f1b2 + prevScore;
+    }
+  }
+
+  const tenthFrameScore = (b1, b2, b3, prevScore) => {
+    if(b1 === 10 && b2 === 10 && b3 === 10) {
+      strikes = strikes + 3;
+    } else if(b1 === 10 && b2 === 10 && b3 !== 10) {
+      strikes = strikes + 2;
+    } else if(b1 === 10 && b2 + b3 === 10) {
+      strikes++;
+      spares++;
+    } else if(b1 === 10 && b2 + b3 !== 10) {
+      strikes++;
+      opens++;
+    } else if(b1 + b2 === 10 && b3 === 10) {
+      strikes++;
+      spares++;
+    } else if(b1 + b2 === 10 && b3 !== 10) {
+      spares++
+    } else {
+      opens++;
+    }
+    return b1 + b2 + b3 + prevScore;
+  }
+
+  const f1s = eachFrameScore(game.f1b1, game.f1b2, game.f2b1, game.f2b2, game.f3b1, 0);
+  const f2s = eachFrameScore(game.f2b1, game.f2b2, game.f3b1, game.f3b2, game.f4b1, f1s);
+  const f3s = eachFrameScore(game.f3b1, game.f3b2, game.f4b1, game.f4b2, game.f5b1, f2s);
+  const f4s = eachFrameScore(game.f4b1, game.f4b2, game.f5b1, game.f5b2, game.f6b1, f3s);
+  const f5s = eachFrameScore(game.f5b1, game.f5b2, game.f6b1, game.f6b2, game.f7b1, f4s);
+  const f6s = eachFrameScore(game.f6b1, game.f6b2, game.f7b1, game.f7b2, game.f8b1, f5s);
+  const f7s = eachFrameScore(game.f7b1, game.f7b2, game.f8b1, game.f8b2, game.f9b1, f6s);
+  const f8s = eachFrameScore(game.f8b1, game.f8b2, game.f9b1, game.f9b2, game.f10b1, f7s);
+  const f9s = eachFrameScore(game.f9b1, game.f9b2, game.f10b1, game.f10b2, game.f10b2, f8s);
+  const f10s = tenthFrameScore(game.f10b1, game.f10b2, game.f10b3, f9s);
+
+  // Need score, strikes, spares, and open frames in form to carry into Sessions
+
   return (
     <div>
-      {/* <h3>{mySessions[0].date}</h3> */}
       <div className='gameContainer'>
         <h3>Game Summary</h3>
       </div>
@@ -54,38 +136,45 @@ function GameCard({ game }) {
             <th>10</th>
           </tr>
           <tr className='middleRow'>
-            <td>{game.first_frame_1} | {game.first_frame_2}</td>
-            <td>{game.second_frame_1} | {game.second_frame_2}</td>
-            <td>{game.third_frame_1} | {game.third_frame_2}</td>
-            <td>{game.fourth_frame_1} | {game.fourth_frame_2}</td>
-            <td>{game.fifth_frame_1} | {game.fifth_frame_2}</td>
-            <td>{game.sixth_frame_1} | {game.sixth_frame_2}</td>
-            <td>{game.seventh_frame_1} | {game.seventh_frame_2}</td>
-            <td>{game.eighth_frame_1} | {game.eighth_frame_2}</td>
-            <td>{game.ninth_frame_1} | {game.ninth_frame_2}</td>
-            <td>{game.tenth_frame_1} | {game.tenth_frame_2} | {game.tenth_frame_3}</td>
+            <td>{markSymbol(game.f1b1, game.f1b2)}</td>
+            <td>{markSymbol(game.f2b1, game.f2b2)}</td>
+            <td>{markSymbol(game.f3b1, game.f3b2)}</td>
+            <td>{markSymbol(game.f4b1, game.f4b2)}</td>
+            <td>{markSymbol(game.f5b1, game.f5b2)}</td>
+            <td>{markSymbol(game.f6b1, game.f6b2)}</td>
+            <td>{markSymbol(game.f7b1, game.f7b2)}</td>
+            <td>{markSymbol(game.f8b1, game.f8b2)}</td>
+            <td>{markSymbol(game.f9b1, game.f9b2)}</td>
+            <td>{tenthMarkSymbol(game.f10b1, game.f10b2, game.f10b3)}</td>
+            {/* <td>{game.f10b1} | {game.f10b2} | {game.f10b3}</td> */}
           </tr>
           <tr className='bottomRow'>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>{game.score}</td>
+            <td>{f1s}</td>
+            <td>{f2s}</td>
+            <td>{f3s}</td>
+            <td>{f4s}</td>
+            <td>{f5s}</td>
+            <td>{f6s}</td>
+            <td>{f7s}</td>
+            <td>{f8s}</td>
+            <td>{f9s}</td>
+            <td>{f10s}</td>
           </tr>
         </tbody>
       </table>
-      <br/>
+      <h4>
+        <strong>Number of Strikes: </strong>{strikes} |
+        <strong> Number of Spares: </strong>{spares} |
+        <strong> Number of Open Frames: </strong>{opens}
+      </h4>
       <div className='notes'>
         <h4><strong>Game Notes: </strong>{game.notes}</h4>
       </div>
+      <br/>
       <div className='divider'>
         <hr className='dividerLine'/>
       </div>
+      <br/>
     </div>
   )
 }

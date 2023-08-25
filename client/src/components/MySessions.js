@@ -5,7 +5,7 @@ import { useGetMySessionsQuery } from '../app/services/mySessionsApi';
 
 function MySessions() {
 
-  const { data: user } = useAutoLoginQuery();
+  const { data: user } = useAutoLoginQuery(); // User is already in Redux store, don't need to autologinquery? useSelector()?
   const { data: mySessions } = useGetMySessionsQuery(user.overall_stat.id);
 
   // const [errors, setErrors] = useState([]);
