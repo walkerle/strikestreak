@@ -8,6 +8,7 @@ function MyGames() {
   // const sessionId = useSelector(state => state.session.id)
   const session = useSelector(state => state.session.value)
   // console.log(session)
+  // console.log(session.games)
   // console.log(session.id)
 
   const { data: myGames } = useGetMyGamesQuery(session.id);
@@ -16,6 +17,8 @@ function MyGames() {
   const renderGames = myGames?.map(game => {
     return <GameCard key={game.id} game={game} />
   })
+  .sort((a, b) => a.props.game.id - b.props.game.id)
+  // console.log(renderGames);
 
   return (
     <div>

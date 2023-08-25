@@ -68,90 +68,96 @@ function SessionForm() {
       {error?.data.errors.map((err) => (
         <h3 style={{color:'red'}}>{err.toUpperCase()}</h3>
       ))}
-      <h2>Add New Session</h2>
-      <form onSubmit={handleFormSubmit}>
-        <strong>Date: </strong>
-        <input 
-          onChange={handleFormChange}
-          type="text"
-          name="date"
-          placeholder="Enter Date"
-          value={form.date}
-        /><br/>
-        <strong>Total Games Played: </strong>
-        <input
-          onChange={handleFormChange}
-          type="number"
-          name="number_of_games"
-          placeholder="Enter Total Games Played"
-          value={form.number_of_games}
-        /><br/>
-        <strong>Total Pinfall: </strong>
-        <input
-          onChange={handleFormChange}
-          type="number"
-          name="pinfall"
-          placeholder="Enter Total Pinfall"
-          value={form.pinfall}
-        /><br/>
-        <strong>Average Score: </strong>
-        <input
-          onChange={handleFormChange}
-          type="number"
-          name="average"
-          placeholder="Enter Average Score"
-          value={form.average}
-        /><br/>
-        <strong>High Score: </strong>
-        <input
-          onChange={handleFormChange}
-          type="number"
-          name="high_score"
-          placeholder="Enter High Score"
-          value={form.high_score}
-        /><br/>
-        <strong>Low Score: </strong>
-        <input
-          onChange={handleFormChange}
-          type="number"
-          name="low_score"
-          placeholder="Enter Low Score"
-          value={form.low_score}
-        /><br/>
-        <strong>Total Strikes: </strong>
-        <input
-          onChange={handleFormChange}
-          type="number"
-          name="strikes"
-          placeholder="Enter Total Strikes"
-          value={form.strikes}
-        /><br/>
-        <strong>Total Spares: </strong>
-        <input
-          onChange={handleFormChange}
-          type="number"
-          name="spares"
-          placeholder="Enter Total Spares"
-          value={form.spares}
-        /><br/>
-        <strong>Total Open Frames: </strong>
-        <input
-          onChange={handleFormChange}
-          type="number"
-          name="open_frames"
-          placeholder="Enter Total Open Frames"
-          value={form.open_frames}
-        /><br/>
-        <strong>Notes: </strong>
-        <input 
-          onChange={handleFormChange}
-          type="text"
-          name="notes"
-          placeholder="Enter Any Notes"
-          value={form.notes}
-        /><br/>
-        <button type="submit">Add New Session</button>
-      </form>
+      <br/>
+      <div className='sessionContainer'>
+        <h3>Add New Session</h3>
+      </div>
+      <br/>
+      <div className='sessionForm'>
+        <form onSubmit={handleFormSubmit}>
+          <strong>Date: </strong>
+          <input 
+            onChange={handleFormChange}
+            type="text"
+            name="date"
+            placeholder="Enter Date"
+            value={form.date}
+          /><br/>
+          <strong>Total Games Played: </strong>
+          <input
+            onChange={handleFormChange}
+            type="number"
+            name="number_of_games"
+            placeholder="Enter Total Games Played"
+            value={form.number_of_games}
+          /><br/>
+          <strong>Total Pinfall: </strong>
+          <input
+            onChange={handleFormChange}
+            type="number"
+            name="pinfall"
+            placeholder="Enter Total Pinfall"
+            value={form.pinfall}
+          /><br/>
+          <strong>Average Score: </strong>
+          <input
+            onChange={handleFormChange}
+            type="number"
+            name="average"
+            placeholder="Enter Average Score"
+            value={form.average}
+          /><br/>
+          <strong>High Score: </strong>
+          <input
+            onChange={handleFormChange}
+            type="number"
+            name="high_score"
+            placeholder="Enter High Score"
+            value={form.high_score}
+          /><br/>
+          <strong>Low Score: </strong>
+          <input
+            onChange={handleFormChange}
+            type="number"
+            name="low_score"
+            placeholder="Enter Low Score"
+            value={form.low_score}
+          /><br/>
+          <strong>Total Strikes: </strong>
+          <input
+            onChange={handleFormChange}
+            type="number"
+            name="strikes"
+            placeholder="Enter Total Strikes"
+            value={form.strikes}
+          /><br/>
+          <strong>Total Spares: </strong>
+          <input
+            onChange={handleFormChange}
+            type="number"
+            name="spares"
+            placeholder="Enter Total Spares"
+            value={form.spares}
+          /><br/>
+          <strong>Total Open Frames: </strong>
+          <input
+            onChange={handleFormChange}
+            type="number"
+            name="open_frames"
+            placeholder="Enter Total Open Frames"
+            value={form.open_frames}
+          /><br/>
+          <strong>Notes: </strong>
+          <input 
+            onChange={handleFormChange}
+            type="text"
+            name="notes"
+            placeholder="Enter Any Notes"
+            value={form.notes}
+          /><br/><br/>
+          <button type="submit" className='addButton'>Add New Session</button>
+        </form>
+      </div>
     </div>
   )
 }

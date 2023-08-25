@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCreateUserMutation } from '../app/services/userApi';
 
-function Signup({ setJoinFriends }) {
+function Signup() {
 
   let navigate = useNavigate();
 
@@ -52,34 +52,40 @@ function Signup({ setJoinFriends }) {
   return (
     <div>
       {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")} */}
-      <h2>CREATE AN ACCOUNT</h2>
-      <form onSubmit={handleSubmit}>
-        Username:
-        <input
-          onChange={handleChange}
-          type="text"
-          name="username"
-          placeholder="Enter Username"
-          value={signupForm.username}
-        />
-        Email:
-        <input
-          onChange={handleChange}
-          type="text"
-          name="email"
-          placeholder="Enter Email"
-          value={signupForm.email}
-        />
-        Password:
-        <input
-          onChange={handleChange}
-          type="password"
-          name="password"
-          placeholder="Enter Password"
-          value={signupForm.password}
-        />
-        <button type="submit">Submit</button>
-      </form>
+      <br/>
+      <div className='Headers'>
+        <h2>CREATE AN ACCOUNT</h2>
+      </div>
+      <br/>
+      <div className='homeForm'>
+        <form onSubmit={handleSubmit}>
+          <strong>Username:</strong>
+          <input
+            onChange={handleChange}
+            type="text"
+            name="username"
+            placeholder="Enter Username"
+            value={signupForm.username}
+          />
+          <strong>Email:</strong>
+          <input
+            onChange={handleChange}
+            type="text"
+            name="email"
+            placeholder="Enter Email"
+            value={signupForm.email}
+          />
+          <strong>Password:</strong>
+          <input
+            onChange={handleChange}
+            type="password"
+            name="password"
+            placeholder="Enter Password"
+            value={signupForm.password}
+          />
+          <button type="submit" className="moreButton">Submit</button>
+        </form>
+      </div>
     </div>
   )
 }

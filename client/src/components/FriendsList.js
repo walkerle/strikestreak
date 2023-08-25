@@ -8,23 +8,33 @@ import { useGetAllUsersQuery } from '../app/services/allUsersApi';
 function FriendsList() {
 
   const { data: user=null } = useAutoLoginQuery();
-  const { data: joinFriends=null } = useGetMyFriendsQuery(user.id);
+  const { data: joinFriends=[] } = useGetMyFriendsQuery(user.id);
   const { data: allUsers=[] } = useGetAllUsersQuery();
 
-  const renderMyFriends = joinFriends?.map(joinFriend => {
+  const sortJoinFriends = [...joinFriends].sort((a, b) => a.friendee.username.localeCompare(b.friendee.username))
+  // console.log(sortJoinFriends);
+
+  const renderMyFriends = sortJoinFriends?.map(joinFriend => {
     return <FriendCard key={joinFriend.id} joinFriend={joinFriend} />
   })
 
-  const renderAllUsers = allUsers?.map(anUser => {
+  const sortAllUsers = [...allUsers].sort((a, b) => a.username.localeCompare(b.username))
+  // console.log(sortAllUsers);
+
+  // const renderAllUsers = allUsers?.map(anUser => {
+  const renderAllUsers = sortAllUsers?.map(anUser => {
     return <UserCard key={anUser.id} anUser={anUser} />
   })
 
   return (
     <div>
-      <h2>MY FRIENDS</h2>
+      <div className='friendContainer'>
+        <h3>My Friends</h3>
+      </div>
+      <br/>
       <table>
         <tbody>
-          <tr>
+          <tr className='topRow'>
             <th>Username</th>
             <th>View Stats</th>
             <th>Remove Friend</th>
@@ -33,16 +43,20 @@ function FriendsList() {
         </tbody>
       </table>
       <br/>
-      <h2>FIND A FRIEND</h2>
+      <div className='friendContainer'>
+        <h3>Find a Friend</h3>
+      </div>
+      <br/>
       <table>
         <tbody>
-          <tr>
+          <tr className='topRow'>
             <th>Username</th>
             <th>Add Friend</th>
           </tr>
           {renderAllUsers}
         </tbody>
       </table>
+      <br/>
     </div>
   )
 }

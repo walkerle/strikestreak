@@ -79,7 +79,7 @@ function App() {
           </Route>
           <Route path={`/mygames`} element={<GamesLayout />}> {/* /mysessions/# */}
             <Route path={`games`} element={<MyGames />} /> {/* /mysessions/#/games */}
-            <Route path=':gameId/edit' element={<EditGameForm />} /> {/* /mysessions/#/games/# */}
+            <Route path='game/edit' element={<EditGameForm />} /> {/* /mysessions/#/games/# */}
             <Route path='newgame' element={<GameForm />} /> {/* /mysessions/#/newgame */}
           </Route>
           <Route path={`/friendslist`} element={<FriendsLayout />}>

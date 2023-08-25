@@ -22,10 +22,10 @@ function FriendCard({ joinFriend }) {
   }
   
   return (
-    <tr>
+    <tr className='multiRow'>
       <td>{joinFriend.friendee.username}</td>
-      <td><button onClick={handleStats}>View</button></td>
-      <td><button onClick={handleDelete}>Remove</button></td>
+      <td><button onClick={handleStats} className='moreButton'>View</button></td>
+      <td><button onClick={handleDelete} className='deleteButton'>Remove</button></td>
     </tr>
   )
 }
