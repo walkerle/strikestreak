@@ -9,11 +9,11 @@ class OverallStatsController < ApplicationController
     else
       overall_stats = OverallStat.all
     end
-    render json: overall_stats, status: :ok
+    render json: overall_stats, status: :ok, include: ['overall_stats']
   end
 
   def show
-    render json: @overall_stat, status: :ok
+    render json: @overall_stat, status: :ok, include: ['game_sessions.games']
   end
 
   private
