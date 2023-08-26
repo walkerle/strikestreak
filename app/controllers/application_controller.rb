@@ -6,17 +6,17 @@ class ApplicationController < ActionController::API
 
   before_action :authorized_user
 
-  # Find and sets sessions user_id in user database
+  # Find user_id in sessions hash and sets user as the current user
   def current_user
     @user = User.find_by(id: session[:user_id])
   end
+
+  private
 
   # Check for user_id in sessions
   def authorized_user
     render json: {error: "Not Authorized"}, status: :unauthorized unless current_user
   end
-
-  private
 
   def record_not_found exception
     render json: { error: "#{exception.model} not found" }, status: :not_found
