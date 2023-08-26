@@ -1,7 +1,7 @@
 class CreateGameSessions < ActiveRecord::Migration[7.0]
   def change
     create_table :game_sessions do |t|
-      t.belongs_to :overall_stat, null: false, foreign_key: true
+      t.belongs_to :stat
       t.string :date
       t.integer :number_of_games
       t.integer :pinfall

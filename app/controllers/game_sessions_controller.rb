@@ -3,9 +3,9 @@ class GameSessionsController < ApplicationController
   before_action :set_game_session, only: [:show, :update, :destroy]
 
   def index
-    if params[:overall_stat_id]
-      overall_stats = OverallStat.find(params[:overall_stat_id])
-      game_sessions = overall_stats.game_sessions
+    if params[:stat_id]
+      stats = Stat.find(params[:stat_id])
+      game_sessions = stats.game_sessions
     else
       game_sessions = GameSession.all
     end
@@ -38,7 +38,7 @@ class GameSessionsController < ApplicationController
   end
 
   def game_session_params
-    params.permit(:overall_stat_id, :date, :number_of_games, :pinfall, :average, :high_score, :low_score, :strikes, :spares, :open_frames, :notes)
+    params.permit(:stat_id, :date, :number_of_games, :pinfall, :average, :high_score, :low_score, :strikes, :spares, :open_frames, :notes)
   end
 
 end
