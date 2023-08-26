@@ -4,7 +4,7 @@ class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
-  before_action :authorized_user
+  # before_action :authorized_user
 
   # Find user_id in sessions hash and sets user as the current user
   def current_user
@@ -14,9 +14,9 @@ class ApplicationController < ActionController::API
   private
 
   # Check for user_id in sessions
-  def authorized_user
-    render json: {error: "Not Authorized"}, status: :unauthorized unless current_user
-  end
+  # def authorized_user
+  #   render json: {error: "Not Authorized"}, status: :unauthorized unless current_user
+  # end
 
   def record_not_found exception
     render json: { error: "#{exception.model} not found" }, status: :not_found

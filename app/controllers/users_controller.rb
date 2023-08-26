@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  skip_before_action :authorized_user, only: :create
+  # skip_before_action :authorized_user, only: :create
   before_action :set_user, only: :show
 
   # View all users => 'Find a Friend' feature
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   # View specific user => View friend's stats => before_action #set_user (@user) in users_controller overrides #current__user (@user) in app_controller
   def show
-    render json: @user, status: :ok, include: ['overall_stat.game_sessions.games', 'join_friends.friendee']
+    render json: @user, status: :ok, include: ['stat.game_sessions.games', 'join_friends.friendee']
   end
 
   # User signup

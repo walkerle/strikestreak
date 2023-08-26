@@ -1,4 +1,4 @@
 class GameSession < ApplicationRecord
-  belongs_to :overall_stat
+  belongs_to :stat
   has_many :games, dependent: :destroy
 end

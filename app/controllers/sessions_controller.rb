@@ -1,10 +1,10 @@
 class SessionsController < ApplicationController
 
-  skip_before_action :authorized_user, only: [:create]
+  # skip_before_action :authorized_user, only: [:create]
 
   # View current user => View current user's stats
   def me
-    render json: @user, status: :ok, include: ['overall_stat.game_sessions.games', 'join_friends.friendee']
+    render json: @user, status: :ok, include: ['stat.game_sessions.games', 'join_friends.friendee']
   end
 
   # Login => Sets user_id to sessions hash and user to current user
