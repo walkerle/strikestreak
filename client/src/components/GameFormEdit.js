@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useUpdateGameMutation } from '../app/services/myGamesApi';
+// import { useNavigate } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
+// import { useUpdateGameMutation } from '../app/services/myGamesApi';
 
 // function EditGameForm () {
-const EditGameForm = () => {
+const GameFormEdit = ({game, onUpdateGame}) => {
 
-  const game = useSelector(state => state.game.value)
+  // const game = useSelector(state => state.game.value)
 
-  const [updateGame] = useUpdateGameMutation()
+  // const [updateGame] = useUpdateGameMutation()
 
-  let navigate = useNavigate()
+  // let navigate = useNavigate()
 
-  const initialForm = {...game}
-
-  const [form, setForm] = useState(initialForm);
+  const [form, setForm] = useState(game);
   // const [errors, setErrors] = useState([]);
   
+  // Event Handler: Make controlled inputs
   const handleScoreChange = (e) => {
     setForm({...form, [e.target.name]: parseInt(e.target.value)})
   }
@@ -25,15 +24,21 @@ const EditGameForm = () => {
     setForm({...form, [e.target.name]: e.target.value})
   }
 
-  // UPDATE
+  // Event Handler: Update Game to Session
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
     // updateGame({id: game.id, ...form})
-    updateGame(form)
-    navigate('/mygames/games');
+    // updateGame(form)
+    // navigate('/mygames/games');
 
-    setForm(initialForm);
+    onUpdateGame({
+      ...form,
+      score: f10s,
+      strikes: strikes,
+      spares: spares,
+      opens: opens 
+    })
   }
 
   let strikes = 0;
@@ -42,12 +47,16 @@ const EditGameForm = () => {
 
   const eachFrameScore = (f1b1, f1b2, f2b1, f2b2, f3b1, prevScore) => {
     if(f1b1 === 10 && f2b1 === 10) {
+      ++strikes
       return f1b1 + f2b1 + f3b1 + prevScore;
     } else if(f1b1 === 10 && f2b1 !== 10) {
+      ++strikes
       return f1b1 + f2b1 + f2b2 + prevScore;
     } else if(f1b1 + f1b2 === 10) {
+      ++spares
       return f1b1 + f1b2 + f2b1 + prevScore;
     } else {
+      ++opens
       return f1b1 + f1b2 + prevScore;      
     }
   }
@@ -58,18 +67,19 @@ const EditGameForm = () => {
     } else if(b1 === 10 && b2 === 10 && b3 !== 10) {
       strikes = strikes + 2;
     } else if(b1 === 10 && b2 + b3 === 10) {
-      strikes++;
-      spares++;
+      ++strikes;
+      ++spares;
     } else if(b1 === 10 && b2 + b3 !== 10) {
-      strikes++;
-      opens++;
+      ++strikes;
+      ++opens;
     } else if(b1 + b2 === 10 && b3 === 10) {
-      strikes++;
-      spares++;
+      ++strikes;
+      ++spares;
     } else if(b1 + b2 === 10 && b3 !== 10) {
-      spares++
+      ++spares
     } else {
-      opens++;
+      ++opens;
+      return b1 + b2 + prevScore;
     }
     return b1 + b2 + b3 + prevScore;
   }
@@ -286,7 +296,11 @@ const EditGameForm = () => {
               </tr>
             </tbody>
           </table>
-          <br/>
+          <h4>
+            <strong>Number of Strikes: </strong>{strikes} |
+            <strong> Number of Spares: </strong>{spares} |
+            <strong> Number of Open Frames: </strong>{opens}
+          </h4>
           <div className='gameFormNotes'>
             <div>
               <strong>Notes: </strong>
@@ -307,4 +321,4 @@ const EditGameForm = () => {
   }
 }
 
-export default EditGameForm;
+export default GameFormEdit;

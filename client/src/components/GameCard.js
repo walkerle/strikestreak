@@ -1,59 +1,59 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setGame } from '../features/game/gameSlice';
-import { useDeleteGameMutation } from '../app/services/myGamesApi';
+// import { useNavigate } from 'react-router-dom';
+// import { useDispatch } from 'react-redux';
+// import { setGame } from '../features/game/gameSlice';
+// import { useDeleteGameMutation } from '../app/services/myGamesApi';
 
-function GameCard({ game }) {
+function GameCard({game, onGoToGameUpdateForm, onDeleteGame}) {
 
-  const dispatch = useDispatch();
-  
-  const [deleteGame] = useDeleteGameMutation()
+  // Redux method
+  // const dispatch = useDispatch();
+  // const [deleteGame] = useDeleteGameMutation()
 
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
 
-  // Set game in State and redirect to EditGameForm
-  const handleUpdate = () => {
-    dispatch(setGame(game))
-    navigate(`/mygames/game/edit`);
-    // navigate(`/mygames/${game.id}/edit`);
+  // Event Handler: Set game in State and redirect to EditGameForm
+  const goToGameUpdateForm = () => {
+    onGoToGameUpdateForm(game);
   }
   
-  // DELETE
+  // Event Handler: Delete a game
   const handleDelete = () => {
-    deleteGame(game.id)
-    // Frontend Render DELETE
-    // setMyGames(myGames.filter(g => g.id !== game.id))
-    
-    // Backend DELETE
-    // fetch(`/games/${game.id}`, {method: "DELETE"})
+    // deleteGame(game.id)
+
+    onDeleteGame(game);
   }
 
   const markSymbol = (b1, b2) => {
+    const b1m = (b1 === 0 ? '-' : b1)
+    const b2m = (b2 === 0 ? '-' : b2)
     if(b1 === 10) {
       return `X`
     } else if(b1 + b2 === 10) {
-      return `${b1} | /`
+      return `${b1m} | /`
     } else {
-      return `${b1} | ${b2}`
+      return `${b1m} | ${b2m}`
     }
   }
 
   const tenthMarkSymbol = (b1, b2, b3) => {
+    const b1m = (b1 === 0 ? '-' : b1)
+    const b2m = (b2 === 0 ? '-' : b2)
+    const b3m = (b3 === 0 ? '-' : b3)
     if(b1 === 10 && b2 === 10 && b3 === 10) {
       return `X | X | X`
     } else if(b1 === 10 && b2 === 10 && b3 !== 10) {
-      return `X | X | ${b3}`
+      return `X | X | ${b3m}`
     } else if(b1 === 10 && b2 + b3 === 10) {
-      return `X | ${b2} | /`
+      return `X | ${b2m} | /`
     } else if(b1 === 10 && b2 + b3 !== 10) {
-      return `X | ${b2} | ${b3}`
+      return `X | ${b2m} | ${b3m}`
     } else if(b1 + b2 === 10 && b3 === 10) {
-      return `${b1} | / | X`
+      return `${b1m} | / | X`
     } else if(b1 + b2 === 10 && b3 !== 10) {
-      return `${b1} | / | ${b3}`
+      return `${b1m} | / | ${b3m}`
     } else {
-      return `${b1} | ${b2} | ${b3}`
+      return `${b1m} | ${b2m}`
     }
   }
 
@@ -83,18 +83,19 @@ function GameCard({ game }) {
     } else if(b1 === 10 && b2 === 10 && b3 !== 10) {
       strikes = strikes + 2;
     } else if(b1 === 10 && b2 + b3 === 10) {
-      strikes++;
-      spares++;
+      ++strikes;
+      ++spares;
     } else if(b1 === 10 && b2 + b3 !== 10) {
-      strikes++;
-      opens++;
+      ++strikes;
+      ++opens;
     } else if(b1 + b2 === 10 && b3 === 10) {
-      strikes++;
-      spares++;
+      ++strikes;
+      ++spares;
     } else if(b1 + b2 === 10 && b3 !== 10) {
-      spares++
+      ++spares
     } else {
-      opens++;
+      ++opens;
+      return b1 + b2 + prevScore;
     }
     return b1 + b2 + b3 + prevScore;
   }
@@ -110,15 +111,13 @@ function GameCard({ game }) {
   const f9s = eachFrameScore(game.f9b1, game.f9b2, game.f10b1, game.f10b2, game.f10b2, f8s);
   const f10s = tenthFrameScore(game.f10b1, game.f10b2, game.f10b3, f9s);
 
-  // Need score, strikes, spares, and open frames in form to carry into Sessions
-
   return (
     <div>
       <div className='gameContainer'>
         <h3>Game Summary</h3>
       </div>
       <br/>
-      <button onClick={handleUpdate} className='moreButton'>Update Game</button>
+      <button onClick={goToGameUpdateForm} className='moreButton'>Update Game</button>
       <button onClick={handleDelete} className='deleteButton'>Delete Game</button>
       <br/><br/>
       <table>
@@ -146,7 +145,6 @@ function GameCard({ game }) {
             <td>{markSymbol(game.f8b1, game.f8b2)}</td>
             <td>{markSymbol(game.f9b1, game.f9b2)}</td>
             <td>{tenthMarkSymbol(game.f10b1, game.f10b2, game.f10b3)}</td>
-            {/* <td>{game.f10b1} | {game.f10b2} | {game.f10b3}</td> */}
           </tr>
           <tr className='bottomRow'>
             <td>{f1s}</td>

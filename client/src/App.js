@@ -13,8 +13,8 @@ import SessionFormAdd from './components/SessionFormAdd';
 import SessionFormEdit from './components/SessionFormEdit';
 import GamesLayout from './components/GamesLayout';
 import Games from './components/Games';
-import EditGameForm from './components/EditGameForm';
-import GameForm from './components/GameForm';
+import GameFormAdd from './components/GameFormAdd';
+import GameFormEdit from './components/GameFormEdit';
 import FriendsLayout from './components/FriendsLayout';
 import FriendsList from './components/FriendsList';
 import FriendStats from './components/FriendStats';
@@ -31,8 +31,8 @@ function App() {
   const [stats, setStats] = useState(null);
   const [sessions, setSessions] = useState([]);
   const [session, setSession] = useState({});
-  // const [games, setGames] = useState([]); // Games set in sessions details click
-  const [editGame, setEditGame] = useState({});
+  const [games, setGames] = useState([]);
+  const [game, setGame] = useState({});
   const [joinFriends, setJoinFriends] = useState([]);
   const [friendStats, setFriendStats] = useState([]);
   const [errors, setErrors] = useState(false);
@@ -54,17 +54,20 @@ function App() {
           setSessions(user.stat.game_sessions)
           setJoinFriends(user.join_friends)
           console.log(user); // Remove on final release
-          console.log(`${user.username} is already logged in`); // Remove on final release
+          // console.log(`${user.username} is already logged in`); // Remove on final release
         })
       } else {
         res.json()
         .then(json => setErrors(json["errors"]))
       }
     })
-  }, [])
+  }, [games])
+  // Dependency array: Fetch data anytime there's a CRUD action in session? or game?
+
+  //////////////////////////////////////////////////////////////////////////////////
 
   // SESSIONS EVENT HANDLERS:
-  // Event Handler: onAddSession
+  // Event Handler: Add a session
   const onAddSession = (formObj) => {
     fetch(`/game_sessions`, {
       method: "POST",
@@ -78,14 +81,13 @@ function App() {
     navigate('/sessions');
   }
 
-  // Event Handler: onGoToUpdateForm
-  const onGoToUpdateForm = (sessionObj) => {
+  // Event Handler: Update session state and go to Session Update Form
+  const onGoToSessionUpdateForm = (sessionObj) => {
     setSession(sessionObj);
-
     navigate('/sessions/edit');
   }
 
-  // Event Handler: onUpdateSession
+  // Event Handler: Update a session
   const onUpdateSession = (formObj) => {
     // Optimistic Frontend Render
     setSessions(sessions.map(session => session.id === formObj.id ? formObj : session))
@@ -103,13 +105,77 @@ function App() {
     navigate('/sessions');
   }
 
-  // Event Handler: onDeleteSession
+  // Event Handler: Delete a session
   const onDeleteSession = (sessionObj) => {
     // Optimistic Frontend Render
     setSessions(sessions.filter(session => session.id !== sessionObj.id))
 
     // Backend
     fetch(`/game_sessions/${sessionObj.id}`, {method: "DELETE"})
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////
+
+  // GAMES EVENT HANDLERS:
+  // Event Handler: Update session state and go to session's Games summary
+  const onGoToGames = (sessionObj) => {
+    setSession(sessionObj);
+    setGames(sessionObj.games)
+    navigate('games');
+  }
+
+  // Event Handler: Add a game
+  const onAddGame = (formObj) => {
+    fetch ('/games', {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(formObj)
+    })
+    .then(res => {
+      if (res.ok) {
+        res.json()
+        // Pessimistic Frontend Render
+        .then(data => setGames([...games, data]))
+      } else {
+        res.json().then(errors => console.log(errors))
+      }
+    })
+
+    navigate('/games');
+  }
+
+  // Event Handler: Update game state and go to Game Update Form
+  const onGoToGameUpdateForm = (gameObj) => {
+    setGame(gameObj);
+    navigate('/games/edit')
+  }
+
+  // Event Handler: Update a game
+  const onUpdateGame = (formObj) => {
+    // Optimistic Frontend Render
+    setGames(games.map(game => game.id === formObj.id ? formObj : game))
+
+    // Backend
+    fetch(`/games/${formObj.id}`, {
+      method: "PATCH",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(formObj)
+    })
+    .then(res => res.json())
+    // Pessimistic Frontend Render
+    // .then(data => setGames(games.map(game => game.id === data.id ? data : game)))
+
+    navigate('/games');
+  }
+
+  // Event Handler: Delete a game
+  const onDeleteGame = (gameObj) => {
+    // Optimistic Frontend Render
+    setGames(games.filter(game => game.id !== gameObj.id))
+    // This doesn't update Sessions!
+
+    // Backend
+    fetch(`/games/${gameObj.id}`, {method: "DELETE"})
   }
 
   if(!user) {
@@ -134,15 +200,15 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/stats' element={<Stats stats={stats} />} />
           <Route path='/sessions' element={<SessionsLayout />}>
-            <Route path='' element={<Sessions sessions={sessions} onGoToUpdateForm={onGoToUpdateForm} onDeleteSession={onDeleteSession} />} />
+            <Route path='' element={<Sessions sessions={sessions} onGoToGames={onGoToGames} onGoToSessionUpdateForm={onGoToSessionUpdateForm} onDeleteSession={onDeleteSession} />} />
             <Route path='new' element={<SessionFormAdd stats={stats} onAddSession={onAddSession} />} />
             <Route path='edit' element={<SessionFormEdit session={session} onUpdateSession={onUpdateSession} />} />
           </Route>
-          {/* <Route path='/games' element={<GamesLayout />}>
-            <Route path='' element={<Games />} />
-            <Route path='edit' element={<EditGameForm />} />
-            <Route path='new' element={<GameForm />} />
-          </Route> */}
+          <Route path='/games' element={<GamesLayout session={session} />}>
+            <Route path='' element={<Games games={games} onGoToGameUpdateForm={onGoToGameUpdateForm} onDeleteGame={onDeleteGame} />} />
+            <Route path='new' element={<GameFormAdd session={session} onAddGame={onAddGame} />} />
+            <Route path='edit' element={<GameFormEdit game={game} onUpdateGame={onUpdateGame} />} />
+          </Route>
           <Route path='/friends' element={<FriendsLayout />}>
             <Route path='' element={<FriendsList joinFriends={joinFriends} />} />
             <Route path='friendstats' element={<FriendStats />} />

@@ -1,41 +1,25 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 // import { useDeleteSessionMutation } from '../app/services/mySessionsApi';
 // import { useDispatch } from 'react-redux';
 // import { setSession } from '../features/session/sessionSlice';
 
-function SessionCard({session, onGoToUpdateForm, onDeleteSession}) {
+function SessionCard({session, onGoToGames, onGoToSessionUpdateForm, onDeleteSession}) {
 
   // Redux methods
   // const [deleteSession] = useDeleteSessionMutation()
   // const dispatch = useDispatch();
-
-  let navigate = useNavigate()
   
-  // Event handler: GET array of games on click
-  const handleDetails = () => {
+  // Event handler: Update session state and go to session's Games summary
+  const goToGames = () => {
     // Redux methods
-    // Need to get Session.id on click then redirect to Games route
     // dispatch(setSession(session))
-    // navigate('/games');
 
-    // fetch(`/game_sessions/${session.id}`)
-    // .then(res => {
-    //   if(res.ok) {
-    //     res.json()
-    //     .then(data => {
-    //       setMyGames(data.games);
-    //     })
-    //   } else {
-    //     res.json()
-    //     .then(json => setErrors(json["errors"]))
-    //   }
-    // })
+    onGoToGames(session);
   }
 
-  // Event Handler: Update a session's notes
+  // Event Handler: Go to Update Form
   const goToUpdateForm = () => {
-    onGoToUpdateForm(session);
+    onGoToSessionUpdateForm(session);
   }
   
   // Event Handler: Delete a session
@@ -52,7 +36,7 @@ function SessionCard({session, onGoToUpdateForm, onDeleteSession}) {
         <h3>Bowling Session on {session.date}</h3>
       </div>
       <br/>
-      <button onClick={handleDetails} className='moreButton'>Session Details</button>
+      <button onClick={goToGames} className='moreButton'>Session Details</button>
       <button onClick={goToUpdateForm} className='addButton'>Update Session</button>
       <button onClick={handleDelete} className='deleteButton'>Delete Session</button>
       <br/><br/>
