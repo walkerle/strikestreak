@@ -31,7 +31,7 @@ function SessionFormAdd({stats, onAddSession}) {
   const [form, setForm] = useState(initialForm);
   // const [errors, setErrors] = useState([]);
 
-  // Event Handler: Make form a controlled input
+  // Event Handler: Make controlled inputs
   const handleFormChange = (e) => {
     setForm({...form, [e.target.name]: e.target.value})
   }

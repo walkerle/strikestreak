@@ -3,7 +3,7 @@ import SessionCard from './SessionCard';
 // import { useAutoLoginQuery } from '../app/services/userApi';
 // import { useGetMySessionsQuery } from '../app/services/mySessionsApi';
 
-function Sessions({sessions, onGoToUpdateForm, onDeleteSession}) {
+function Sessions({sessions, onGoToGames, onGoToSessionUpdateForm, onDeleteSession}) {
 
   // const { data: user } = useAutoLoginQuery(); // User is already in Redux store, don't need to autologinquery? useSelector()?
   // const { data: mySessions } = useGetMySessionsQuery(user.stat.id);
@@ -28,7 +28,7 @@ function Sessions({sessions, onGoToUpdateForm, onDeleteSession}) {
   // }, [])
   
   const renderMySessions = sessions?.map(session => {
-    return <SessionCard key={session.id} session={session} onGoToUpdateForm={onGoToUpdateForm} onDeleteSession={onDeleteSession} />
+    return <SessionCard key={session.id} session={session} onGoToGames={onGoToGames} onGoToSessionUpdateForm={onGoToSessionUpdateForm} onDeleteSession={onDeleteSession} />
   })
     
   return (

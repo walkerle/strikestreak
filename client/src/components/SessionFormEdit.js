@@ -2,13 +2,10 @@ import React, { useState } from 'react';
 
 function SessionFormEdit({session, onUpdateSession}) {
 
-  // Initial update form data
-  const initialForm = session;
-
   // React state(s)
-  const [form, setForm] = useState(initialForm);
+  const [form, setForm] = useState(session);
 
-  // Event Handler: Make form a controlled input
+  // Event Handler: Make controlled inputs
   const handleFormChange = (e) => {
     setForm({...form, [e.target.name]: e.target.value})
   }
@@ -19,7 +16,7 @@ function SessionFormEdit({session, onUpdateSession}) {
     
     onUpdateSession(form);
     
-    setForm(initialForm);
+    setForm(session);
   }
 
   return (

@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useAddGameMutation } from '../app/services/myGamesApi';
+// import { useNavigate } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
+// import { useAddGameMutation } from '../app/services/myGamesApi';
 
-function GameForm() {
+function GameFormAdd({session, onAddGame}) {
 
-  const sessionId = useSelector(state => state.session.value.id)
+  // Redux method
+  // const sessionId = useSelector(state => state.session.value.id)
   // console.log(sessionId)
-  const [addGame, {error}] = useAddGameMutation()
+  // const [addGame, {error}] = useAddGameMutation()
 
-  let navigate = useNavigate()
+  // let navigate = useNavigate()
 
   const initialForm = {
     f1b1: 0,
@@ -38,12 +39,13 @@ function GameForm() {
     spares: 0,
     opens: 0,
     notes: "",
-    game_session_id: sessionId
+    game_session_id: session.id
   }
 
   const [form, setForm] = useState(initialForm);
   // const [errors, setErrors] = useState([]);
 
+  // Event Handler: Make controlled inputs
   const handleScoreChange = (e) => {
     setForm({...form, [e.target.name]: parseInt(e.target.value)})
   }
@@ -52,32 +54,20 @@ function GameForm() {
     setForm({...form, [e.target.name]: e.target.value})
   }
   
-  // CREATE
+  // Event Handler: Add Game to Session
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    setForm({...form, score: f10s})
-    addGame(form)
-    navigate('/mygames/games')
 
-    // Frontend Render and Backend CREATE
-    // const config = {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(form)
-    // }
+    // addGame(form)
+    // navigate('/games')
     
-    // fetch(`/games`, config)
-    // .then(res => {
-    //   if(res.ok) {
-    //     res.json()
-    //     .then(data => {
-    //       setErrors([])
-    //       navigate('/mygames/games');
-    //     })
-    //   } else {
-    //     res.json().then(json => setErrors(json["errors"]))
-    //   }
-    // })
+    onAddGame({
+      ...form,
+      score: f10s,
+      strikes: strikes,
+      spares: spares,
+      opens: opens      
+    });
     
     setForm(initialForm);
   }
@@ -88,13 +78,17 @@ function GameForm() {
 
   const eachFrameScore = (f1b1, f1b2, f2b1, f2b2, f3b1, prevScore) => {
     if(f1b1 === 10 && f2b1 === 10) {
+      ++strikes
       return f1b1 + f2b1 + f3b1 + prevScore;
     } else if(f1b1 === 10 && f2b1 !== 10) {
+      ++strikes
       return f1b1 + f2b1 + f2b2 + prevScore;
     } else if(f1b1 + f1b2 === 10) {
+      ++spares
       return f1b1 + f1b2 + f2b1 + prevScore;
     } else {
-      return f1b1 + f1b2 + prevScore;      
+      ++opens
+      return f1b1 + f1b2 + prevScore;
     }
   }
 
@@ -104,18 +98,19 @@ function GameForm() {
     } else if(b1 === 10 && b2 === 10 && b3 !== 10) {
       strikes = strikes + 2;
     } else if(b1 === 10 && b2 + b3 === 10) {
-      strikes++;
-      spares++;
+      ++strikes;
+      ++spares;
     } else if(b1 === 10 && b2 + b3 !== 10) {
-      strikes++;
-      opens++;
+      ++strikes;
+      ++opens;
     } else if(b1 + b2 === 10 && b3 === 10) {
-      strikes++;
-      spares++;
+      ++strikes;
+      ++spares;
     } else if(b1 + b2 === 10 && b3 !== 10) {
-      spares++
+      ++spares
     } else {
-      opens++;
+      ++opens;
+      return b1 + b2 + prevScore;
     }
     return b1 + b2 + b3 + prevScore;
   }
@@ -134,9 +129,9 @@ function GameForm() {
   return (
     <div>
       {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")} */}
-      {error?.data.errors.map((err) => (
+      {/* {error?.data.errors.map((err) => (
         <h3 style={{color:'red'}}>{err.toUpperCase()}</h3>
-      ))}
+      ))} */}
       <div className='gameContainer'>
         <h3>Add New Game</h3>
       </div>
@@ -329,7 +324,11 @@ function GameForm() {
               </tr>
             </tbody>
           </table>
-          <br/>
+          <h4>
+            <strong>Number of Strikes: </strong>{strikes} |
+            <strong> Number of Spares: </strong>{spares} |
+            <strong> Number of Open Frames: </strong>{opens}
+          </h4>
           <div className='gameFormNotes'>
             <div>
               <strong>Notes: </strong>
@@ -350,4 +349,4 @@ function GameForm() {
   )
 }
 
-export default GameForm;
+export default GameFormAdd;

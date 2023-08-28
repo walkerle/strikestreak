@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
-function GamesLayout() {
+function GamesLayout({session}) {
 
-  const session = useSelector(state => state.session.value)
+  // Redux method
+  // const session = useSelector(state => state.session.value)
 
   return (
     <div>
@@ -14,9 +15,9 @@ function GamesLayout() {
       </div>
       <br/>
       <nav className='secondaryNavBar'>
-        <NavLink to='games'>View All Games</NavLink>
-        <NavLink to='newgame'>Add New Game</NavLink>
-        <NavLink to='/mysessions/sessions'>Back to Sessions</NavLink>
+        <NavLink to=''>View All Games</NavLink>
+        <NavLink to='new'>Add New Game</NavLink>
+        <NavLink to='/sessions'>Back to Sessions</NavLink>
       </nav>
       <br/>
       <div className='sessionContainer'>
