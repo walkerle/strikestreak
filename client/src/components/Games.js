@@ -3,7 +3,7 @@ import GameCard from './GameCard';
 import { useGetMyGamesQuery } from '../app/services/myGamesApi';
 import { useSelector } from 'react-redux';
 
-function MyGames() {
+function Games() {
 
   // const sessionId = useSelector(state => state.session.id)
   const session = useSelector(state => state.session.value)
@@ -28,4 +28,4 @@ function MyGames() {
   )
 }
 
-export default MyGames;
+export default Games;

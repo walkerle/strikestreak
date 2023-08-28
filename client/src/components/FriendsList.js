@@ -5,10 +5,10 @@ import { useAutoLoginQuery } from '../app/services/userApi';
 import { useGetMyFriendsQuery } from '../app/services/friendsApi';
 import { useGetAllUsersQuery } from '../app/services/allUsersApi';
 
-function FriendsList() {
+function FriendsList({joinFriends}) {
 
   const { data: user=null } = useAutoLoginQuery();
-  const { data: joinFriends=[] } = useGetMyFriendsQuery(user.id);
+  // const { data: joinFriends=[] } = useGetMyFriendsQuery(user.id);
   const { data: allUsers=[] } = useGetAllUsersQuery();
 
   const sortJoinFriends = [...joinFriends].sort((a, b) => a.friendee.username.localeCompare(b.friendee.username))

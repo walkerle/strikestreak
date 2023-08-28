@@ -1,22 +1,23 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDeleteSessionMutation } from '../app/services/mySessionsApi';
-import { useDispatch } from 'react-redux';
-import { setSession } from '../features/session/sessionSlice';
+// import { useDeleteSessionMutation } from '../app/services/mySessionsApi';
+// import { useDispatch } from 'react-redux';
+// import { setSession } from '../features/session/sessionSlice';
 
-function SessionCard({ session }) {
+function SessionCard({session, onGoToUpdateForm, onDeleteSession}) {
 
-  const [deleteSession] = useDeleteSessionMutation()
-
-  const dispatch = useDispatch();
+  // Redux methods
+  // const [deleteSession] = useDeleteSessionMutation()
+  // const dispatch = useDispatch();
 
   let navigate = useNavigate()
   
-  // GET array of games on click
-  const handleDetailsClick = () => {
+  // Event handler: GET array of games on click
+  const handleDetails = () => {
+    // Redux methods
     // Need to get Session.id on click then redirect to Games route
-    dispatch(setSession(session))
-    navigate('/mygames/games');
+    // dispatch(setSession(session))
+    // navigate('/games');
 
     // fetch(`/game_sessions/${session.id}`)
     // .then(res => {
@@ -31,14 +32,18 @@ function SessionCard({ session }) {
     //   }
     // })
   }
+
+  // Event Handler: Update a session's notes
+  const goToUpdateForm = () => {
+    onGoToUpdateForm(session);
+  }
   
+  // Event Handler: Delete a session
   const handleDelete = () => {
-    deleteSession(session.id)
-    // Frontend Render DELETE
-    // setMySessions(mySessions.filter(s => s.id !== session.id))
-    
-    // Backend DELETE
-    // fetch(`/game_sessions/${session.id}`, {method: "DELETE"})
+    // Redux method
+    // deleteSession(session.id)
+
+    onDeleteSession(session);
   }
 
   return (
@@ -47,7 +52,8 @@ function SessionCard({ session }) {
         <h3>Bowling Session on {session.date}</h3>
       </div>
       <br/>
-      <button onClick={handleDetailsClick} className='moreButton'>Session Details</button>
+      <button onClick={handleDetails} className='moreButton'>Session Details</button>
+      <button onClick={goToUpdateForm} className='addButton'>Update Session</button>
       <button onClick={handleDelete} className='deleteButton'>Delete Session</button>
       <br/><br/>
       <table>

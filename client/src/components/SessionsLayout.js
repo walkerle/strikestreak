@@ -10,8 +10,8 @@ function SessionsLayout() {
       </div>
       <br/>
       <nav className='secondaryNavBar'>
-        <NavLink to='sessions'>View All Sessions</NavLink>
-        <NavLink to='newsession'>Add New Session</NavLink>
+        <NavLink to=''>View All Sessions</NavLink>
+        <NavLink to='new'>Add New Session</NavLink>
       </nav>
       <br/>
       <Outlet />
