@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useLogoutUserMutation } from '../app/services/userApi';
 
-function NavBar({ user }) {
+function NavBar({user}) {
 
   let navigate = useNavigate()
 
@@ -34,9 +34,9 @@ function NavBar({ user }) {
     return (
       <nav id='navBar'>
         <NavLink to='/'>HOME</NavLink>
-        <NavLink to='/mystats'>MY STATS</NavLink>
-        <NavLink to='/mysessions/sessions'>MY SESSIONS</NavLink>
-        <NavLink to='/friendslist/myfriends'>FRIENDS LIST</NavLink>
+        <NavLink to='/stats'>MY STATS</NavLink>
+        <NavLink to='/sessions'>MY SESSIONS</NavLink>
+        <NavLink to='/friends'>FRIENDS LIST</NavLink>
         <NavLink to='/' onClick={handleLogout}>LOGOUT</NavLink>
       </nav>
     )
