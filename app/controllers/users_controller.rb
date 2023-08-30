@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   # View all users => 'Find a Friend' feature
   def index
-    render json: User.all, status: :ok
+    render json: User.all, status: :ok, include: ['stat']
   end
 
   # View specific user => View friend's stats => before_action #set_user (@user) in users_controller overrides #current__user (@user) in app_controller

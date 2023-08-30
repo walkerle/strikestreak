@@ -34,8 +34,9 @@ function App() {
   const [games, setGames] = useState([]);
   const [game, setGame] = useState({});
   const [joinFriends, setJoinFriends] = useState([]);
-  const [friendStats, setFriendStats] = useState([]);
-  const [errors, setErrors] = useState(false);
+  const [friend, setFriend] = useState({});
+  const [friendStats, setFriendStats] = useState({});
+  // const [errors, setErrors] = useState(false);
 
   // react-router-dom methods
   // let { gameId } = useParams();
@@ -57,12 +58,11 @@ function App() {
           // console.log(`${user.username} is already logged in`); // Remove on final release
         })
       } else {
-        res.json()
-        .then(json => setErrors(json["errors"]))
+        res.json().then(errors => console.log(errors))
       }
     })
   }, [games])
-  // Dependency array: Fetch data anytime there's a CRUD action in session? or game?
+  // Dependency array: Re-fetch data anytime there's a CRUD action in a game.  What about a session or friend?
 
   //////////////////////////////////////////////////////////////////////////////////
 
@@ -172,10 +172,55 @@ function App() {
   const onDeleteGame = (gameObj) => {
     // Optimistic Frontend Render
     setGames(games.filter(game => game.id !== gameObj.id))
-    // This doesn't update Sessions!
+    // This DOES NOT update Sessions state!
 
     // Backend
     fetch(`/games/${gameObj.id}`, {method: "DELETE"})
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////
+  // FRIENDS EVENT HANDLERS:
+  // Event Handler: Add a game
+  const onAddFriend = (friendObj) => {
+    fetch('/join_friends', {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({friender_id: user.id, friendee_id: friendObj.id})
+    })
+    // Pessimistic Frontend Render
+    .then(res => {
+      if(res.ok) {
+        res.json().then(data => setJoinFriends([...joinFriends, data]))
+      } else {
+        res.json().then(errors => console.log(errors))
+      }
+    })
+    
+    navigate('/friends');
+  }
+
+  // Event Handler: View a friend's stats
+  const onGoToFriendStats = (friendObj) => {
+    // console.log(friendObj); // May need a friend state
+    // setFriend(friendObj);
+    // navigate('/friends/stats');
+
+    fetch(`/users/${friendObj.id}`)
+    .then(res => res.json())
+    .then(data => {
+      setFriend(data);
+      setFriendStats(data.stat);
+      navigate('/friends/stats');
+    })
+  }
+
+  // Event Handler: Remove a friend
+  const onDeleteFriend = (joinFriendObj) => {
+    // Optimistic Frontend Render
+    setJoinFriends(joinFriends.filter(joinFriend => joinFriend.id !== joinFriendObj.id))
+
+    // Backend
+    fetch(`/join_friends/${joinFriendObj.id}`, {method: "DELETE"})
   }
 
   if(!user) {
@@ -210,9 +255,9 @@ function App() {
             <Route path='edit' element={<GameFormEdit game={game} onUpdateGame={onUpdateGame} />} />
           </Route>
           <Route path='/friends' element={<FriendsLayout />}>
-            <Route path='' element={<FriendsList joinFriends={joinFriends} />} />
-            <Route path='friendstats' element={<FriendStats />} />
-            <Route path='find' element={<UsersList />} />
+            <Route path='' element={<FriendsList joinFriends={joinFriends} onGoToFriendStats={onGoToFriendStats} onDeleteFriend={onDeleteFriend} />} />
+            <Route path='stats' element={<FriendStats friend={friend} friendStats={friendStats} />} />
+            <Route path='find' element={<UsersList onAddFriend={onAddFriend} />} />
           </Route>
         </Routes>
         {/*{(user == null ? <h3>Logged Out</h3> : <h3>User: {user.username}</h3>)} {/* Remove on final release */}

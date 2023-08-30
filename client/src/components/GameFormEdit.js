@@ -95,13 +95,13 @@ const GameFormEdit = ({game, onUpdateGame}) => {
   const f9s = eachFrameScore(form.f9b1, form.f9b2, form.f10b1, form.f10b2, form.f10b2, f8s);
   const f10s = tenthFrameScore(form.f10b1, form.f10b2, form.f10b3, f9s);
 
-  if(game == null) {
-    return (
-      <div>
-        <h2>Update My Game</h2>
-      </div>
-    )
-  } else {
+  // if(game == null) {
+  //   return (
+  //     <div>
+  //       <h2>Update My Game</h2>
+  //     </div>
+  //   )
+  // } else {
     return (
       <div>
         {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")} */}
@@ -318,7 +318,7 @@ const GameFormEdit = ({game, onUpdateGame}) => {
         </form>
       </div>
     )
-  }
+  // }
 }
 
 export default GameFormEdit;

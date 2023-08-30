@@ -1,35 +1,91 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import UserCard from './UserCard';
-import { useGetAllUsersQuery } from '../app/services/allUsersApi';
+// import { useGetAllUsersQuery } from '../app/services/allUsersApi';
 
-function FriendsList() {
+function UsersList({onAddFriend}) {
 
-  const { data: allUsers=[], error } = useGetAllUsersQuery();
+  // React state(s)
+  const [users, setUsers] = useState([]);
+  const [search, setSearch] = useState('');
+  const [submitSearch, setSubmitSearch] = useState('');
 
-  const renderAllUsers = allUsers?.map(anUser => {
-    return <UserCard key={anUser.id} anUser={anUser} />
+  // Redux method
+  // const { data: allUsers=[], error } = useGetAllUsersQuery();
+
+  // Fetch all users data
+  useEffect(() => {
+    fetch(`/users`)
+    .then(res => res.json())
+    .then(data => setUsers(data))
+  }, [])
+
+  const sortUsers = users.sort((a, b) => a.username.localeCompare(b.username))
+
+  const searchUsers = sortUsers.filter(user => user.username.toLowerCase().includes(submitSearch.toLowerCase()));
+
+  const renderUsers = searchUsers?.map(user => {
+    return <UserCard key={user.id} user={user} onAddFriend={onAddFriend} />
   })
 
-  return (
-    <div>
-      <div className='friendContainer'>
-        <h3>Find a Friend</h3>
-      </div>
-      {error?.data.errors.map((err) => (
-        <h3 style={{color:'red'}}>{err.toUpperCase()}</h3>
-      ))}
-      <br/>
+  // Event Handler: Make search a controlled input => Does is need to be a controlled input?
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+  }
+
+  // Event Handler: Search users based on search bar on submit
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    setSubmitSearch(search);
+    setSearch('');
+  }
+
+  const searchTable = () => {
+    return (
       <table>
         <tbody>
           <tr className='topRow'>
             <th>Username</th>
             <th>Add Friend</th>
           </tr>
-          {renderAllUsers}
+          {renderUsers}
         </tbody>
       </table>
+    )
+  }
+
+  return (
+    <div>
+      <div className='friendContainer'>
+        <h3>Find a Friend</h3>
+      </div>
+      <br/>
+      {/* {error?.data.errors.map((err) => (
+        <h3 style={{color:'red'}}>{err.toUpperCase()}</h3>
+      ))} */}
+      {/* <br/> */}
+      <form onSubmit={handleSearchSubmit}>
+        <input
+          onChange={handleSearchChange}
+          placeholder='🔍'
+          type="text"
+          name="search"
+          value={search}
+        />
+        <button type="submit" className="moreButton">Search</button>
+      </form>
+      <br/>
+      {(searchUsers.length === 0 ? <strong>No Results</strong> : searchTable())}
+      {/* <table>
+        <tbody>
+          <tr className='topRow'>
+            <th>Username</th>
+            <th>Add Friend</th>
+          </tr>
+          {renderUsers}
+        </tbody>
+      </table> */}
     </div>
   )
 }
 
-export default FriendsList;
+export default UsersList;
