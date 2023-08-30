@@ -9,11 +9,11 @@ function FriendsLayout() {
         <h2>FRIENDS LIST</h2>
       </div>
       <br/>
-      {/* <nav className='secondaryNavBar'>
-        <NavLink to='myfriends'>My Friends</NavLink>
-        <NavLink to='findfriend'>Find a Friend</NavLink>
+      <nav className='secondaryNavBar'>
+        <NavLink to=''>My Friends</NavLink>
+        <NavLink to='find'>Find a Friend</NavLink>
       </nav>
-      <br/> */}
+      <br/>
       <Outlet />
     </div>
   )

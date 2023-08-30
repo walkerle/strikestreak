@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :stats, only: [:index, :show]
   resources :game_sessions
   resources :games
-  resources :join_friends, except: [:index, :show, :update]
+  resources :join_friends, except: [:show, :update]
 
   post '/signup', to: 'users#create'
   get '/me', to: 'sessions#show'
