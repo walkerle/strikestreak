@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 // import { useAutoLoginQuery } from '../app/services/userApi';
 // import { useAddFriendMutation } from '../app/services/friendsApi';
 
@@ -9,7 +9,7 @@ function UserCard({ user, onAddFriend }) {
   // const { data: user } = useAutoLoginQuery()
   // const [addFriend, {error}] = useAddFriendMutation()
 
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
 
   const handleAdd = () => {
     // addFriend(form)

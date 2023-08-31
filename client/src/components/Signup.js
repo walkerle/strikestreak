@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useCreateUserMutation } from '../app/services/userApi';
+// import { useNavigate } from 'react-router-dom';
+// import { useCreateUserMutation } from '../app/services/userApi';
 
-function Signup() {
+function Signup({onSignup}) {
 
-  let navigate = useNavigate();
+  // Redux method
+  // const [createUser] = useCreateUserMutation();
 
-  const [createUser] = useCreateUserMutation();
+  // let navigate = useNavigate();
 
   const initialForm = {
     username: "",
@@ -24,8 +25,10 @@ function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    createUser(signupForm);
-    navigate(`/mystats`);
+    onSignup(signupForm);
+
+    // createUser(signupForm);
+    // navigate(`/stats`);
     // fetch("/users", {
     //   method: "POST",
     //   headers: { "Content-Type": "application/json" },

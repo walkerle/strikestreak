@@ -19,6 +19,7 @@ import FriendsLayout from './components/FriendsLayout';
 import FriendsList from './components/FriendsList';
 import FriendStats from './components/FriendStats';
 import UsersList from './components/UsersList';
+import NotFound from './components/NotFound';
 // import { useAutoLoginQuery } from './app/services/userApi';
 
 function App() {
@@ -36,7 +37,7 @@ function App() {
   const [joinFriends, setJoinFriends] = useState([]);
   const [friend, setFriend] = useState({});
   const [friendStats, setFriendStats] = useState({});
-  // const [errors, setErrors] = useState(false);
+  // const [errors, setErrors] = useState({});
 
   // react-router-dom methods
   // let { gameId } = useParams();
@@ -44,8 +45,8 @@ function App() {
 
   // Fetch user data
   useEffect(() => {
-    // fetch(`/me`)
-    fetch(`/users/1`)
+    fetch(`/me`)
+    // fetch(`/users/1`)
     .then(res => {
       if(res.ok) {
         res.json()
@@ -62,7 +63,73 @@ function App() {
       }
     })
   }, [games])
-  // Dependency array: Re-fetch data anytime there's a CRUD action in a game.  What about a session or friend?
+  
+  //////////////////////////////////////////////////////////////////////////////////
+  
+  // SIGNUP/LOGIN EVENT HANDLERS:
+  // Event Handler: User Signup
+  const onSignup = (signupObj) => {
+    console.log(signupObj);
+    
+    fetch("/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body:JSON.stringify(signupObj),
+    })
+    .then(res => {
+      if(res.ok) {
+        res.json()
+        .then((user) => {
+          setUser(user)
+          setStats(user.stat)
+          setSessions(user.stat.game_sessions)
+          setJoinFriends(user.join_friends)
+          console.log(user); // Remove on final release
+          navigate('/stats');
+        })
+      } else {
+        res.json()
+        .then(errors => console.log(errors));
+      }
+    });
+
+  }
+
+  // Event Handler: Login user
+  const onLogin = (loginObj) => {
+    fetch('/login', {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(loginObj)
+    })
+    .then(res => {
+      if(res.ok) {
+        res.json()
+        .then(user => {
+          setUser(user)
+          setStats(user.stat)
+          setSessions(user.stat.game_sessions)
+          setJoinFriends(user.join_friends)
+          console.log(user); // Remove on final release
+          navigate('/stats');
+        })
+      } else {
+        res.json().then(errors => console.log(errors))
+      }
+    })
+
+  }
+
+  // Event Handler: Logout user
+  const onLogout = () => {
+    fetch('/logout', {method: "DELETE"})
+    .then(() => {
+      setUser(null);
+      console.log('User logged out');
+    })
+
+    navigate('/');
+  }
 
   //////////////////////////////////////////////////////////////////////////////////
 
@@ -230,8 +297,9 @@ function App() {
         <NavBar user={user} />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Signup onSignup={onSignup} />} />
+          <Route path='/login' element={<Login onLogin={onLogin} />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
         {/*{(user == null ? <h3>Logged Out</h3> : <h3>User: {user.username}</h3>)} {/* Remove on final release */}
       </div>
@@ -240,7 +308,7 @@ function App() {
     return (
       <div className="App">
         {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : '')} */}
-        <NavBar user={user} />
+        <NavBar user={user} onLogout={onLogout} />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/stats' element={<Stats stats={stats} />} />
@@ -259,6 +327,7 @@ function App() {
             <Route path='stats' element={<FriendStats friend={friend} friendStats={friendStats} />} />
             <Route path='find' element={<UsersList onAddFriend={onAddFriend} />} />
           </Route>
+          <Route path='*' element={<NotFound />} />
         </Routes>
         {/*{(user == null ? <h3>Logged Out</h3> : <h3>User: {user.username}</h3>)} {/* Remove on final release */}
         {/*<h3>stat.id: {(stats == null ? 'null' : stats.id )}</h3> {/* Remove on final release */}

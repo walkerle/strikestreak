@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
 function SessionFormEdit({session, onUpdateSession}) {
+  // Need to store session in cookies or other, so data is retained on REFRESH!
+  // localStorage?
 
   // React state(s)
   const [form, setForm] = useState(session);

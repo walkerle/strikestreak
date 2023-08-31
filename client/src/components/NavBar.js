@@ -1,25 +1,19 @@
 import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useLogoutUserMutation } from '../app/services/userApi';
+import { NavLink } from 'react-router-dom';
+// import { useLogoutUserMutation } from '../app/services/userApi';
 
-function NavBar({user}) {
+function NavBar({user, onLogout}) {
 
-  let navigate = useNavigate()
+  // let navigate = useNavigate()
 
-  const [logoutUser] = useLogoutUserMutation();
+  // Redux method
+  // const [logoutUser] = useLogoutUserMutation();
 
   const handleLogout = () => {
-    logoutUser();
-    navigate("/home");
-    // fetch("/logout", {
-    //   method: "DELETE"
-    // })
-    // .then(res => {
-    //   if(res.ok) {
-    //     setUser(null);
-    //     console.log("Logged out") // Remove on final release
-    //   }
-    // })
+    // Redux method
+    // logoutUser();
+
+    onLogout();
   }
 
   if(!user) {

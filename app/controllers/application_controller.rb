@@ -15,7 +15,7 @@ class ApplicationController < ActionController::API
 
   # Check for user_id in sessions
   def authorized_user
-    # render json: {error: "Not Authorized"}, status: :unauthorized unless current_user
+    render json: {error: "Not Authorized"}, status: :unauthorized unless current_user
   end
 
   def record_not_found exception
