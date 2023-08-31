@@ -42,7 +42,7 @@ export const userApi = createApi({
         }
       }),
 
-      // POST data request to the backend
+      // DELETE data request to the backend
       logoutUser: builder.mutation({
         query: () => ({
           url: '/logout',

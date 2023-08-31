@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 // import { useDispatch } from 'react-redux';
 // import { setUserId } from '../features/user/userSlice';
 // import { useDeleteFriendMutation } from '../app/services/friendsApi';
@@ -10,7 +10,7 @@ function FriendCard({joinFriend, onGoToFriendStats, onDeleteFriend}) {
   // const dispatch = useDispatch();
   // const [deleteFriend] = useDeleteFriendMutation()
 
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
 
   const goToFriendStats = () => {
     // dispatch(setUserId(joinFriend.friendee.id))

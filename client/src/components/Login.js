@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useLoginUserMutation } from '../app/services/userApi';
+// import { useNavigate } from 'react-router-dom';
+// import { useLoginUserMutation } from '../app/services/userApi';
 
-function Login() {
+function Login({onLogin}) {
 
-  const [loginUser] = useLoginUserMutation();
+  // Redux method
+  // const [loginUser] = useLoginUserMutation();
 
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
 
   const initialForm = {
     email: "",
@@ -23,28 +24,12 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    loginUser(loginForm);
-    navigate(`/mystats`);
-    // fetch("/login", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body:JSON.stringify(loginForm),
-    // })
-    // .then((res) => {
-    //   if (res.ok) {
-    //     res.json()
-    //     .then((user) => {
-    //       setUser(user);
-    //       setOverallStats(user.overall_stat);
-    //       setJoinFriends(user.join_friends)
-    //       console.log(user); // Remove on final release
-    //       navigate('/mystats');
-    //     });
-    //   } else {
-    //     res.json()
-    //     .then((json) => setErrors(json.errors));
-    //   }
-    // });
+    // Redux method
+    // loginUser(loginForm);
+
+    // navigate(`/stats`);
+
+    onLogin(loginForm);
 
     setLoginForm(initialForm);
   }
