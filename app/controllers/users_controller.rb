@@ -21,12 +21,12 @@ class UsersController < ApplicationController
     render json: user, status: :created
   end
 
-  # ***FUTURE*** Update user
+  # ***FUTURE*** Update user account
   def update
 
   end
 
-  # ***FUTURE*** Delete user
+  # ***FUTURE*** Delete user account
   def destroy
 
   end

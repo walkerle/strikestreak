@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import UserCard from './UserCard';
 // import { useGetAllUsersQuery } from '../app/services/allUsersApi';
 
-function UsersList({onAddFriend}) {
+function UsersList({onAddFriend, currentUser, errors}) {
 
   // React state(s)
   const [users, setUsers] = useState([]);
@@ -19,7 +19,9 @@ function UsersList({onAddFriend}) {
     .then(data => setUsers(data))
   }, [])
 
-  const sortUsers = users.sort((a, b) => a.username.localeCompare(b.username))
+  const filterCurrentUser = users.filter(user => currentUser.id !== user.id)
+
+  const sortUsers = filterCurrentUser.sort((a, b) => a.username.localeCompare(b.username))
 
   const searchUsers = sortUsers.filter(user => user.username.toLowerCase().includes(submitSearch.toLowerCase()));
 
@@ -84,6 +86,8 @@ function UsersList({onAddFriend}) {
           {renderUsers}
         </tbody>
       </table> */}
+      <br/>
+      {(errors ? errors.errors.map(error => <div className='errors'><h4 style={{color:'red'}}>{error.toUpperCase()}</h4></div>) : "")}
     </div>
   )
 }

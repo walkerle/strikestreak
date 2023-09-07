@@ -30,13 +30,21 @@ function Sessions({sessions, onGoToGames, onGoToSessionUpdateForm, onDeleteSessi
   const renderMySessions = sessions?.map(session => {
     return <SessionCard key={session.id} session={session} onGoToGames={onGoToGames} onGoToSessionUpdateForm={onGoToSessionUpdateForm} onDeleteSession={onDeleteSession} />
   })
-    
-  return (
-    <div>
-      {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : '')} */}
-      {renderMySessions}
-    </div>
-  )
+  
+  if(sessions.length === 0) {
+    return (
+      <div className='sessionContainer'>
+        <h3>You have no game sessions recorded!</h3>
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : '')} */}
+        {renderMySessions}
+      </div>
+    )
+  }
 }
 
 export default Sessions;

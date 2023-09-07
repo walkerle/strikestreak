@@ -37,13 +37,13 @@ const GameFormEdit = ({game, onUpdateGame}) => {
       score: f10s,
       strikes: strikes,
       spares: spares,
-      opens: opens 
+      open_frames: open_frames 
     })
   }
 
   let strikes = 0;
   let spares = 0;
-  let opens = 0;
+  let open_frames = 0;
 
   const eachFrameScore = (f1b1, f1b2, f2b1, f2b2, f3b1, prevScore) => {
     if(f1b1 === 10 && f2b1 === 10) {
@@ -56,7 +56,7 @@ const GameFormEdit = ({game, onUpdateGame}) => {
       ++spares
       return f1b1 + f1b2 + f2b1 + prevScore;
     } else {
-      ++opens
+      ++open_frames
       return f1b1 + f1b2 + prevScore;      
     }
   }
@@ -71,14 +71,14 @@ const GameFormEdit = ({game, onUpdateGame}) => {
       ++spares;
     } else if(b1 === 10 && b2 + b3 !== 10) {
       ++strikes;
-      ++opens;
+      ++open_frames;
     } else if(b1 + b2 === 10 && b3 === 10) {
       ++strikes;
       ++spares;
     } else if(b1 + b2 === 10 && b3 !== 10) {
       ++spares
     } else {
-      ++opens;
+      ++open_frames;
       return b1 + b2 + prevScore;
     }
     return b1 + b2 + b3 + prevScore;
@@ -299,7 +299,7 @@ const GameFormEdit = ({game, onUpdateGame}) => {
           <h4>
             <strong>Number of Strikes: </strong>{strikes} |
             <strong> Number of Spares: </strong>{spares} |
-            <strong> Number of Open Frames: </strong>{opens}
+            <strong> Number of Open Frames: </strong>{open_frames}
           </h4>
           <div className='gameFormNotes'>
             <div>
