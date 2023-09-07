@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 // import { useLoginUserMutation } from '../app/services/userApi';
 
-function Login({onLogin}) {
+function Login({onLogin, errors}) {
 
   // Redux method
   // const [loginUser] = useLoginUserMutation();
@@ -36,7 +36,6 @@ function Login({onLogin}) {
 
   return (
     <div>
-      {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")} */}
       <br/>
       <div className='Headers'>
         <h2>LOGIN</h2>
@@ -51,7 +50,7 @@ function Login({onLogin}) {
             name="email"
             placeholder="Enter Email"
             value={loginForm.email}
-          />
+            />
           <strong>Password:</strong>
           <input
             onChange={handleChange}
@@ -59,10 +58,12 @@ function Login({onLogin}) {
             name="password"
             placeholder="Enter Password"
             value={loginForm.password}
-          />
+            />
           <button type="submit" className="moreButton">Submit</button>
         </form>
       </div>
+      <br/>
+      {(errors ? <div className='errors'><h4 style={{color:'red'}}>{errors.error.toUpperCase()}</h4></div> : "")}
     </div>
   )
 }

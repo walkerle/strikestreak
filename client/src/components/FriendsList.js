@@ -30,10 +30,6 @@ function FriendsList({joinFriends, onGoToFriendStats, onDeleteFriend}) {
   } else {
     return (
       <div>
-        {/* <div className='friendContainer'>
-          <h3>My Friends</h3>
-        </div>
-        <br/> */}
         <table>
           <tbody>
             <tr className='topRow'>

@@ -28,8 +28,8 @@ function App() {
   // const { data: user } = useAutoLoginQuery();
   
   // React state(s)
-  const [user, setUser] = useState(null);
-  const [stats, setStats] = useState(null);
+  const [user, setUser] = useState(false);
+  const [stats, setStats] = useState({});
   const [sessions, setSessions] = useState([]);
   const [session, setSession] = useState({});
   const [games, setGames] = useState([]);
@@ -37,7 +37,7 @@ function App() {
   const [joinFriends, setJoinFriends] = useState([]);
   const [friend, setFriend] = useState({});
   const [friendStats, setFriendStats] = useState({});
-  // const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState(false);
 
   // react-router-dom methods
   // let { gameId } = useParams();
@@ -55,7 +55,7 @@ function App() {
           setStats(user.stat)
           setSessions(user.stat.game_sessions)
           setJoinFriends(user.join_friends)
-          console.log(user); // Remove on final release
+          // console.log(user); // Remove on final release
           // console.log(`${user.username} is already logged in`); // Remove on final release
         })
       } else {
@@ -69,8 +69,6 @@ function App() {
   // SIGNUP/LOGIN EVENT HANDLERS:
   // Event Handler: User Signup
   const onSignup = (signupObj) => {
-    console.log(signupObj);
-    
     fetch("/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -82,8 +80,8 @@ function App() {
         .then((user) => {
           setUser(user)
           setStats(user.stat)
-          setSessions(user.stat.game_sessions)
-          setJoinFriends(user.join_friends)
+          // setSessions(user.stat.game_sessions)
+          // setJoinFriends(user.join_friends)
           console.log(user); // Remove on final release
           navigate('/stats');
         })
@@ -110,11 +108,15 @@ function App() {
           setStats(user.stat)
           setSessions(user.stat.game_sessions)
           setJoinFriends(user.join_friends)
+          setErrors(false)
           console.log(user); // Remove on final release
           navigate('/stats');
         })
       } else {
-        res.json().then(errors => console.log(errors))
+        res.json().then(errors => {
+          console.log(errors)
+          setErrors(errors)
+        })
       }
     })
 
@@ -124,7 +126,11 @@ function App() {
   const onLogout = () => {
     fetch('/logout', {method: "DELETE"})
     .then(() => {
-      setUser(null);
+      setUser(null)
+      setStats({})
+      setSessions([])
+      setJoinFriends([])
+      setErrors(false)
       console.log('User logged out');
     })
 
@@ -231,6 +237,7 @@ function App() {
     .then(res => res.json())
     // Pessimistic Frontend Render
     // .then(data => setGames(games.map(game => game.id === data.id ? data : game)))
+    // .then(data => console.log(data))
 
     navigate('/games');
   }
@@ -258,12 +265,12 @@ function App() {
     .then(res => {
       if(res.ok) {
         res.json().then(data => setJoinFriends([...joinFriends, data]))
+        setErrors(false)
+        navigate('/friends');
       } else {
-        res.json().then(errors => console.log(errors))
+        res.json().then(errors => setErrors(errors))
       }
     })
-    
-    navigate('/friends');
   }
 
   // Event Handler: View a friend's stats
@@ -298,7 +305,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/signup' element={<Signup onSignup={onSignup} />} />
-          <Route path='/login' element={<Login onLogin={onLogin} />} />
+          <Route path='/login' element={<Login onLogin={onLogin} errors={errors} />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
         {/*{(user == null ? <h3>Logged Out</h3> : <h3>User: {user.username}</h3>)} {/* Remove on final release */}
@@ -325,7 +332,7 @@ function App() {
           <Route path='/friends' element={<FriendsLayout />}>
             <Route path='' element={<FriendsList joinFriends={joinFriends} onGoToFriendStats={onGoToFriendStats} onDeleteFriend={onDeleteFriend} />} />
             <Route path='stats' element={<FriendStats friend={friend} friendStats={friendStats} />} />
-            <Route path='find' element={<UsersList onAddFriend={onAddFriend} />} />
+            <Route path='find' element={<UsersList onAddFriend={onAddFriend} currentUser={user} errors={errors} />} />
           </Route>
           <Route path='*' element={<NotFound />} />
         </Routes>

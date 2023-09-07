@@ -55,6 +55,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_26_070907) do
     t.integer "f10b2"
     t.integer "f10b3"
     t.integer "score"
+    t.integer "strikes"
+    t.integer "spares"
+    t.integer "open_frames"
     t.string "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
