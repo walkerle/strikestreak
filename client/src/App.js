@@ -66,7 +66,7 @@ function App() {
   
   //////////////////////////////////////////////////////////////////////////////////
   
-  // SIGNUP/LOGIN EVENT HANDLERS:
+  // SIGNUP/LOGIN/LOGOUT EVENT HANDLERS:
   // Event Handler: User Signup
   const onSignup = (signupObj) => {
     fetch("/signup", {
@@ -82,12 +82,13 @@ function App() {
           setStats(user.stat)
           // setSessions(user.stat.game_sessions)
           // setJoinFriends(user.join_friends)
+          setErrors(false)
           console.log(user); // Remove on final release
           navigate('/stats');
         })
       } else {
         res.json()
-        .then(errors => console.log(errors));
+        .then(errors => setErrors(errors))
       }
     });
 
@@ -113,10 +114,7 @@ function App() {
           navigate('/stats');
         })
       } else {
-        res.json().then(errors => {
-          console.log(errors)
-          setErrors(errors)
-        })
+        res.json().then(errors => setErrors(errors))
       }
     })
 
@@ -254,7 +252,7 @@ function App() {
 
   //////////////////////////////////////////////////////////////////////////////////
   // FRIENDS EVENT HANDLERS:
-  // Event Handler: Add a game
+  // Event Handler: Add a friend
   const onAddFriend = (friendObj) => {
     fetch('/join_friends', {
       method: "POST",
@@ -268,17 +266,13 @@ function App() {
         setErrors(false)
         navigate('/friends');
       } else {
-        res.json().then(errors => setErrors(errors))
+        res.json().then(errors => {setErrors(errors)})
       }
     })
   }
 
   // Event Handler: View a friend's stats
   const onGoToFriendStats = (friendObj) => {
-    // console.log(friendObj); // May need a friend state
-    // setFriend(friendObj);
-    // navigate('/friends/stats');
-
     fetch(`/users/${friendObj.id}`)
     .then(res => res.json())
     .then(data => {
@@ -300,21 +294,18 @@ function App() {
   if(!user) {
     return (
       <div className='App'>
-        {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : '')} */}
         <NavBar user={user} />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/signup' element={<Signup onSignup={onSignup} />} />
+          <Route path='/signup' element={<Signup onSignup={onSignup} errors={errors} />} />
           <Route path='/login' element={<Login onLogin={onLogin} errors={errors} />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
-        {/*{(user == null ? <h3>Logged Out</h3> : <h3>User: {user.username}</h3>)} {/* Remove on final release */}
       </div>
     );
   } else {
     return (
       <div className="App">
-        {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : '')} */}
         <NavBar user={user} onLogout={onLogout} />
         <Routes>
           <Route path='/' element={<Home />} />
@@ -336,8 +327,6 @@ function App() {
           </Route>
           <Route path='*' element={<NotFound />} />
         </Routes>
-        {/*{(user == null ? <h3>Logged Out</h3> : <h3>User: {user.username}</h3>)} {/* Remove on final release */}
-        {/*<h3>stat.id: {(stats == null ? 'null' : stats.id )}</h3> {/* Remove on final release */}
       </div>
     );
   }

@@ -9,6 +9,6 @@ class User < ApplicationRecord
   # has_many :join_friends, foreign_key: :friendee_id
   # has_many :frienders, through: :join_friends
 
-  validates :username, :email, uniqueness: true
+  validates :username, :email, uniqueness: true, presence: true
 
 end

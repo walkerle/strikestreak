@@ -27,9 +27,3 @@ function UserCard({ user, onAddFriend }) {
 }
 
 export default UserCard;
-
-// {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")}
-
-// {error?.data.errors.map((err) => (
-//   <h3 style={{color:'red'}}>{err.toUpperCase()}</h3>
-// ))}

@@ -54,6 +54,9 @@ function SessionFormEdit({session, onUpdateSession}) {
             name="notes"
             placeholder="Enter Any Notes"
             value={form.notes}
+            minLength="0"
+            maxLength="100"
+            size="105"
           /><br/><br/>
           <button type="submit" className='addButton'>Update Session</button>
         </form>

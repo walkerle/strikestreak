@@ -96,6 +96,7 @@ hr.dividerLine {
 
 .errors h4 {
   margin: 10px 20px;
+  color: red;
   text-shadow: none;
 }
 

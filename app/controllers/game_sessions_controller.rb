@@ -18,6 +18,7 @@ class GameSessionsController < ApplicationController
 
   def create
     game_session = GameSession.create!(game_session_params)
+    # Need to update Stat and save
     render json: game_session, status: :created
   end
 

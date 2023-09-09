@@ -5,12 +5,11 @@ import React, { useState } from 'react';
 
 function SessionFormAdd({stats, onAddSession}) {
 
-  // Redux method
+  // Redux methods
   // const [addSession, {error}] = useAddSessionMutation()
+  // const { data: user } = useAutoLoginQuery();
 
   // let navigate = useNavigate()
-
-  // const { data: user } = useAutoLoginQuery();
 
   // Initial form data
   const initialForm = {
@@ -29,7 +28,6 @@ function SessionFormAdd({stats, onAddSession}) {
 
   // React state(s)
   const [form, setForm] = useState(initialForm);
-  // const [errors, setErrors] = useState([]);
 
   // Event Handler: Make controlled inputs
   const handleFormChange = (e) => {
@@ -46,37 +44,12 @@ function SessionFormAdd({stats, onAddSession}) {
     // navigate('/mysessions/sessions');
 
     onAddSession(form);
-
-    // Frontend Render and Backend CREATE
-    // const config = {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(form)
-    // }
-    
-    // fetch(`/game_sessions`, config)
-    // .then(res => {
-    //   if(res.ok) {
-    //     res.json()
-    //     .then(data => {
-    //       setErrors([])
-    //       navigate('/mysessions/sessions');
-    //     })
-    //   } else {
-    //     res.json().then(json => setErrors(json["errors"]))
-    //   }
-    // })
     
     setForm(initialForm);
   }
 
   return (
     <div>
-      {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")} */}
-      {/* {error?.data.errors.map((err) => (
-        <h3 style={{color:'red'}}>{err.toUpperCase()}</h3>
-      ))} */}
-      <br/>
       <div className='sessionContainer'>
         <h3>Add New Session</h3>
       </div>
@@ -114,6 +87,9 @@ function SessionFormAdd({stats, onAddSession}) {
             name="notes"
             placeholder="Enter Any Notes"
             value={form.notes}
+            minLength="0"
+            maxLength="100"
+            size="105"
           /><br/><br/>
           <button type="submit" className='addButton'>Add New Session</button>
         </form>

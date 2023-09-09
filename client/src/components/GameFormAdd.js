@@ -7,7 +7,6 @@ function GameFormAdd({session, onAddGame}) {
 
   // Redux method
   // const sessionId = useSelector(state => state.session.value.id)
-  // console.log(sessionId)
   // const [addGame, {error}] = useAddGameMutation()
 
   // let navigate = useNavigate()
@@ -43,7 +42,6 @@ function GameFormAdd({session, onAddGame}) {
   }
 
   const [form, setForm] = useState(initialForm);
-  // const [errors, setErrors] = useState([]);
 
   // Event Handler: Make controlled inputs
   const handleScoreChange = (e) => {
@@ -128,10 +126,6 @@ function GameFormAdd({session, onAddGame}) {
 
   return (
     <div>
-      {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")} */}
-      {/* {error?.data.errors.map((err) => (
-        <h3 style={{color:'red'}}>{err.toUpperCase()}</h3>
-      ))} */}
       <div className='gameContainer'>
         <h3>Add New Game</h3>
       </div>
@@ -160,12 +154,18 @@ function GameFormAdd({session, onAddGame}) {
                     type="number"
                     name="f1b1"
                     value={form.f1b1}
+                    min="0"
+                    max="10"
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f1b2"
                     value={form.f1b2}
+                    min="0"
+                    max={10 - form.f1b1}
+                    required
                   />
                 </td>
                 <td>
@@ -175,12 +175,18 @@ function GameFormAdd({session, onAddGame}) {
                     type="number"
                     name="f2b1"
                     value={form.f2b1}
+                    min="0"
+                    max="10"
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f2b2"
                     value={form.f2b2}
+                    min="0"
+                    max={10 - form.f2b1}
+                    required
                   />
                 </td>
                 <td>
@@ -190,12 +196,18 @@ function GameFormAdd({session, onAddGame}) {
                     type="number"
                     name="f3b1"
                     value={form.f3b1}
+                    min="0"
+                    max="10"
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f3b2"
                     value={form.f3b2}
+                    min="0"
+                    max={10 - form.f3b1}
+                    required
                   />
                 </td>
                 <td>
@@ -205,12 +217,18 @@ function GameFormAdd({session, onAddGame}) {
                     type="number"
                     name="f4b1"
                     value={form.f4b1}
+                    min="0"
+                    max="10"
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f4b2"
                     value={form.f4b2}
+                    min="0"
+                    max={10 - form.f4b1}
+                    required
                   />
                 </td>
                 <td>
@@ -220,12 +238,18 @@ function GameFormAdd({session, onAddGame}) {
                     type="number"
                     name="f5b1"
                     value={form.f5b1}
+                    min="0"
+                    max="10"
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f5b2"
                     value={form.f5b2}
+                    min="0"
+                    max={10 - form.f5b1}
+                    required
                   />
                 </td>
                 <td>
@@ -235,12 +259,18 @@ function GameFormAdd({session, onAddGame}) {
                     type="number"
                     name="f6b1"
                     value={form.f6b1}
+                    min="0"
+                    max="10"
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f6b2"
                     value={form.f6b2}
+                    min="0"
+                    max={10 - form.f6b1}
+                    required
                   />
                 </td>
                 <td>
@@ -250,12 +280,18 @@ function GameFormAdd({session, onAddGame}) {
                     type="number"
                     name="f7b1"
                     value={form.f7b1}
+                    min="0"
+                    max="10"
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f7b2"
                     value={form.f7b2}
+                    min="0"
+                    max={10 - form.f7b1}
+                    required
                   />
                 </td>
                 <td>
@@ -265,12 +301,18 @@ function GameFormAdd({session, onAddGame}) {
                     type="number"
                     name="f8b1"
                     value={form.f8b1}
+                    min="0"
+                    max="10"
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f8b2"
                     value={form.f8b2}
+                    min="0"
+                    max={10 - form.f8b1}
+                    required
                   />
                 </td>
                 <td>
@@ -280,12 +322,18 @@ function GameFormAdd({session, onAddGame}) {
                     type="number"
                     name="f9b1"
                     value={form.f9b1}
+                    min="0"
+                    max="10"
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f9b2"
                     value={form.f9b2}
+                    min="0"
+                    max={10 - form.f9b1}
+                    required
                   />
                 </td>
                 <td>
@@ -295,32 +343,41 @@ function GameFormAdd({session, onAddGame}) {
                     type="number"
                     name="f10b1"
                     value={form.f10b1}
+                    min="0"
+                    max="10"
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f10b2"
                     value={form.f10b2}
+                    min="0"
+                    max={(form.f10b1 === 10) ? 10 : 10 - form.f10b1}
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f10b3"
                     value={form.f10b3}
+                    min="0"
+                    max={(form.f10b1 + form.f10b2 === 10 || form.f10b2 === 10 ? 10 : (form.f10b1 === 10 && form.f10b2 < 10 ? 10 - form.f10b2 : 0))}
+                    required
                   />
                 </td>
               </tr>
               <tr className='bottomRow'>
-                <td>{f1s}</td>
-                <td>{f2s}</td>
-                <td>{f3s}</td>
-                <td>{f4s}</td>
-                <td>{f5s}</td>
-                <td>{f6s}</td>
-                <td>{f7s}</td>
-                <td>{f8s}</td>
-                <td>{f9s}</td>
-                <td>{f10s}</td>
+                <td>{(isNaN(f1s) || form.f1b1 + form.f1b2 > 10 ? "Error" : f1s)}</td>
+                <td>{(isNaN(f2s) || form.f2b1 + form.f2b2 > 10 ? "Error" : f2s)}</td>
+                <td>{(isNaN(f3s) || form.f3b1 + form.f3b2 > 10 ? "Error" : f3s)}</td>
+                <td>{(isNaN(f4s) || form.f4b1 + form.f4b2 > 10 ? "Error" : f4s)}</td>
+                <td>{(isNaN(f5s) || form.f5b1 + form.f5b2 > 10 ? "Error" : f5s)}</td>
+                <td>{(isNaN(f6s) || form.f6b1 + form.f6b2 > 10 ? "Error" : f6s)}</td>
+                <td>{(isNaN(f7s) || form.f7b1 + form.f7b2 > 10 ? "Error" : f7s)}</td>
+                <td>{(isNaN(f8s) || form.f8b1 + form.f8b2 > 10 ? "Error" : f8s)}</td>
+                <td>{(isNaN(f9s) || form.f9b1 + form.f9b2 > 10 ? "Error" : f9s)}</td>
+                <td>{(isNaN(f10s) || (form.f10b1 !== 10 && form.f10b1 + form.f10b2 > 10) || (form.f10b1 === 10 && form.f10b2 !== 10 && form.f10b2 + form.f10b3 > 10) || (form.f10b1 === 10 && form.f10b2 === 10 && form.f10b3 > 10) ? "Error" : f10s)}</td>
               </tr>
             </tbody>
           </table>
@@ -338,6 +395,9 @@ function GameFormAdd({session, onAddGame}) {
                 name="notes"
                 placeholder="Enter Any Notes"
                 value={form.notes}
+                minLength="0"
+                maxLength="100"
+                size="105"
               />
             </div>
           </div>

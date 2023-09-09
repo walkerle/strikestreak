@@ -9,13 +9,17 @@ function Login({onLogin, errors}) {
 
   // let navigate = useNavigate();
 
+  // Error handling
+  const {error} = errors;
+  // console.log(error)
+
   const initialForm = {
     email: "",
     password: ""
   }
 
+  // React state
   const [loginForm, setLoginForm] = useState(initialForm)
-  // const [errors, setErrors] = useState([])
 
   const handleChange = (e) => {
     setLoginForm({...loginForm, [e.target.name]: e.target.value})
@@ -63,7 +67,7 @@ function Login({onLogin, errors}) {
         </form>
       </div>
       <br/>
-      {(errors ? <div className='errors'><h4 style={{color:'red'}}>{errors.error.toUpperCase()}</h4></div> : "")}
+      {(error ? <div className='errors'><h4 style={{color:'red'}}>{error.toUpperCase()}</h4></div> : "")}
     </div>
   )
 }
