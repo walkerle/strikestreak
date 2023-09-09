@@ -4,6 +4,8 @@ import UserCard from './UserCard';
 
 function UsersList({onAddFriend, currentUser, errors}) {
 
+  const errorsArr = errors.errors;
+
   // React state(s)
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState('');
@@ -61,10 +63,6 @@ function UsersList({onAddFriend, currentUser, errors}) {
         <h3>Find a Friend</h3>
       </div>
       <br/>
-      {/* {error?.data.errors.map((err) => (
-        <h3 style={{color:'red'}}>{err.toUpperCase()}</h3>
-      ))} */}
-      {/* <br/> */}
       <form onSubmit={handleSearchSubmit}>
         <input
           onChange={handleSearchChange}
@@ -76,18 +74,10 @@ function UsersList({onAddFriend, currentUser, errors}) {
         <button type="submit" className="moreButton">Search</button>
       </form>
       <br/>
+      {(errorsArr ? <><div className='errors'><h4>FRIEND IS ALREADY ON YOUR FRIENDS LIST</h4></div><br/></> : "")}
       {(searchUsers.length === 0 ? <strong>No Results</strong> : searchTable())}
-      {/* <table>
-        <tbody>
-          <tr className='topRow'>
-            <th>Username</th>
-            <th>Add Friend</th>
-          </tr>
-          {renderUsers}
-        </tbody>
-      </table> */}
       <br/>
-      {(errors ? errors.errors.map(error => <div className='errors'><h4 style={{color:'red'}}>{error.toUpperCase()}</h4></div>) : "")}
+      <br/>
     </div>
   )
 }

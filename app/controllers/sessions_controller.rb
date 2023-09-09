@@ -12,8 +12,6 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
-      # cookies[:temp_game_id] = 24
-      # debugger
       render json: user, status: :ok, include: ['stat.game_sessions.games', 'join_friends.friendee']
     else
       render json: {error: "Invalid Username and/or Password!"}, status: :unauthorized
