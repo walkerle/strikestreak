@@ -1,95 +1,332 @@
 import './App.css';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route/*, useParams*/ } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Signup from './components/Signup';
 import Login from './components/Login';
-import MyStats from './components/MyStats';
+import Stats from './components/Stats';
 import SessionsLayout from './components/SessionsLayout';
-import MySessions from './components/MySessions';
-import SessionForm from './components/SessionForm';
+import Sessions from './components/Sessions';
+import SessionFormAdd from './components/SessionFormAdd';
+import SessionFormEdit from './components/SessionFormEdit';
 import GamesLayout from './components/GamesLayout';
-import MyGames from './components/MyGames';
-import EditGameForm from './components/EditGameForm';
-import GameForm from './components/GameForm';
+import Games from './components/Games';
+import GameFormAdd from './components/GameFormAdd';
+import GameFormEdit from './components/GameFormEdit';
 import FriendsLayout from './components/FriendsLayout';
 import FriendsList from './components/FriendsList';
 import FriendStats from './components/FriendStats';
 import UsersList from './components/UsersList';
-import { useAutoLoginQuery } from './app/services/userApi';
+import NotFound from './components/NotFound';
+// import { useAutoLoginQuery } from './app/services/userApi';
 
 function App() {
-
-  const { data: user } = useAutoLoginQuery();
   
-  // const [user, setUser] = useState(null);
-  // const [overallStats, setOverallStats] = useState(null);
-  // const [mySessions, setMySessions] = useState([]);
-  // const [myGames, setMyGames] = useState([]);
-  // const [editGame, setEditGame] = useState({});
-  // const [joinFriends, setJoinFriends] = useState([]);
-  // const [friendStats, setFriendStats] = useState([]);
-  // const [errors, setErrors] = useState(false);
+  // Redux method
+  // const { data: user } = useAutoLoginQuery();
+  
+  // React state(s)
+  const [user, setUser] = useState(false);
+  const [stats, setStats] = useState({});
+  const [sessions, setSessions] = useState([]);
+  const [session, setSession] = useState({});
+  const [games, setGames] = useState([]);
+  const [game, setGame] = useState({});
+  const [joinFriends, setJoinFriends] = useState([]);
+  const [friend, setFriend] = useState({});
+  const [friendStats, setFriendStats] = useState({});
+  const [errors, setErrors] = useState(false);
 
+  // react-router-dom methods
   // let { gameId } = useParams();
+  const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   fetch(`/me`)
-  //   .then(res => {
-  //     if(res.ok) {
-  //       res.json()
-  //       .then(user => {
-  //         setUser(user)
-  //         setOverallStats(user.overall_stat)
-  //         setJoinFriends(user.join_friends)
-  //         console.log(`${user.username} is already logged in`); // Remove on final release
-  //       })
-  //     } else {
-  //       res.json()
-  //       .then(json => setErrors(json["errors"]))
-  //     }
-  //   })
-  // }, [])
+  // Fetch user data
+  useEffect(() => {
+    fetch(`/me`)
+    // fetch(`/users/1`)
+    .then(res => {
+      if(res.ok) {
+        res.json()
+        .then(user => {
+          setUser(user)
+          setStats(user.stat)
+          setSessions(user.stat.game_sessions)
+          setJoinFriends(user.join_friends)
+          // console.log(user); // Remove on final release
+          // console.log(`${user.username} is already logged in`); // Remove on final release
+        })
+      } else {
+        res.json().then(errors => console.log(errors))
+      }
+    })
+  }, [games])
+  
+  //////////////////////////////////////////////////////////////////////////////////
+  
+  // SIGNUP/LOGIN/LOGOUT EVENT HANDLERS:
+  // Event Handler: User Signup
+  const onSignup = (signupObj) => {
+    fetch("/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body:JSON.stringify(signupObj),
+    })
+    .then(res => {
+      if(res.ok) {
+        res.json()
+        .then((user) => {
+          setUser(user)
+          setStats(user.stat)
+          // setSessions(user.stat.game_sessions)
+          // setJoinFriends(user.join_friends)
+          setErrors(false)
+          console.log(user); // Remove on final release
+          navigate('/stats');
+        })
+      } else {
+        res.json()
+        .then(errors => setErrors(errors))
+      }
+    });
+
+  }
+
+  // Event Handler: Login user
+  const onLogin = (loginObj) => {
+    fetch('/login', {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(loginObj)
+    })
+    .then(res => {
+      if(res.ok) {
+        res.json()
+        .then(user => {
+          setUser(user)
+          setStats(user.stat)
+          setSessions(user.stat.game_sessions)
+          setJoinFriends(user.join_friends)
+          setErrors(false)
+          console.log(user); // Remove on final release
+          navigate('/stats');
+        })
+      } else {
+        res.json().then(errors => setErrors(errors))
+      }
+    })
+
+  }
+
+  // Event Handler: Logout user
+  const onLogout = () => {
+    fetch('/logout', {method: "DELETE"})
+    .then(() => {
+      setUser(null)
+      setStats({})
+      setSessions([])
+      setJoinFriends([])
+      setErrors(false)
+      console.log('User logged out');
+    })
+
+    navigate('/');
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////
+
+  // SESSIONS EVENT HANDLERS:
+  // Event Handler: Add a session
+  const onAddSession = (formObj) => {
+    fetch(`/game_sessions`, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(formObj)
+    })
+    .then(res => res.json())
+    // Pessimistic Frontend Render
+    .then(data => setSessions([...sessions, data]))
+
+    navigate('/sessions');
+  }
+
+  // Event Handler: Update session state and go to Session Update Form
+  const onGoToSessionUpdateForm = (sessionObj) => {
+    setSession(sessionObj);
+    navigate('/sessions/edit');
+  }
+
+  // Event Handler: Update a session
+  const onUpdateSession = (formObj) => {
+    // Optimistic Frontend Render
+    setSessions(sessions.map(session => session.id === formObj.id ? formObj : session))
+
+    // Backend
+    fetch(`/game_sessions/${formObj.id}`, {
+      method: "PATCH",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(formObj)
+    })
+    .then(res => res.json())
+    // Pessimistic Frontend Render
+    // .then(data => setSessions(sessions.map(session => session.id === data.id ? data : session)))
+
+    navigate('/sessions');
+  }
+
+  // Event Handler: Delete a session
+  const onDeleteSession = (sessionObj) => {
+    // Optimistic Frontend Render
+    setSessions(sessions.filter(session => session.id !== sessionObj.id))
+
+    // Backend
+    fetch(`/game_sessions/${sessionObj.id}`, {method: "DELETE"})
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////
+
+  // GAMES EVENT HANDLERS:
+  // Event Handler: Update session state and go to session's Games summary
+  const onGoToGames = (sessionObj) => {
+    setSession(sessionObj);
+    setGames(sessionObj.games)
+    navigate('games');
+  }
+
+  // Event Handler: Add a game
+  const onAddGame = (formObj) => {
+    fetch ('/games', {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(formObj)
+    })
+    .then(res => {
+      if (res.ok) {
+        res.json()
+        // Pessimistic Frontend Render
+        .then(data => setGames([...games, data]))
+      } else {
+        res.json().then(errors => console.log(errors))
+      }
+    })
+
+    navigate('/games');
+  }
+
+  // Event Handler: Update game state and go to Game Update Form
+  const onGoToGameUpdateForm = (gameObj) => {
+    setGame(gameObj);
+    navigate('/games/edit')
+  }
+
+  // Event Handler: Update a game
+  const onUpdateGame = (formObj) => {
+    // Optimistic Frontend Render
+    setGames(games.map(game => game.id === formObj.id ? formObj : game))
+
+    // Backend
+    fetch(`/games/${formObj.id}`, {
+      method: "PATCH",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(formObj)
+    })
+    .then(res => res.json())
+    // Pessimistic Frontend Render
+    // .then(data => setGames(games.map(game => game.id === data.id ? data : game)))
+    // .then(data => console.log(data))
+
+    navigate('/games');
+  }
+
+  // Event Handler: Delete a game
+  const onDeleteGame = (gameObj) => {
+    // Optimistic Frontend Render
+    setGames(games.filter(game => game.id !== gameObj.id))
+    // This DOES NOT update Sessions state!
+
+    // Backend
+    fetch(`/games/${gameObj.id}`, {method: "DELETE"})
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////
+  // FRIENDS EVENT HANDLERS:
+  // Event Handler: Add a friend
+  const onAddFriend = (friendObj) => {
+    fetch('/join_friends', {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({friender_id: user.id, friendee_id: friendObj.id})
+    })
+    // Pessimistic Frontend Render
+    .then(res => {
+      if(res.ok) {
+        res.json().then(data => setJoinFriends([...joinFriends, data]))
+        setErrors(false)
+        navigate('/friends');
+      } else {
+        res.json().then(errors => {setErrors(errors)})
+      }
+    })
+  }
+
+  // Event Handler: View a friend's stats
+  const onGoToFriendStats = (friendObj) => {
+    fetch(`/users/${friendObj.id}`)
+    .then(res => res.json())
+    .then(data => {
+      setFriend(data);
+      setFriendStats(data.stat);
+      navigate('/friends/stats');
+    })
+  }
+
+  // Event Handler: Remove a friend
+  const onDeleteFriend = (joinFriendObj) => {
+    // Optimistic Frontend Render
+    setJoinFriends(joinFriends.filter(joinFriend => joinFriend.id !== joinFriendObj.id))
+
+    // Backend
+    fetch(`/join_friends/${joinFriendObj.id}`, {method: "DELETE"})
+  }
 
   if(!user) {
     return (
       <div className='App'>
-        {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : '')} */}
         <NavBar user={user} />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Signup onSignup={onSignup} errors={errors} />} />
+          <Route path='/login' element={<Login onLogin={onLogin} errors={errors} />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
-        {/*{(user == null ? <h3>Logged Out</h3> : <h3>User: {user.username}</h3>)} {/* Remove on final release */}
       </div>
     );
   } else {
     return (
       <div className="App">
-        {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : '')} */}
-        <NavBar user={user} />
+        <NavBar user={user} onLogout={onLogout} />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/mystats' element={<MyStats />} />
-          <Route path='/mysessions' element={<SessionsLayout />}>
-            <Route path='sessions' element={<MySessions />} />
-            <Route path='newsession' element={<SessionForm />} />
+          <Route path='/stats' element={<Stats stats={stats} />} />
+          <Route path='/sessions' element={<SessionsLayout />}>
+            <Route path='' element={<Sessions sessions={sessions} onGoToGames={onGoToGames} onGoToSessionUpdateForm={onGoToSessionUpdateForm} onDeleteSession={onDeleteSession} />} />
+            <Route path='new' element={<SessionFormAdd stats={stats} onAddSession={onAddSession} />} />
+            <Route path='edit' element={<SessionFormEdit session={session} onUpdateSession={onUpdateSession} />} />
           </Route>
-          <Route path={`/mygames`} element={<GamesLayout />}> {/* /mysessions/# */}
-            <Route path={`games`} element={<MyGames />} /> {/* /mysessions/#/games */}
-            <Route path='game/edit' element={<EditGameForm />} /> {/* /mysessions/#/games/# */}
-            <Route path='newgame' element={<GameForm />} /> {/* /mysessions/#/newgame */}
+          <Route path='/games' element={<GamesLayout session={session} />}>
+            <Route path='' element={<Games games={games} onGoToGameUpdateForm={onGoToGameUpdateForm} onDeleteGame={onDeleteGame} />} />
+            <Route path='new' element={<GameFormAdd session={session} onAddGame={onAddGame} />} />
+            <Route path='edit' element={<GameFormEdit game={game} onUpdateGame={onUpdateGame} />} />
           </Route>
-          <Route path={`/friendslist`} element={<FriendsLayout />}>
-            <Route path='myfriends' element={<FriendsList />} />
-            <Route path='myfriends/friendstats' element={<FriendStats />} />
-            <Route path='findfriend' element={<UsersList />} />
+          <Route path='/friends' element={<FriendsLayout />}>
+            <Route path='' element={<FriendsList joinFriends={joinFriends} onGoToFriendStats={onGoToFriendStats} onDeleteFriend={onDeleteFriend} />} />
+            <Route path='stats' element={<FriendStats friend={friend} friendStats={friendStats} />} />
+            <Route path='find' element={<UsersList onAddFriend={onAddFriend} currentUser={user} errors={errors} />} />
           </Route>
+          <Route path='*' element={<NotFound />} />
         </Routes>
-        {/*{(user == null ? <h3>Logged Out</h3> : <h3>User: {user.username}</h3>)} {/* Remove on final release */}
-        {/*<h3>overall_stat.id: {(overallStats == null ? 'null' : overallStats.id )}</h3> {/* Remove on final release */}
       </div>
     );
   }

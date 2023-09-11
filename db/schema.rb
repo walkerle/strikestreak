@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_20_063418) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_26_070907) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "game_sessions", force: :cascade do |t|
-    t.bigint "overall_stat_id", null: false
+    t.bigint "stat_id"
     t.string "date"
     t.integer "number_of_games"
     t.integer "pinfall"
@@ -28,7 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_20_063418) do
     t.string "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["overall_stat_id"], name: "index_game_sessions_on_overall_stat_id"
+    t.index ["stat_id"], name: "index_game_sessions_on_stat_id"
   end
 
   create_table "games", force: :cascade do |t|
@@ -55,6 +55,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_20_063418) do
     t.integer "f10b2"
     t.integer "f10b3"
     t.integer "score"
+    t.integer "strikes"
+    t.integer "spares"
+    t.integer "open_frames"
     t.string "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -68,7 +71,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_20_063418) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "overall_stats", force: :cascade do |t|
+  create_table "stats", force: :cascade do |t|
     t.bigint "user_id"
     t.integer "total_games"
     t.integer "total_pinfall"
@@ -80,7 +83,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_20_063418) do
     t.integer "total_open_frames"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_overall_stats_on_user_id"
+    t.index ["user_id"], name: "index_stats_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -91,6 +94,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_20_063418) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "game_sessions", "overall_stats"
-  add_foreign_key "overall_stats", "users"
 end

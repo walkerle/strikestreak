@@ -1,44 +1,33 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDeleteSessionMutation } from '../app/services/mySessionsApi';
-import { useDispatch } from 'react-redux';
-import { setSession } from '../features/session/sessionSlice';
+// import { useDeleteSessionMutation } from '../app/services/mySessionsApi';
+// import { useDispatch } from 'react-redux';
+// import { setSession } from '../features/session/sessionSlice';
 
-function SessionCard({ session }) {
+function SessionCard({session, onGoToGames, onGoToSessionUpdateForm, onDeleteSession}) {
 
-  const [deleteSession] = useDeleteSessionMutation()
-
-  const dispatch = useDispatch();
-
-  let navigate = useNavigate()
+  // Redux methods
+  // const [deleteSession] = useDeleteSessionMutation()
+  // const dispatch = useDispatch();
   
-  // GET array of games on click
-  const handleDetailsClick = () => {
-    // Need to get Session.id on click then redirect to Games route
-    dispatch(setSession(session))
-    navigate('/mygames/games');
+  // Event handler: Update session state and go to session's Games summary
+  const goToGames = () => {
+    // Redux methods
+    // dispatch(setSession(session))
 
-    // fetch(`/game_sessions/${session.id}`)
-    // .then(res => {
-    //   if(res.ok) {
-    //     res.json()
-    //     .then(data => {
-    //       setMyGames(data.games);
-    //     })
-    //   } else {
-    //     res.json()
-    //     .then(json => setErrors(json["errors"]))
-    //   }
-    // })
+    onGoToGames(session);
+  }
+
+  // Event Handler: Go to Update Form
+  const goToUpdateForm = () => {
+    onGoToSessionUpdateForm(session);
   }
   
+  // Event Handler: Delete a session
   const handleDelete = () => {
-    deleteSession(session.id)
-    // Frontend Render DELETE
-    // setMySessions(mySessions.filter(s => s.id !== session.id))
-    
-    // Backend DELETE
-    // fetch(`/game_sessions/${session.id}`, {method: "DELETE"})
+    // Redux method
+    // deleteSession(session.id)
+
+    onDeleteSession(session);
   }
 
   return (
@@ -47,7 +36,8 @@ function SessionCard({ session }) {
         <h3>Bowling Session on {session.date}</h3>
       </div>
       <br/>
-      <button onClick={handleDetailsClick} className='moreButton'>Session Details</button>
+      <button onClick={goToGames} className='moreButton'>Session Details</button>
+      <button onClick={goToUpdateForm} className='addButton'>Update Session</button>
       <button onClick={handleDelete} className='deleteButton'>Delete Session</button>
       <br/><br/>
       <table>

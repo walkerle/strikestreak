@@ -24,6 +24,9 @@ class CreateGames < ActiveRecord::Migration[7.0]
       t.integer :f10b2
       t.integer :f10b3
       t.integer :score
+      t.integer :strikes
+      t.integer :spares
+      t.integer :open_frames
       t.string :notes
 
       t.timestamps

@@ -84,6 +84,22 @@ hr.dividerLine {
   margin: 10px 20px;
 }
 
+.errors {
+  background-color: black;
+  border: solid;
+  border-width: 3px;
+  border-color: red;
+  border-radius: 5px;
+  width: fit-content;
+  margin: auto;
+}
+
+.errors h4 {
+  margin: 10px 20px;
+  color: red;
+  text-shadow: none;
+}
+
 /* BUTTONS (Add=add / More=details, view, update / Delete=delete) */
 
 .addButton {

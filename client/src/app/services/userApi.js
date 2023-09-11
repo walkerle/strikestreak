@@ -8,10 +8,13 @@ export const userApi = createApi({
   tagTypes: ['User'],
   endpoints(builder){
     return{
+      // GET data request to the backend
       autoLogin: builder.query({
-        query: () => ('/me'),
+        query: () => ('/me'), // Path to the backend
         providesTags: ['User'],
       }),
+
+      // POST data request to the backend
       createUser: builder.mutation({
         query: ({...body}) => ({
           url: '/signup',
@@ -20,6 +23,8 @@ export const userApi = createApi({
         }),
         invalidatesTags: ['User']
       }),
+
+      // POST data request to the backend
       loginUser: builder.mutation({
         query: ({...body}) => ({
           url: '/login',
@@ -36,6 +41,8 @@ export const userApi = createApi({
           }
         }
       }),
+
+      // DELETE data request to the backend
       logoutUser: builder.mutation({
         query: () => ({
           url: '/logout',

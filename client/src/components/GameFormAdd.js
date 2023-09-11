@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useAddGameMutation } from '../app/services/myGamesApi';
+// import { useNavigate } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
+// import { useAddGameMutation } from '../app/services/myGamesApi';
 
-function GameForm() {
+function GameFormAdd({session, onAddGame}) {
 
-  const sessionId = useSelector(state => state.session.value.id)
-  // console.log(sessionId)
-  const [addGame, {error}] = useAddGameMutation()
+  // Redux method
+  // const sessionId = useSelector(state => state.session.value.id)
+  // const [addGame, {error}] = useAddGameMutation()
 
-  let navigate = useNavigate()
+  // let navigate = useNavigate()
 
   const initialForm = {
     f1b1: 0,
@@ -36,14 +36,14 @@ function GameForm() {
     score: 0,
     strikes: 0,
     spares: 0,
-    opens: 0,
+    open_frames: 0,
     notes: "",
-    game_session_id: sessionId
+    game_session_id: session.id
   }
 
   const [form, setForm] = useState(initialForm);
-  // const [errors, setErrors] = useState([]);
 
+  // Event Handler: Make controlled inputs
   const handleScoreChange = (e) => {
     setForm({...form, [e.target.name]: parseInt(e.target.value)})
   }
@@ -52,49 +52,41 @@ function GameForm() {
     setForm({...form, [e.target.name]: e.target.value})
   }
   
-  // CREATE
+  // Event Handler: Add Game to Session
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    setForm({...form, score: f10s})
-    addGame(form)
-    navigate('/mygames/games')
 
-    // Frontend Render and Backend CREATE
-    // const config = {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(form)
-    // }
+    // addGame(form)
+    // navigate('/games')
     
-    // fetch(`/games`, config)
-    // .then(res => {
-    //   if(res.ok) {
-    //     res.json()
-    //     .then(data => {
-    //       setErrors([])
-    //       navigate('/mygames/games');
-    //     })
-    //   } else {
-    //     res.json().then(json => setErrors(json["errors"]))
-    //   }
-    // })
+    onAddGame({
+      ...form,
+      score: f10s,
+      strikes: strikes,
+      spares: spares,
+      open_frames: open_frames      
+    });
     
     setForm(initialForm);
   }
 
   let strikes = 0;
   let spares = 0;
-  let opens = 0;
+  let open_frames = 0;
 
   const eachFrameScore = (f1b1, f1b2, f2b1, f2b2, f3b1, prevScore) => {
     if(f1b1 === 10 && f2b1 === 10) {
+      ++strikes
       return f1b1 + f2b1 + f3b1 + prevScore;
     } else if(f1b1 === 10 && f2b1 !== 10) {
+      ++strikes
       return f1b1 + f2b1 + f2b2 + prevScore;
     } else if(f1b1 + f1b2 === 10) {
+      ++spares
       return f1b1 + f1b2 + f2b1 + prevScore;
     } else {
-      return f1b1 + f1b2 + prevScore;      
+      ++open_frames
+      return f1b1 + f1b2 + prevScore;
     }
   }
 
@@ -104,18 +96,19 @@ function GameForm() {
     } else if(b1 === 10 && b2 === 10 && b3 !== 10) {
       strikes = strikes + 2;
     } else if(b1 === 10 && b2 + b3 === 10) {
-      strikes++;
-      spares++;
+      ++strikes;
+      ++spares;
     } else if(b1 === 10 && b2 + b3 !== 10) {
-      strikes++;
-      opens++;
+      ++strikes;
+      ++open_frames;
     } else if(b1 + b2 === 10 && b3 === 10) {
-      strikes++;
-      spares++;
+      ++strikes;
+      ++spares;
     } else if(b1 + b2 === 10 && b3 !== 10) {
-      spares++
+      ++spares
     } else {
-      opens++;
+      ++open_frames;
+      return b1 + b2 + prevScore;
     }
     return b1 + b2 + b3 + prevScore;
   }
@@ -133,10 +126,6 @@ function GameForm() {
 
   return (
     <div>
-      {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")} */}
-      {error?.data.errors.map((err) => (
-        <h3 style={{color:'red'}}>{err.toUpperCase()}</h3>
-      ))}
       <div className='gameContainer'>
         <h3>Add New Game</h3>
       </div>
@@ -165,12 +154,18 @@ function GameForm() {
                     type="number"
                     name="f1b1"
                     value={form.f1b1}
+                    min="0"
+                    max="10"
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f1b2"
                     value={form.f1b2}
+                    min="0"
+                    max={10 - form.f1b1}
+                    required
                   />
                 </td>
                 <td>
@@ -180,12 +175,18 @@ function GameForm() {
                     type="number"
                     name="f2b1"
                     value={form.f2b1}
+                    min="0"
+                    max="10"
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f2b2"
                     value={form.f2b2}
+                    min="0"
+                    max={10 - form.f2b1}
+                    required
                   />
                 </td>
                 <td>
@@ -195,12 +196,18 @@ function GameForm() {
                     type="number"
                     name="f3b1"
                     value={form.f3b1}
+                    min="0"
+                    max="10"
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f3b2"
                     value={form.f3b2}
+                    min="0"
+                    max={10 - form.f3b1}
+                    required
                   />
                 </td>
                 <td>
@@ -210,12 +217,18 @@ function GameForm() {
                     type="number"
                     name="f4b1"
                     value={form.f4b1}
+                    min="0"
+                    max="10"
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f4b2"
                     value={form.f4b2}
+                    min="0"
+                    max={10 - form.f4b1}
+                    required
                   />
                 </td>
                 <td>
@@ -225,12 +238,18 @@ function GameForm() {
                     type="number"
                     name="f5b1"
                     value={form.f5b1}
+                    min="0"
+                    max="10"
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f5b2"
                     value={form.f5b2}
+                    min="0"
+                    max={10 - form.f5b1}
+                    required
                   />
                 </td>
                 <td>
@@ -240,12 +259,18 @@ function GameForm() {
                     type="number"
                     name="f6b1"
                     value={form.f6b1}
+                    min="0"
+                    max="10"
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f6b2"
                     value={form.f6b2}
+                    min="0"
+                    max={10 - form.f6b1}
+                    required
                   />
                 </td>
                 <td>
@@ -255,12 +280,18 @@ function GameForm() {
                     type="number"
                     name="f7b1"
                     value={form.f7b1}
+                    min="0"
+                    max="10"
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f7b2"
                     value={form.f7b2}
+                    min="0"
+                    max={10 - form.f7b1}
+                    required
                   />
                 </td>
                 <td>
@@ -270,12 +301,18 @@ function GameForm() {
                     type="number"
                     name="f8b1"
                     value={form.f8b1}
+                    min="0"
+                    max="10"
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f8b2"
                     value={form.f8b2}
+                    min="0"
+                    max={10 - form.f8b1}
+                    required
                   />
                 </td>
                 <td>
@@ -285,12 +322,18 @@ function GameForm() {
                     type="number"
                     name="f9b1"
                     value={form.f9b1}
+                    min="0"
+                    max="10"
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f9b2"
                     value={form.f9b2}
+                    min="0"
+                    max={10 - form.f9b1}
+                    required
                   />
                 </td>
                 <td>
@@ -300,36 +343,49 @@ function GameForm() {
                     type="number"
                     name="f10b1"
                     value={form.f10b1}
+                    min="0"
+                    max="10"
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f10b2"
                     value={form.f10b2}
+                    min="0"
+                    max={(form.f10b1 === 10) ? 10 : 10 - form.f10b1}
+                    required
                   /> | <input
                     className="gameFormFrame"
                     onChange={handleScoreChange}
                     type="number"
                     name="f10b3"
                     value={form.f10b3}
+                    min="0"
+                    max={(form.f10b1 + form.f10b2 === 10 || form.f10b2 === 10 ? 10 : (form.f10b1 === 10 && form.f10b2 < 10 ? 10 - form.f10b2 : 0))}
+                    required
                   />
                 </td>
               </tr>
               <tr className='bottomRow'>
-                <td>{f1s}</td>
-                <td>{f2s}</td>
-                <td>{f3s}</td>
-                <td>{f4s}</td>
-                <td>{f5s}</td>
-                <td>{f6s}</td>
-                <td>{f7s}</td>
-                <td>{f8s}</td>
-                <td>{f9s}</td>
-                <td>{f10s}</td>
+                <td>{(isNaN(f1s) || form.f1b1 + form.f1b2 > 10 ? "Error" : f1s)}</td>
+                <td>{(isNaN(f2s) || form.f2b1 + form.f2b2 > 10 ? "Error" : f2s)}</td>
+                <td>{(isNaN(f3s) || form.f3b1 + form.f3b2 > 10 ? "Error" : f3s)}</td>
+                <td>{(isNaN(f4s) || form.f4b1 + form.f4b2 > 10 ? "Error" : f4s)}</td>
+                <td>{(isNaN(f5s) || form.f5b1 + form.f5b2 > 10 ? "Error" : f5s)}</td>
+                <td>{(isNaN(f6s) || form.f6b1 + form.f6b2 > 10 ? "Error" : f6s)}</td>
+                <td>{(isNaN(f7s) || form.f7b1 + form.f7b2 > 10 ? "Error" : f7s)}</td>
+                <td>{(isNaN(f8s) || form.f8b1 + form.f8b2 > 10 ? "Error" : f8s)}</td>
+                <td>{(isNaN(f9s) || form.f9b1 + form.f9b2 > 10 ? "Error" : f9s)}</td>
+                <td>{(isNaN(f10s) || (form.f10b1 !== 10 && form.f10b1 + form.f10b2 > 10) || (form.f10b1 === 10 && form.f10b2 !== 10 && form.f10b2 + form.f10b3 > 10) || (form.f10b1 === 10 && form.f10b2 === 10 && form.f10b3 > 10) ? "Error" : f10s)}</td>
               </tr>
             </tbody>
           </table>
-          <br/>
+          <h4>
+            <strong>Number of Strikes: </strong>{strikes} |
+            <strong> Number of Spares: </strong>{spares} |
+            <strong> Number of Open Frames: </strong>{open_frames}
+          </h4>
           <div className='gameFormNotes'>
             <div>
               <strong>Notes: </strong>
@@ -339,6 +395,9 @@ function GameForm() {
                 name="notes"
                 placeholder="Enter Any Notes"
                 value={form.notes}
+                minLength="0"
+                maxLength="100"
+                size="105"
               />
             </div>
           </div>
@@ -350,4 +409,4 @@ function GameForm() {
   )
 }
 
-export default GameForm;
+export default GameFormAdd;

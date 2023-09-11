@@ -1,20 +1,13 @@
 Rails.application.routes.draw do
+  resources :users, only: [:index, :show]
+  resources :stats, only: [:index, :show]
+  resources :game_sessions
   resources :games
-  resources :game_sessions do
-    resources :games
-  end
-  resources :overall_stats do
-    resources :game_sessions
-  end
-  resources :join_friends
-  resources :users, only: [:index, :show, :create] do
-    resources :overall_stats
-    resources :join_friends
-  end
+  resources :join_friends, except: [:show, :update]
 
-  get '/me', to: 'users#me'
+  post '/signup', to: 'users#create'
+  get '/me', to: 'sessions#show'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
-  post '/signup', to: 'users#create'
   
 end

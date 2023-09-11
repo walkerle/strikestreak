@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useCreateUserMutation } from '../app/services/userApi';
+// import { useNavigate } from 'react-router-dom';
+// import { useCreateUserMutation } from '../app/services/userApi';
 
-function Signup() {
+function Signup({onSignup, errors}) {
 
-  let navigate = useNavigate();
+  // Redux method
+  // const [createUser] = useCreateUserMutation();
 
-  const [createUser] = useCreateUserMutation();
+  // let navigate = useNavigate();
+
+  const errorsArr = errors.errors;
 
   const initialForm = {
     username: "",
@@ -24,8 +27,10 @@ function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    createUser(signupForm);
-    navigate(`/mystats`);
+    onSignup(signupForm);
+
+    // createUser(signupForm);
+    // navigate(`/stats`);
     // fetch("/users", {
     //   method: "POST",
     //   headers: { "Content-Type": "application/json" },
@@ -51,7 +56,6 @@ function Signup() {
 
   return (
     <div>
-      {/* {(errors ? errors.map(error => <h3 style={{color:'red'}}>{error.toUpperCase()}</h3>) : "")} */}
       <br/>
       <div className='Headers'>
         <h2>CREATE AN ACCOUNT</h2>
@@ -86,6 +90,8 @@ function Signup() {
           <button type="submit" className="moreButton">Submit</button>
         </form>
       </div>
+      <br/>
+      {(errorsArr ? <div className='errors'>{errorsArr.map(error => <h4 key={error}>{error.toUpperCase()}</h4>)}</div> : "")}
     </div>
   )
 }
