@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.82b83574.css",
+    "main.js": "/static/js/main.fb2eed99.js",
+    "static/js/787.c4e7f8f9.chunk.js": "/static/js/787.c4e7f8f9.chunk.js",
+    "static/media/bowling_background.jpg": "/static/media/bowling_background.72d46d546135276f66ea.jpg",
+    "index.html": "/index.html",
+    "main.82b83574.css.map": "/static/css/main.82b83574.css.map",
+    "main.fb2eed99.js.map": "/static/js/main.fb2eed99.js.map",
+    "787.c4e7f8f9.chunk.js.map": "/static/js/787.c4e7f8f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.82b83574.css",
+    "static/js/main.fb2eed99.js"
+  ]
+}

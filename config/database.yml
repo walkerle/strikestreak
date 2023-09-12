@@ -81,6 +81,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
   database: strikestreak_production
   username: strikestreak
   password: <%= ENV["STRIKESTREAK_DATABASE_PASSWORD"] %>
