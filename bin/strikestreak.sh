@@ -9,4 +9,5 @@ cp -a client/build/. public/
 
 # backend build commands
 bundle install
+bundle exec rails db:drop
 bundle exec rails db:create db:migrate db:seed
