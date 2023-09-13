@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  # 
+  # Redirect get requests to frontend client side routes
   get '*path', to: 'fallback#index', constraints:-> (req) { !req.xhr? && req.format.html? }
   
 end

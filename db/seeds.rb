@@ -29,7 +29,7 @@ puts "Seeding JoinFriends..."
 JoinFriend.create(friender_id: 8, friendee_id: 9)
 JoinFriend.create(friender_id: 8, friendee_id: 2)
 JoinFriend.create(friender_id: 8, friendee_id: 5)
-JoinFriend.create(friender_id: 8, friendee_id: 15)
+JoinFriend.create(friender_id: 8, friendee_id: 12)
 JoinFriend.create(friender_id: 9, friendee_id: 8)
 JoinFriend.create(friender_id: 2, friendee_id: 3)
 JoinFriend.create(friender_id: 5, friendee_id: 4)

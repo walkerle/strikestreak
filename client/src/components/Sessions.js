@@ -10,22 +10,6 @@ function Sessions({sessions, onGoToGames, onGoToSessionUpdateForm, onDeleteSessi
   // const mySessions = user.stat.game_sessions
 
   // const [errors, setErrors] = useState([]);
-
-  // GET
-  // useEffect(() => {
-  //   fetch(`/overall_stats/${overallStats.id}`)
-  //   .then(res => {
-  //     if(res.ok) {
-  //       res.json()
-  //       .then(data => {
-  //         setMySessions(data.game_sessions)
-  //       })
-  //     } else {
-  //       res.json()
-  //       .then(json => setErrors(json["errors"]))
-  //     }
-  //   })
-  // }, [])
   
   const renderMySessions = sessions?.map(session => {
     return <SessionCard key={session.id} session={session} onGoToGames={onGoToGames} onGoToSessionUpdateForm={onGoToSessionUpdateForm} onDeleteSession={onDeleteSession} />
