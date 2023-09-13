@@ -28,9 +28,9 @@ function NavBar({user, onLogout}) {
     return (
       <nav id='navBar'>
         <NavLink to='/'>HOME</NavLink>
-        <NavLink to='/stats'>MY STATS</NavLink>
-        <NavLink to='/sessions'>MY SESSIONS</NavLink>
-        <NavLink to='/friends'>FRIENDS LIST</NavLink>
+        <NavLink to='/mystats'>MY STATS</NavLink>
+        <NavLink to='/mysessions'>MY SESSIONS</NavLink>
+        <NavLink to='/myfriends'>FRIENDS LIST</NavLink>
         <NavLink to='/' onClick={handleLogout}>LOGOUT</NavLink>
       </nav>
     )

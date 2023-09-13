@@ -1,24 +1,43 @@
-# README
+# Welcome to Strike Streak!
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<img src='./public/readmeimg.jpg' alt='Strike Streak' width='800px' margin='auto'/>
 
-Things you may want to cover:
+## Application Summary
 
-* Ruby version
+Strike Streak is an application to record and track an user's bowling statistics, bowling sessions and games.  Users can also find and compare other user stats against their own.
 
-* System dependencies
+## Application Demo
+Seed data has been added to the application to demonstrate using this application, see below example login credentials.
 
-* Configuration
+### Seed Data for Demo
 
-* Database creation
+* Email Login: **ron@gmail.com** // Password: **1234**
+* Email Login: **ej@gmail.com** // Password: **1234**
+* Email Login: **tom@gmail.com** // Password: **1234**
 
-* Database initialization
+## User Navigation
+* Users can create their own account.
+* Users can view their overall statistics (total games played, pinfall, averages...).
+* Users can read, create, update, and delete bowling sessions.
+* Users can read, create, update, and delete bowling games.
+* Each game will will show the result of every frame and total number of strikes, spares, and open frames.
 
-* How to run the test suite
+## Application Features
+* Calculates **overall statistics** (total games played, pinfall, averages...) based on total sessions and games recorded.
+* Calculates **statistics for every game session** recorded based on total games recorded for that specific game session.
+* Calculates user's total score, number of strikes, spares, and open frames for a game.
+* Search, add, and delete friends listed within the database.
+* View a friend's overall statistics.
 
-* Services (job queues, cache servers, search engines, etc.)
+## Built With
+* ReactJS Version 18.2.0
 
-* Deployment instructions
+* Ruby on Rails Version 2.7.4
 
-* ...
+* PostgreSQL Version 14
+
+## Contributors
+### Walker Le
+LinkedIn: [https://www.linkedin.com/in/walker-le/](https://www.linkedin.com/in/walker-le/)
+
+GitHub: [https://github.com/walkerle](https://github.com/walkerle)
