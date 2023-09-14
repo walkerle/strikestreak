@@ -7,13 +7,13 @@
 Strike Streak is an application to record and track an user's bowling statistics, bowling sessions and games.  Users can also find and compare other user stats against their own.
 
 ## Application Demo
-Seed data has been added to the application to demonstrate using this application, see below example login credentials.
+Seed data has been added to demonstrate using this application, see below example login credentials.
 
-### Seed Data for Demo
+### Seed Data Login Credentials
 
-* Email Login: **ron@gmail.com** // Password: **1234**
-* Email Login: **ej@gmail.com** // Password: **1234**
-* Email Login: **tom@gmail.com** // Password: **1234**
+* Email Login: **ron@gmail.com** || Password: **1234**
+* Email Login: **ej@gmail.com** || Password: **1234**
+* Email Login: **pete@gmail.com** || Password: **1234**
 
 ## User Navigation
 * Users can create their own account.
