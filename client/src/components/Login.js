@@ -67,7 +67,16 @@ function Login({onLogin, errors}) {
         </form>
       </div>
       <br/>
-      {(error ? <div className='errors'><h4 style={{color:'red'}}>{error.toUpperCase()}</h4></div> : "")}
+      {(error ? <><div className='errors'><h4 style={{color:'red'}}>{error.toUpperCase()}</h4></div><br/></> : "")}
+      <div className='homeMessage'>
+        <h3>For Application Demonstration:</h3>
+        <p>Seed data has been added to demonstrate using this application, see below example login credentials.</p>
+        <h4>Seed Data Login Credentials:</h4>
+        <p>Email Login: <strong>ron@gmail.com</strong> || Password: <strong>1234</strong></p>
+        <p>Email Login: <strong>ej@gmail.com</strong> || Password: <strong>1234</strong></p>
+        <p>Email Login: <strong>pete@gmail.com</strong> || Password: <strong>1234</strong></p>
+        </div>
+        <br/>
     </div>
   )
 }

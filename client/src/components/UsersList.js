@@ -21,11 +21,9 @@ function UsersList({onAddFriend, currentUser, errors}) {
     .then(data => setUsers(data))
   }, [])
 
-  const filterCurrentUser = users.filter(user => currentUser.id !== user.id)
-
-  const sortUsers = filterCurrentUser.sort((a, b) => a.username.localeCompare(b.username))
-
-  const searchUsers = sortUsers.filter(user => user.username.toLowerCase().includes(submitSearch.toLowerCase()));
+  const searchUsers = users.filter(user => currentUser.id !== user.id) // Filter out currentUser
+  .sort((a, b) => a.username.localeCompare(b.username)) // sort users alphabetically
+  .filter(user => user.username.toLowerCase().includes(submitSearch.toLowerCase()));
 
   const renderUsers = searchUsers?.map(user => {
     return <UserCard key={user.id} user={user} onAddFriend={onAddFriend} />
@@ -41,20 +39,6 @@ function UsersList({onAddFriend, currentUser, errors}) {
     e.preventDefault();
     setSubmitSearch(search);
     setSearch('');
-  }
-
-  const searchTable = () => {
-    return (
-      <table>
-        <tbody>
-          <tr className='topRow'>
-            <th>Username</th>
-            <th>Add Friend</th>
-          </tr>
-          {renderUsers}
-        </tbody>
-      </table>
-    )
   }
 
   return (
@@ -75,7 +59,17 @@ function UsersList({onAddFriend, currentUser, errors}) {
       </form>
       <br/>
       {(errorsArr ? <><div className='errors'><h4>FRIEND IS ALREADY ON YOUR FRIENDS LIST</h4></div><br/></> : "")}
-      {(searchUsers.length === 0 ? <strong>No Results</strong> : searchTable())}
+      <table>
+        <tbody>
+          {(searchUsers.length === 0 ? <tr className='topRow'><th>No Results</th></tr> : // Render search table
+            (<><tr className='topRow'>
+              <th>Username</th>
+              <th>Add Friend</th>
+            </tr>
+            {renderUsers}</>))
+          }
+        </tbody>
+      </table>
       <br/>
       <br/>
     </div>
