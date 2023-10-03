@@ -51,6 +51,10 @@
   margin: 10px 20px;
 }
 
+.Headers h3 {
+  margin: 10px 20px;
+}
+
 h2 {
   letter-spacing: normal;
 }
@@ -119,6 +123,7 @@ div p {
     background-color: #2121ba;
     background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
     box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6), inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+    cursor: pointer
 }
 
 .addButton:active {
@@ -138,6 +143,7 @@ div p {
     background-color: #ac7205;
     background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
     box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6), inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+    cursor: pointer
 }
 
 .moreButton:active {
@@ -157,6 +163,7 @@ div p {
     background-color: #ad0000;
     background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
     box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6), inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+    cursor: pointer
 }
 
 .deleteButton:active {
