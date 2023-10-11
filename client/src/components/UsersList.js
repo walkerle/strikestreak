@@ -21,9 +21,9 @@ function UsersList({onAddFriend, currentUser, errors}) {
     .then(data => setUsers(data))
   }, [])
 
-  const searchUsers = users.filter(user => currentUser.id !== user.id) // Filter out currentUser
-  .sort((a, b) => a.username.localeCompare(b.username)) // sort users alphabetically
-  .filter(user => user.username.toLowerCase().includes(submitSearch.toLowerCase()));
+  const searchUsers = users.filter(user => currentUser.id !== user.id) // Filter out currentUser => O(n)
+  .sort((a, b) => a.username.localeCompare(b.username)) // sort users alphabetically => O(n)
+  .filter(user => user.username.toLowerCase().includes(submitSearch.toLowerCase())); // => O(n^2), is it more efficient to perform 'toLowerCase()' outside of .filter?
 
   const renderUsers = searchUsers?.map(user => {
     return <UserCard key={user.id} user={user} onAddFriend={onAddFriend} />

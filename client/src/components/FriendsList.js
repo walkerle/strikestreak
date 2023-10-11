@@ -47,13 +47,18 @@ function FriendsList({joinFriends, onGoToFriendStats, onDeleteFriend}) {
   if(joinFriends.length > 0) {
     leaderboardIds = [joinFriends[0].friender_id, ...joinFriends.map(joinFriend => joinFriend.friendee_id)]
   }
-  
+  // if(joinFriends.length > 0) { // Alternate? O(n) - in progress, change leaderboardIds to object to improve time complexity?
+  //   leaderboardIds[joinFriends[0].friender_id] = 1; // Adds current user id to leaderboardIds an an object key
+  //   for(let element of joinFriends) if(!leaderboardIds[element]) leaderboardIds[element] = 1; // Adds each friend id  to leaderboardIds as an object key
+  // }
+  // console.log('leaderboardIds', leaderboardIds);
+    
   // Create array of objects for self and friends stats
-  // Time complexity appears to be O(n^2);
-  // Multiple Pointers Algo? **FUTURE REFACTOR**
+  // '.filter.includes': Time complexity appears to be O(n^2)
+  // Refactored to improve time complexity: O(n^2) => O(n)
   const leaderboardStats = users.filter(user => leaderboardIds.includes(user.id))
-  // console.log('leaderboardStats:', leaderboardStats);
-  // console.log('users:', users);
+  // const leaderboardStats = users.filter(user => (user.id in leaderboardIds)); // Alternate? O(n) => error on initial load, but works after fetched data
+  // console.log('leaderboardStats', leaderboardStats)
 
   // "Indirect" Event Handler: Sort based on specified column
   switch (sort) {
@@ -84,6 +89,8 @@ function FriendsList({joinFriends, onGoToFriendStats, onDeleteFriend}) {
       <tr className='multiRow' key={leaderStat.id}>
         <td>{topFiveLeaderboard.indexOf(leaderStat) + 1}</td>
         <td>{leaderStat.username}</td>
+        <td>{leaderStat.stat.total_games}</td>
+        <td>{leaderStat.stat.total_pinfall}</td>
         <td>{leaderStat.stat.average}</td>
         <td>{leaderStat.stat.high_score}</td>
         <td>{leaderStat.stat.low_score}</td>
@@ -128,6 +135,8 @@ function FriendsList({joinFriends, onGoToFriendStats, onDeleteFriend}) {
             <tr className='topRow'>
               <th>Rank</th>
               <th>Username</th>
+              <th>Total Games</th>
+              <th>Total Pinfall</th>
               <th onClick={handleSort} name='average' style={{cursor: 'pointer'}}>Average</th>
               <th onClick={handleSort} value='high_score' style={{cursor: 'pointer'}}>High Score</th>
               <th onClick={handleSort} value='low_score' style={{cursor: 'pointer'}}>Low Score</th>

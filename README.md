@@ -4,16 +4,21 @@
 
 ## Application Summary
 
-Strike Streak is an application to record and track an user's bowling statistics, bowling sessions and games.  Users can also find and compare other user stats against their own.
+Strike Streak is an application to record and track an user's bowling statistics, sessions, and games.  Users can also find and compare other user stats against their own.
 
 ## Application Demo
+
+[Web Link: https://strikestreak.onrender.com/](https://strikestreak.onrender.com/)
+
+NOTE: App is hosted on the free-tier of a third-party cloud server, PLEASE BE PATIENT ON INITIAL LOAD!
+
 Seed data has been added to demonstrate using this application, see below example login credentials.
 
 ### Seed Data Login Credentials
 
+* Email Login: **walker@gmail.com** || Password: **1234**
 * Email Login: **ron@gmail.com** || Password: **1234**
 * Email Login: **ej@gmail.com** || Password: **1234**
-* Email Login: **pete@gmail.com** || Password: **1234**
 
 ## User Navigation
 * Users can create their own account.
@@ -28,6 +33,7 @@ Seed data has been added to demonstrate using this application, see below exampl
 * Calculates user's total score, number of strikes, spares, and open frames for a game.
 * Search, add, and delete friends listed within the database.
 * View a friend's overall statistics.
+* View a leaderboard to compare friends general statistics (average, high score, low score).
 
 ## Built With
 * ReactJS Version 18.2.0
