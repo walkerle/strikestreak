@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  # Checks the GET request, if not found, redirects to fallback controller, index action
+  # Checks the GET request, if not found in above backend routes, redirects to fallback controller index action to render frontend html
   get '*path', to: 'fallback#index', constraints: -> (req) { !req.xhr? && req.format.html? } # stabby lambda syntax ("arrow" function notation)
   
 end

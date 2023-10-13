@@ -11,9 +11,14 @@ function SessionFormAdd({stats, onAddSession}) {
 
   // let navigate = useNavigate()
 
+  // Initial datetime datatype for form data - Using local datetime get methods
+  const dateInst = new Date(Date.now());
+  // Convert Date instance to string
+  const initialDate = `${dateInst.getUTCFullYear()}-${(dateInst.getUTCMonth()+1 < 10 ? `0${dateInst.getUTCMonth()+1}` : dateInst.getUTCMonth()+1)}-${(dateInst.getUTCDate() < 10 ? `0${dateInst.getUTCDate()}` : dateInst.getUTCDate())}`;
+
   // Initial form data
   const initialForm = {
-    date: "",
+    date: initialDate,
     number_of_games: 0,
     pinfall: 0,
     average: 0,
@@ -31,6 +36,11 @@ function SessionFormAdd({stats, onAddSession}) {
 
   // Event Handler: Make controlled inputs
   const handleFormChange = (e) => {
+    setForm({...form, [e.target.name]: e.target.value})
+  }
+
+  // Event Handler: Make date a controlled input
+  const handleDateChange = (e) => {
     setForm({...form, [e.target.name]: e.target.value})
   }
   
@@ -58,10 +68,11 @@ function SessionFormAdd({stats, onAddSession}) {
         <form onSubmit={handleFormSubmit}>
           <strong>Date: </strong>
           <input 
-            onChange={handleFormChange}
-            type="text"
+            onChange={handleDateChange}
+            type="date"
             name="date"
-            placeholder="Enter Date"
+            min="2023-01-01"
+            max="2024-12-31"
             value={form.date}
           /><br/>
           <strong>Total Games Played: </strong>{form.number_of_games}

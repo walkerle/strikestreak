@@ -30,10 +30,17 @@ function SessionCard({session, onGoToGames, onGoToSessionUpdateForm, onDeleteSes
     onDeleteSession(session);
   }
 
+  // Convert Ruby datetime to formatted datetime on app
+  const month = (session.date ? session.date.substring(5, 7) : '');
+  const day = (session.date ? session.date.substring(8, 10) : '');
+  const year = (session.date ? session.date.substring(0, 4) : '');
+  // const date = (!session.date ? '*error*': `${month}/${day}/${year}`);
+  const date = (!session.date || session.date.includes('-') ? `${month}/${day}/${year}` : session.date);
+
   return (
     <div>
       <div className='sessionContainer'>
-        <h3>Bowling Session on {session.date}</h3>
+        <h3>Bowling Session on {date}</h3>
       </div>
       <br/>
       <button onClick={goToGames} className='moreButton'>Session Details</button>
@@ -45,8 +52,7 @@ function SessionCard({session, onGoToGames, onGoToSessionUpdateForm, onDeleteSes
         </thead>
         <tbody>
           <tr className='topRow'>
-            <th>Date</th>
-            <th>Number of Games</th>
+            <th>Games</th>
             <th>Total Pinfall</th>
             <th>Session Average</th>
             <th>High Score</th>
@@ -56,7 +62,6 @@ function SessionCard({session, onGoToGames, onGoToSessionUpdateForm, onDeleteSes
             <th>Total Open Frames</th>
           </tr>
           <tr className='middleRow'>
-            <td>{session.date}</td>
             <td>{session.number_of_games}</td>
             <td>{session.pinfall}</td>
             <td>{session.average}</td>

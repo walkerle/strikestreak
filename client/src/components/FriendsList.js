@@ -6,7 +6,7 @@ import FriendCard from './FriendCard';
 
 function FriendsList({joinFriends, onGoToFriendStats, onDeleteFriend}) {
   
-  // React state(s) // joinFriends.friendee.id
+  // React state(s)
   const [users, setUsers] = useState([]);
   const [sort, setSort] = useState('average');
   

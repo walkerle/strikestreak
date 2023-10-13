@@ -10,8 +10,6 @@ Strike Streak is an application to record and track an user's bowling statistics
 
 [Web Link: https://strikestreak.onrender.com/](https://strikestreak.onrender.com/)
 
-NOTE: App is hosted on the free-tier of a third-party cloud server, PLEASE BE PATIENT ON INITIAL LOAD!
-
 Seed data has been added to demonstrate using this application, see below example login credentials.
 
 ### Seed Data Login Credentials
