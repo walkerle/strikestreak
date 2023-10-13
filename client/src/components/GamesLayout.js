@@ -7,6 +7,12 @@ function GamesLayout({session}) {
   // Redux method
   // const session = useSelector(state => state.session.value)
 
+  // Convert Ruby datetime to formatted datetime on app
+  const month = (session.date ? session.date.substring(5, 7) : '');
+  const day = (session.date ? session.date.substring(8, 10) : '');
+  const year = (session.date ? session.date.substring(0, 4) : '');
+  const date = (!session.date || session.date.includes('-') ? `${month}/${day}/${year}` : session.date);
+
   return (
     <div>
       <br/>
@@ -21,7 +27,7 @@ function GamesLayout({session}) {
       </nav>
       <br/>
       <div className='sessionContainer'>
-        <h3>Bowling Session on {session.date}</h3>
+        <h3>Bowling Session on {date}</h3>
       </div>
       <br/>
       <Outlet />

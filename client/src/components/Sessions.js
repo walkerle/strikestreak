@@ -11,7 +11,8 @@ function Sessions({sessions, onGoToGames, onGoToSessionUpdateForm, onDeleteSessi
 
   // const [errors, setErrors] = useState([]);
   
-  const renderMySessions = sessions?.map(session => {
+  const renderMySessions = sessions?.sort((a,b) => Date.parse(b.date) - Date.parse(a.date))
+  .map(session => {
     return <SessionCard key={session.id} session={session} onGoToGames={onGoToGames} onGoToSessionUpdateForm={onGoToSessionUpdateForm} onDeleteSession={onDeleteSession} />
   })
   

@@ -10,13 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_03_061122) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_13_220517) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "game_sessions", force: :cascade do |t|
     t.bigint "stat_id"
-    t.string "date"
     t.integer "number_of_games"
     t.integer "pinfall"
     t.integer "average"
@@ -28,6 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_03_061122) do
     t.string "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "date"
     t.index ["stat_id"], name: "index_game_sessions_on_stat_id"
   end
 
