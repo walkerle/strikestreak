@@ -83,8 +83,8 @@ function App() {
           // setSessions(user.stat.game_sessions)
           // setJoinFriends(user.join_friends)
           setErrors(false)
-          console.log(user); // Remove on final release
-          navigate('/stats');
+          // console.log(user); // Comment out on final release
+          navigate('/mystats');
         })
       } else {
         res.json()
@@ -110,8 +110,8 @@ function App() {
           setSessions(user.stat.game_sessions)
           setJoinFriends(user.join_friends)
           setErrors(false)
-          console.log(user); // Remove on final release
-          navigate('/stats');
+          // console.log(user); // Comment out on final release
+          navigate('/mystats');
         })
       } else {
         res.json().then(errors => setErrors(errors))
@@ -129,7 +129,7 @@ function App() {
       setSessions([])
       setJoinFriends([])
       setErrors(false)
-      console.log('User logged out');
+      // console.log('User logged out'); // Comment out on final release
     })
 
     navigate('/');
@@ -149,13 +149,13 @@ function App() {
     // Pessimistic Frontend Render
     .then(data => setSessions([...sessions, data]))
 
-    navigate('/sessions');
+    navigate('/mysessions');
   }
 
   // Event Handler: Update session state and go to Session Update Form
   const onGoToSessionUpdateForm = (sessionObj) => {
     setSession(sessionObj);
-    navigate('/sessions/edit');
+    navigate('/mysessions/edit');
   }
 
   // Event Handler: Update a session
@@ -173,7 +173,7 @@ function App() {
     // Pessimistic Frontend Render
     // .then(data => setSessions(sessions.map(session => session.id === data.id ? data : session)))
 
-    navigate('/sessions');
+    navigate('/mysessions');
   }
 
   // Event Handler: Delete a session
@@ -192,7 +192,7 @@ function App() {
   const onGoToGames = (sessionObj) => {
     setSession(sessionObj);
     setGames(sessionObj.games)
-    navigate('games');
+    navigate('mygames');
   }
 
   // Event Handler: Add a game
@@ -212,13 +212,13 @@ function App() {
       }
     })
 
-    navigate('/games');
+    navigate('/mygames');
   }
 
   // Event Handler: Update game state and go to Game Update Form
   const onGoToGameUpdateForm = (gameObj) => {
     setGame(gameObj);
-    navigate('/games/edit')
+    navigate('/mygames/edit')
   }
 
   // Event Handler: Update a game
@@ -237,7 +237,7 @@ function App() {
     // .then(data => setGames(games.map(game => game.id === data.id ? data : game)))
     // .then(data => console.log(data))
 
-    navigate('/games');
+    navigate('/mygames');
   }
 
   // Event Handler: Delete a game
@@ -264,7 +264,7 @@ function App() {
       if(res.ok) {
         res.json().then(data => setJoinFriends([...joinFriends, data]))
         setErrors(false)
-        navigate('/friends');
+        navigate('/myfriends');
       } else {
         res.json().then(errors => {setErrors(errors)})
       }
@@ -278,7 +278,7 @@ function App() {
     .then(data => {
       setFriend(data);
       setFriendStats(data.stat);
-      navigate('/friends/stats');
+      navigate('/myfriends/stats');
     })
   }
 
@@ -309,18 +309,18 @@ function App() {
         <NavBar user={user} onLogout={onLogout} />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/stats' element={<Stats stats={stats} />} />
-          <Route path='/sessions' element={<SessionsLayout />}>
+          <Route path='/mystats' element={<Stats stats={stats} />} />
+          <Route path='/mysessions' element={<SessionsLayout />}>
             <Route path='' element={<Sessions sessions={sessions} onGoToGames={onGoToGames} onGoToSessionUpdateForm={onGoToSessionUpdateForm} onDeleteSession={onDeleteSession} />} />
             <Route path='new' element={<SessionFormAdd stats={stats} onAddSession={onAddSession} />} />
             <Route path='edit' element={<SessionFormEdit session={session} onUpdateSession={onUpdateSession} />} />
           </Route>
-          <Route path='/games' element={<GamesLayout session={session} />}>
+          <Route path='/mygames' element={<GamesLayout session={session} />}>
             <Route path='' element={<Games games={games} onGoToGameUpdateForm={onGoToGameUpdateForm} onDeleteGame={onDeleteGame} />} />
             <Route path='new' element={<GameFormAdd session={session} onAddGame={onAddGame} />} />
             <Route path='edit' element={<GameFormEdit game={game} onUpdateGame={onUpdateGame} />} />
           </Route>
-          <Route path='/friends' element={<FriendsLayout />}>
+          <Route path='/myfriends' element={<FriendsLayout />}>
             <Route path='' element={<FriendsList joinFriends={joinFriends} onGoToFriendStats={onGoToFriendStats} onDeleteFriend={onDeleteFriend} />} />
             <Route path='stats' element={<FriendStats friend={friend} friendStats={friendStats} />} />
             <Route path='find' element={<UsersList onAddFriend={onAddFriend} currentUser={user} errors={errors} />} />

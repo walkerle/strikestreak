@@ -17,7 +17,7 @@ function GamesLayout({session}) {
       <nav className='secondaryNavBar'>
         <NavLink to=''>View All Games</NavLink>
         <NavLink to='new'>Add New Game</NavLink>
-        <NavLink to='/sessions'>Back to Sessions</NavLink>
+        <NavLink to='/mysessions'>Back to Sessions</NavLink>
       </nav>
       <br/>
       <div className='sessionContainer'>

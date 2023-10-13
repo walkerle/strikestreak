@@ -84,6 +84,10 @@ hr.dividerLine {
   margin: 10px 20px;
 }
 
+div p {
+  margin: 10px 20px;
+}
+
 .errors {
   background-color: black;
   border: solid;
