@@ -9,6 +9,7 @@ function FriendsList({joinFriends, onGoToFriendStats, onDeleteFriend}) {
   // React state(s)
   const [users, setUsers] = useState([]);
   const [sort, setSort] = useState('average');
+  const [sortOrder, setSortOrder] = useState(false)
   
   // Redux methods
   // const { data: user=null } = useAutoLoginQuery();
@@ -27,33 +28,40 @@ function FriendsList({joinFriends, onGoToFriendStats, onDeleteFriend}) {
     // console.log(e.target.textContent.toLowerCase().replace(' ', '_'));
     // Note: Time complexity for '.toLowerCase().replace' is O(n^2); switch case has more lines of code, but is more efficient, only evaluates 3 conditional cases
 
+    (e.target.textContent.includes('↓') || e.target.textContent.includes('↑') ? setSortOrder(!sortOrder) : setSortOrder(false));
     switch(e.target.textContent) {
+      case 'Total Games':
+        setSort(() => 'total_games');
+        break;
+      case 'Total Pinfall':
+        setSort(() => 'total_pinfall');
+        break;
       case 'Average':
-        setSort('average');
+        setSort(() => 'average');
         break;
       case 'High Score':
-        setSort('high_score');
+        setSort(() => 'high_score');
         break;
       case 'Low Score':
-        setSort('low_score');
+        setSort(() => 'low_score');
         break;
       default:
-        setSort('average');
+        // no action
     }
   }
-  
-  // Save self and friends IDs to array
-  let leaderboardIds = [];
-  if(joinFriends.length > 0) {
-    leaderboardIds = [joinFriends[0].friender_id, ...joinFriends.map(joinFriend => joinFriend.friendee_id)]
-  }
-  // if(joinFriends.length > 0) { // Alternate? O(n) - in progress, change leaderboardIds to object to improve time complexity?
-  //   leaderboardIds[joinFriends[0].friender_id] = 1; // Adds current user id to leaderboardIds an an object key
-  //   for(let element of joinFriends) if(!leaderboardIds[element]) leaderboardIds[element] = 1; // Adds each friend id  to leaderboardIds as an object key
-  // }
-  // console.log('leaderboardIds', leaderboardIds);
     
-  // Create array of objects for self and friends stats
+    // Save self and friends IDs to array
+    let leaderboardIds = [];
+    if(joinFriends.length > 0) {
+      leaderboardIds = [joinFriends[0].friender_id, ...joinFriends.map(joinFriend => joinFriend.friendee_id)]
+    }
+    // if(joinFriends.length > 0) { // Alternate? O(n) - in progress, change leaderboardIds to object to improve time complexity?
+    //   leaderboardIds[joinFriends[0].friender_id] = 1; // Adds current user id to leaderboardIds an an object key
+    //   for(let element of joinFriends) if(!leaderboardIds[element]) leaderboardIds[element] = 1; // Adds each friend id  to leaderboardIds as an object key
+    // }
+    // console.log('leaderboardIds', leaderboardIds);
+    
+    // Create array of objects for self and friends stats
   // '.filter.includes': Time complexity appears to be O(n^2)
   // Refactored to improve time complexity: O(n^2) => O(n)
   const leaderboardStats = users.filter(user => leaderboardIds.includes(user.id))
@@ -62,17 +70,43 @@ function FriendsList({joinFriends, onGoToFriendStats, onDeleteFriend}) {
 
   // "Indirect" Event Handler: Sort based on specified column
   switch (sort) {
+    case 'total_games':
+      if(!sortOrder) {
+        leaderboardStats.sort((a, b) => b.stat.total_games - a.stat.total_games);
+      } else {
+        leaderboardStats.sort((a, b) => a.stat.total_games - b.stat.total_games);
+      }
+      break;
+    case 'total_pinfall':
+      if(!sortOrder) {
+        leaderboardStats.sort((a, b) => b.stat.total_pinfall - a.stat.total_pinfall);
+      } else {
+        leaderboardStats.sort((a, b) => a.stat.total_pinfall - b.stat.total_pinfall);
+      }
+      break;
     case 'average':
-      leaderboardStats.sort((a, b) => b.stat.average - a.stat.average);
+      if(!sortOrder) {
+        leaderboardStats.sort((a, b) => b.stat.average - a.stat.average);
+      } else {
+        leaderboardStats.sort((a, b) => a.stat.average - b.stat.average);
+      }
       break;
     case 'high_score':
-      leaderboardStats.sort((a, b) => b.stat.high_score - a.stat.high_score);
+      if(!sortOrder) {
+        leaderboardStats.sort((a, b) => b.stat.high_score - a.stat.high_score);
+      } else {
+        leaderboardStats.sort((a, b) => a.stat.high_score - b.stat.high_score);
+      }
       break;
     case 'low_score':
-      leaderboardStats.sort((a, b) => a.stat.low_score - b.stat.low_score);
+      if(!sortOrder) {
+        leaderboardStats.sort((a, b) => b.stat.low_score - a.stat.low_score);
+      } else {
+        leaderboardStats.sort((a, b) => a.stat.low_score - b.stat.low_score);
+      }
       break;
     default:
-      leaderboardStats.sort((a, b) => b.stat.average - a.stat.average);
+      // no action
   }
 
   // Filters to only 5 or less stats
@@ -87,7 +121,7 @@ function FriendsList({joinFriends, onGoToFriendStats, onDeleteFriend}) {
   const renderLeaderboard = topFiveLeaderboard.map(leaderStat => {
     return (
       <tr className='multiRow' key={leaderStat.id}>
-        <td>{topFiveLeaderboard.indexOf(leaderStat) + 1}</td>
+        <td>{(!sortOrder ? topFiveLeaderboard.indexOf(leaderStat) + 1 : topFiveLeaderboard.length - topFiveLeaderboard.indexOf(leaderStat))}</td>
         <td>{leaderStat.username}</td>
         <td>{leaderStat.stat.total_games}</td>
         <td>{leaderStat.stat.total_pinfall}</td>
@@ -135,11 +169,11 @@ function FriendsList({joinFriends, onGoToFriendStats, onDeleteFriend}) {
             <tr className='topRow'>
               <th>Rank</th>
               <th>Username</th>
-              <th>Total Games</th>
-              <th>Total Pinfall</th>
-              <th onClick={handleSort} name='average' style={{cursor: 'pointer'}}>Average</th>
-              <th onClick={handleSort} value='high_score' style={{cursor: 'pointer'}}>High Score</th>
-              <th onClick={handleSort} value='low_score' style={{cursor: 'pointer'}}>Low Score</th>
+              <th onClick={handleSort} style={{cursor: 'pointer'}}>Total Games{(sort === 'total_games' && sortOrder === false ? ' ↓' : (sort === 'total_games' && sortOrder === true ? ' ↑' : ''))}</th>
+              <th onClick={handleSort} style={{cursor: 'pointer'}}>Total Pinfall{(sort === 'total_pinfall' && sortOrder === false ? ' ↓' : (sort === 'total_pinfall' && sortOrder === true ? ' ↑' : ''))}</th>
+              <th onClick={handleSort} style={{cursor: 'pointer'}}>Average{(sort === 'average' && sortOrder === false ? ' ↓' : (sort === 'average' && sortOrder === true ? ' ↑' : ''))}</th>
+              <th onClick={handleSort} style={{cursor: 'pointer'}}>High Score{(sort === 'high_score' && sortOrder === false ? ' ↓' : (sort === 'high_score' && sortOrder === true ? ' ↑' : ''))}</th>
+              <th onClick={handleSort} style={{cursor: 'pointer'}}>Low Score{(sort === 'low_score' && sortOrder === false ? ' ↓' : (sort === 'low_score' && sortOrder === true ? ' ↑' : ''))}</th>
             </tr>
             {renderLeaderboard}
           </tbody>
