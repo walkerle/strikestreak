@@ -86,9 +86,9 @@ function FriendsList({joinFriends, onGoToFriendStats, onDeleteFriend}) {
       break;
     case 'average':
       if(!sortOrder) {
-        leaderboardStats.sort((a, b) => b.stat.average - a.stat.average);
+        leaderboardStats.sort((a, b) => (b.stat.total_pinfall/b.stat.total_games) - (a.stat.total_pinfall/a.stat.total_games));
       } else {
-        leaderboardStats.sort((a, b) => a.stat.average - b.stat.average);
+        leaderboardStats.sort((a, b) => (a.stat.total_pinfall/a.stat.total_games) - (b.stat.total_pinfall/b.stat.total_games));
       }
       break;
     case 'high_score':
