@@ -24,15 +24,14 @@ User.create(username: "Leslie Knope", email: "leslie@gmail.com", password: "1234
 User.create(username: "Charlie Kelly", email: "charlie@gmail.com", password: "1234")
 User.create(username: "Ronald 'Mac' McDonald", email: "mac@gmail.com", password: "1234")
 User.create(username: "Frank Reynolds", email: "frank@gmail.com", password: "1234") #15
-
-puts "Seeding JoinFriends..."
-JoinFriend.create(friender_id: 8, friendee_id: 9)
-JoinFriend.create(friender_id: 8, friendee_id: 2)
-JoinFriend.create(friender_id: 8, friendee_id: 5)
-JoinFriend.create(friender_id: 8, friendee_id: 12)
-JoinFriend.create(friender_id: 9, friendee_id: 8)
-JoinFriend.create(friender_id: 2, friendee_id: 3)
-JoinFriend.create(friender_id: 5, friendee_id: 4)
+User.create(username: "Kevin", email: "kevin@gmail.com", password: "1234")
+User.create(username: "Vuong", email: "vuong@gmail.com", password: "1234")
+User.create(username: "Phi", email: "phi@gmail.com", password: "1234")
+User.create(username: "Evan", email: "evan@gmail.com", password: "1234")
+User.create(username: "Paul", email: "paul@gmail.com", password: "1234") #20
+User.create(username: "Tony", email: "tony@gmail.com", password: "1234")
+User.create(username: "Matt", email: "matt@gmail.com", password: "1234")
+User.create(username: "DeAngelo", email: "DeAngelo@gmail.com", password: "1234")
 
 puts "Seeding Stats..."
 Stat.create(user_id: 1, total_games: 0, total_pinfall: 0, average: 0, high_score: 0, low_score: 0, total_strikes: 0, total_spares: 0, total_open_frames: 0)
@@ -50,6 +49,14 @@ Stat.create(user_id: 12, total_games: 0, total_pinfall: 0, average: 0, high_scor
 Stat.create(user_id: 13, total_games: 0, total_pinfall: 0, average: 0, high_score: 0, low_score: 0, total_strikes: 0, total_spares: 0, total_open_frames: 0)
 Stat.create(user_id: 14, total_games: 0, total_pinfall: 0, average: 0, high_score: 0, low_score: 0, total_strikes: 0, total_spares: 0, total_open_frames: 0)
 Stat.create(user_id: 15, total_games: 0, total_pinfall: 0, average: 0, high_score: 0, low_score: 0, total_strikes: 0, total_spares: 0, total_open_frames: 0)
+Stat.create(user_id: 16, total_games: 0, total_pinfall: 0, average: 0, high_score: 0, low_score: 0, total_strikes: 0, total_spares: 0, total_open_frames: 0)
+Stat.create(user_id: 17, total_games: 0, total_pinfall: 0, average: 0, high_score: 0, low_score: 0, total_strikes: 0, total_spares: 0, total_open_frames: 0)
+Stat.create(user_id: 18, total_games: 0, total_pinfall: 0, average: 0, high_score: 0, low_score: 0, total_strikes: 0, total_spares: 0, total_open_frames: 0)
+Stat.create(user_id: 19, total_games: 0, total_pinfall: 0, average: 0, high_score: 0, low_score: 0, total_strikes: 0, total_spares: 0, total_open_frames: 0)
+Stat.create(user_id: 20, total_games: 0, total_pinfall: 0, average: 0, high_score: 0, low_score: 0, total_strikes: 0, total_spares: 0, total_open_frames: 0)
+Stat.create(user_id: 21, total_games: 0, total_pinfall: 0, average: 0, high_score: 0, low_score: 0, total_strikes: 0, total_spares: 0, total_open_frames: 0)
+Stat.create(user_id: 22, total_games: 0, total_pinfall: 0, average: 0, high_score: 0, low_score: 0, total_strikes: 0, total_spares: 0, total_open_frames: 0)
+Stat.create(user_id: 23, total_games: 0, total_pinfall: 0, average: 0, high_score: 0, low_score: 0, total_strikes: 0, total_spares: 0, total_open_frames: 0)
 
 puts "Seeding GameSessions..."
 GameSession.create(stat_id: 8, date: "08/26/2023", number_of_games: 0, pinfall: 0, average: 0, high_score: 0, low_score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "Average night")
@@ -76,4 +83,85 @@ Game.create(game_session_id: 6, f1b1: 10, f1b2: 0, f2b1: 9, f2b2: 1, f3b1: 9, f3
 # Pete Weber Game
 Game.create(game_session_id: 5, f1b1: 9, f1b2: 1, f2b1: 9, f2b2: 1, f3b1: 9, f3b2: 1, f4b1: 10, f4b2: 0, f5b1: 9, f5b2: 1, f6b1: 8, f6b2: 2, f7b1: 10, f7b2: 0, f8b1: 10, f8b2: 0, f9b1: 10, f9b2: 0, f10b1: 9, f10b2: 1, f10b3: 10, score: 215, strikes: 5, spares: 6, open_frames: 0, notes: "Who do you think you are? I am!")
 
+puts "Seeding JoinFriends..."
+JoinFriend.create(friender_id: 8, friendee_id: 9)
+JoinFriend.create(friender_id: 8, friendee_id: 2)
+JoinFriend.create(friender_id: 8, friendee_id: 5)
+JoinFriend.create(friender_id: 8, friendee_id: 12)
+JoinFriend.create(friender_id: 9, friendee_id: 8)
+JoinFriend.create(friender_id: 2, friendee_id: 3)
+JoinFriend.create(friender_id: 5, friendee_id: 4)
+JoinFriend.create(friender_id: 1, friendee_id: 16) # Walker
+JoinFriend.create(friender_id: 1, friendee_id: 17)
+JoinFriend.create(friender_id: 1, friendee_id: 18)
+JoinFriend.create(friender_id: 1, friendee_id: 19)
+JoinFriend.create(friender_id: 1, friendee_id: 20)
+JoinFriend.create(friender_id: 1, friendee_id: 21)
+JoinFriend.create(friender_id: 1, friendee_id: 22)
+JoinFriend.create(friender_id: 1, friendee_id: 23)
+JoinFriend.create(friender_id: 16, friendee_id: 1) # Kevin
+JoinFriend.create(friender_id: 16, friendee_id: 17)
+JoinFriend.create(friender_id: 16, friendee_id: 18)
+JoinFriend.create(friender_id: 16, friendee_id: 19)
+JoinFriend.create(friender_id: 16, friendee_id: 20)
+JoinFriend.create(friender_id: 16, friendee_id: 21)
+JoinFriend.create(friender_id: 16, friendee_id: 22)
+JoinFriend.create(friender_id: 16, friendee_id: 23)
+JoinFriend.create(friender_id: 17, friendee_id: 1) # Vuong
+JoinFriend.create(friender_id: 17, friendee_id: 16)
+JoinFriend.create(friender_id: 17, friendee_id: 18)
+JoinFriend.create(friender_id: 17, friendee_id: 19)
+JoinFriend.create(friender_id: 17, friendee_id: 20)
+JoinFriend.create(friender_id: 17, friendee_id: 21)
+JoinFriend.create(friender_id: 17, friendee_id: 22)
+JoinFriend.create(friender_id: 17, friendee_id: 23)
+JoinFriend.create(friender_id: 18, friendee_id: 1) # Phi
+JoinFriend.create(friender_id: 18, friendee_id: 16)
+JoinFriend.create(friender_id: 18, friendee_id: 17)
+JoinFriend.create(friender_id: 18, friendee_id: 19)
+JoinFriend.create(friender_id: 18, friendee_id: 20)
+JoinFriend.create(friender_id: 18, friendee_id: 21)
+JoinFriend.create(friender_id: 18, friendee_id: 22)
+JoinFriend.create(friender_id: 18, friendee_id: 23)
+JoinFriend.create(friender_id: 19, friendee_id: 1) # Evan
+JoinFriend.create(friender_id: 19, friendee_id: 16)
+JoinFriend.create(friender_id: 19, friendee_id: 17)
+JoinFriend.create(friender_id: 19, friendee_id: 18)
+JoinFriend.create(friender_id: 19, friendee_id: 20)
+JoinFriend.create(friender_id: 19, friendee_id: 21)
+JoinFriend.create(friender_id: 19, friendee_id: 22)
+JoinFriend.create(friender_id: 19, friendee_id: 23)
+JoinFriend.create(friender_id: 20, friendee_id: 1) # Paul
+JoinFriend.create(friender_id: 20, friendee_id: 16)
+JoinFriend.create(friender_id: 20, friendee_id: 17)
+JoinFriend.create(friender_id: 20, friendee_id: 18)
+JoinFriend.create(friender_id: 20, friendee_id: 19)
+JoinFriend.create(friender_id: 20, friendee_id: 21)
+JoinFriend.create(friender_id: 20, friendee_id: 22)
+JoinFriend.create(friender_id: 20, friendee_id: 23)
+JoinFriend.create(friender_id: 21, friendee_id: 1) # Tony
+JoinFriend.create(friender_id: 21, friendee_id: 16)
+JoinFriend.create(friender_id: 21, friendee_id: 17)
+JoinFriend.create(friender_id: 21, friendee_id: 18)
+JoinFriend.create(friender_id: 21, friendee_id: 19)
+JoinFriend.create(friender_id: 21, friendee_id: 20)
+JoinFriend.create(friender_id: 21, friendee_id: 22)
+JoinFriend.create(friender_id: 21, friendee_id: 23)
+JoinFriend.create(friender_id: 22, friendee_id: 1) # Matt
+JoinFriend.create(friender_id: 22, friendee_id: 16)
+JoinFriend.create(friender_id: 22, friendee_id: 17)
+JoinFriend.create(friender_id: 22, friendee_id: 18)
+JoinFriend.create(friender_id: 22, friendee_id: 19)
+JoinFriend.create(friender_id: 22, friendee_id: 20)
+JoinFriend.create(friender_id: 22, friendee_id: 21)
+JoinFriend.create(friender_id: 22, friendee_id: 23)
+JoinFriend.create(friender_id: 23, friendee_id: 1) # DeAngelo
+JoinFriend.create(friender_id: 23, friendee_id: 16)
+JoinFriend.create(friender_id: 23, friendee_id: 17)
+JoinFriend.create(friender_id: 23, friendee_id: 18)
+JoinFriend.create(friender_id: 23, friendee_id: 19)
+JoinFriend.create(friender_id: 23, friendee_id: 20)
+JoinFriend.create(friender_id: 23, friendee_id: 21)
+JoinFriend.create(friender_id: 23, friendee_id: 22)
+  
 puts "✅ Done seeding!"

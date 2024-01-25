@@ -29,6 +29,7 @@ function App() {
   
   // React state(s)
   const [user, setUser] = useState(false);
+  const [users, setUsers] = useState([]);
   const [stats, setStats] = useState({});
   const [sessions, setSessions] = useState([]);
   const [session, setSession] = useState({});
@@ -43,7 +44,7 @@ function App() {
   // let { gameId } = useParams();
   const navigate = useNavigate()
 
-  // Fetch user data
+  // Fetch current user data
   useEffect(() => {
     fetch(`/me`)
     // fetch(`/users/1`)
@@ -63,6 +64,13 @@ function App() {
       }
     })
   }, [games])
+
+  // Fetch all users data
+  useEffect(() => {
+    fetch(`/users`)
+    .then(res => res.json())
+    .then(data => setUsers(data))
+  }, [])
   
   //////////////////////////////////////////////////////////////////////////////////
   
@@ -321,9 +329,9 @@ function App() {
             <Route path='edit' element={<GameFormEdit game={game} onUpdateGame={onUpdateGame} />} />
           </Route>
           <Route path='/myfriends' element={<FriendsLayout />}>
-            <Route path='' element={<FriendsList joinFriends={joinFriends} onGoToFriendStats={onGoToFriendStats} onDeleteFriend={onDeleteFriend} />} />
+            <Route path='' element={<FriendsList joinFriends={joinFriends} onGoToFriendStats={onGoToFriendStats} onDeleteFriend={onDeleteFriend} users={users} />} />
             <Route path='stats' element={<FriendStats friend={friend} friendStats={friendStats} />} />
-            <Route path='find' element={<UsersList onAddFriend={onAddFriend} currentUser={user} errors={errors} />} />
+            <Route path='find' element={<UsersList onAddFriend={onAddFriend} currentUser={user} errors={errors} users={users} />} />
           </Route>
           <Route path='*' element={<NotFound />} />
         </Routes>

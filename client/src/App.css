@@ -1,3 +1,24 @@
+/* HEX COLOR CODE REFERENCE */
+  /*
+  Season 1:
+  text-shadow orange: #ce8600
+  text color white: #f2f2f2
+  navBar background color orange: #ac7205
+  hover blue: #2121ba
+  background slight gray (header): #101010
+  heading border color orange: #ac7205
+  divider line orange: #d19a34
+  table middle row orange: #d19a34
+  background more gray (subheader): #303030
+
+  Season 2:
+  Nuggets Midnight Blue: #0E2240
+  Nuggets Sunshine Yellow: #FEC524
+  Nuggets Flatirons Red: #8B2131
+  Nuggets Skyline Blue: #1D428A
+  Text color white: #F2F2F2
+  */
+
 /* GLOBAL */
 
 .App {
@@ -65,12 +86,13 @@ h2 {
 }
 
 hr.dividerLine {
-  height: 2px;
+  height: 5px;
   border: none;
   border-radius: 6px;
   background: linear-gradient(
-    #d19a34 0%,
-    #d19a34 100%
+    0.25turn,
+    #d19a34,
+    #f2f2f2
   );
 }
 

@@ -4,10 +4,10 @@ import FriendCard from './FriendCard';
 // import { useGetMyFriendsQuery } from '../app/services/friendsApi';
 // import { useGetAllUsersQuery } from '../app/services/allUsersApi';
 
-function FriendsList({joinFriends, onGoToFriendStats, onDeleteFriend}) {
+function FriendsList({joinFriends, onGoToFriendStats, onDeleteFriend, users}) {
   
   // React state(s)
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
   const [sort, setSort] = useState('average');
   const [sortOrder, setSortOrder] = useState(false)
   
@@ -17,11 +17,11 @@ function FriendsList({joinFriends, onGoToFriendStats, onDeleteFriend}) {
   // const { data: allUsers=[] } = useGetAllUsersQuery();
   
   // Fetch all users data
-  useEffect(() => {
-    fetch(`/users`)
-    .then(res => res.json())
-    .then(data => setUsers(data))
-  }, [])
+  // useEffect(() => {
+  //   fetch(`/users`)
+  //   .then(res => res.json())
+  //   .then(data => setUsers(data))
+  // }, [])
 
   // Event Handler: On clicking column
   const handleSort = (e) => {
@@ -50,20 +50,20 @@ function FriendsList({joinFriends, onGoToFriendStats, onDeleteFriend}) {
     }
   }
     
-    // Save self and friends IDs to array
-    let leaderboardIds = [];
-    if(joinFriends.length > 0) {
-      leaderboardIds = [joinFriends[0].friender_id, ...joinFriends.map(joinFriend => joinFriend.friendee_id)]
-    }
-    // if(joinFriends.length > 0) { // Alternate? O(n) - in progress, change leaderboardIds to object to improve time complexity?
-    //   leaderboardIds[joinFriends[0].friender_id] = 1; // Adds current user id to leaderboardIds an an object key
-    //   for(let element of joinFriends) if(!leaderboardIds[element]) leaderboardIds[element] = 1; // Adds each friend id  to leaderboardIds as an object key
-    // }
-    // console.log('leaderboardIds', leaderboardIds);
-    
-    // Create array of objects for self and friends stats
+  // Save self and friends IDs to array
+  let leaderboardIds = [];
+  if(joinFriends.length > 0) { // If friends are found in friends list, create array to include self and friends ids
+    leaderboardIds = [joinFriends[0].friender_id, ...joinFriends.map(joinFriend => joinFriend.friendee_id)]
+  }
+  // if(joinFriends.length > 0) { // Alternate? O(n) - in progress, change leaderboardIds to object to improve time complexity?
+  //   leaderboardIds[joinFriends[0].friender_id] = 1; // Adds current user id to leaderboardIds an an object key
+  //   for(let element of joinFriends) if(!leaderboardIds[element]) leaderboardIds[element] = 1; // Adds each friend id  to leaderboardIds as an object key
+  // }
+  // console.log('leaderboardIds', leaderboardIds);
+  
+  // Create array of objects for self and friends stats
   // '.filter.includes': Time complexity appears to be O(n^2)
-  // Refactored to improve time complexity: O(n^2) => O(n)
+  // Refactored to improve time complexity: O(n^2) => O(n) maybe?
   const leaderboardStats = users.filter(user => leaderboardIds.includes(user.id))
   // const leaderboardStats = users.filter(user => (user.id in leaderboardIds)); // Alternate? O(n) => error on initial load, but works after fetched data
   // console.log('leaderboardStats', leaderboardStats)

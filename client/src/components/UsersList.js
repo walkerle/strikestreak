@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import UserCard from './UserCard';
 // import { useGetAllUsersQuery } from '../app/services/allUsersApi';
 
-function UsersList({onAddFriend, currentUser, errors}) {
+function UsersList({onAddFriend, currentUser, errors, users}) {
 
   const errorsArr = errors.errors;
 
   // React state(s)
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
   const [search, setSearch] = useState('');
   const [submitSearch, setSubmitSearch] = useState('');
 
@@ -15,11 +15,11 @@ function UsersList({onAddFriend, currentUser, errors}) {
   // const { data: allUsers=[], error } = useGetAllUsersQuery();
 
   // Fetch all users data
-  useEffect(() => {
-    fetch(`/users`)
-    .then(res => res.json())
-    .then(data => setUsers(data))
-  }, [])
+  // useEffect(() => {
+  //   fetch(`/users`)
+  //   .then(res => res.json())
+  //   .then(data => setUsers(data))
+  // }, [])
 
   const searchUsers = users.filter(user => currentUser.id !== user.id) // Filter out currentUser => O(n)
   .sort((a, b) => a.username.localeCompare(b.username)) // sort users alphabetically => O(n)

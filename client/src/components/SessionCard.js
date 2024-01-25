@@ -81,6 +81,7 @@ function SessionCard({session, onGoToGames, onGoToSessionUpdateForm, onDeleteSes
       <div className='divider'>
         <hr className='dividerLine'/>
       </div>
+      <br/>
     </div>
   )
 }
