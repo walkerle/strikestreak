@@ -66,6 +66,18 @@ GameSession.create(stat_id: 9, date: "01/26/2012", number_of_games: 0, pinfall: 
 GameSession.create(stat_id: 2, date: "02/26/2012", number_of_games: 0, pinfall: 0, average: 0, high_score: 0, low_score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "Pete Weber Day")
 GameSession.create(stat_id: 5, date: "09/07/2023", number_of_games: 0, pinfall: 0, average: 0, high_score: 0, low_score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "600 series night!")
 
+# game_session id: 7 / Walker
+GameSession.create(stat_id: 1, date: "01/25/2024", number_of_games: 0, pinfall: 0, average: 0, high_score: 0, low_score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "")
+GameSession.create(stat_id: 16, date: "01/25/2024", number_of_games: 0, pinfall: 0, average: 0, high_score: 0, low_score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "")
+GameSession.create(stat_id: 17, date: "01/25/2024", number_of_games: 0, pinfall: 0, average: 0, high_score: 0, low_score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "")
+# game_session id: 10 / Phi
+GameSession.create(stat_id: 18, date: "01/25/2024", number_of_games: 0, pinfall: 0, average: 0, high_score: 0, low_score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "")
+GameSession.create(stat_id: 19, date: "01/29/2024", number_of_games: 0, pinfall: 0, average: 0, high_score: 0, low_score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "")
+# game_session id: 12 / Paul
+GameSession.create(stat_id: 20, date: "01/25/2024", number_of_games: 0, pinfall: 0, average: 0, high_score: 0, low_score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "")
+GameSession.create(stat_id: 21, date: "01/25/2024", number_of_games: 0, pinfall: 0, average: 0, high_score: 0, low_score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "")
+GameSession.create(stat_id: 23, date: "01/25/2024", number_of_games: 0, pinfall: 0, average: 0, high_score: 0, low_score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "")
+GameSession.create(stat_id: 16, date: "01/29/2024", number_of_games: 0, pinfall: 0, average: 0, high_score: 0, low_score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "")
 
 puts "Seeding Games..."
 Game.create(game_session_id: 1, f1b1: 8, f1b2: 2, f2b1: 9, f2b2: 0, f3b1: 10, f3b2: 0, f4b1: 9, f4b2: 1, f5b1: 8, f5b2: 2, f6b1: 10, f6b2: 0, f7b1: 5, f7b2: 3, f8b1: 10, f8b2: 0, f9b1: 10, f9b2: 0, f10b1: 10, f10b2: 9, f10b3: 0, score: 190, strikes: 5, spares: 3, open_frames: 3, notes: "Good start")
@@ -77,6 +89,18 @@ Game.create(game_session_id: 4, f1b1: 10, f1b2: 0, f2b1: 10, f2b2: 0, f3b1: 10, 
 Game.create(game_session_id: 6, f1b1: 10, f1b2: 0, f2b1: 7, f2b2: 3, f3b1: 10, f3b2: 0, f4b1: 9, f4b2: 1, f5b1: 5, f5b2: 3, f6b1: 10, f6b2: 0, f7b1: 10, f7b2: 0, f8b1: 5, f8b2: 5, f9b1: 8, f9b2: 2, f10b1: 10, f10b2: 10, f10b3: 10, score: 196, strikes: 7, spares: 4, open_frames: 1, notes: "Almost got the 200")
 Game.create(game_session_id: 6, f1b1: 10, f1b2: 0, f2b1: 9, f2b2: 1, f3b1: 10, f3b2: 0, f4b1: 10, f4b2: 0, f5b1: 8, f5b2: 0, f6b1: 10, f6b2: 0, f7b1: 10, f7b2: 0, f8b1: 10, f8b2: 0, f9b1: 10, f9b2: 0, f10b1: 6, f10b2: 2, f10b3: 0, score: 206, strikes: 7, spares: 1, open_frames: 2, notes: "Easy 200 game")
 Game.create(game_session_id: 6, f1b1: 10, f1b2: 0, f2b1: 9, f2b2: 1, f3b1: 9, f3b2: 1, f4b1: 10, f4b2: 0, f5b1: 10, f5b2: 0, f6b1: 7, f6b2: 3, f7b1: 9, f7b2: 1, f8b1: 10, f8b2: 0, f9b1: 7, f9b2: 3, f10b1: 9, f10b2: 1, f10b3: 9, score: 203, strikes: 4, spares: 6, open_frames: 0, notes: "Another one!")
+Game.create(game_session_id: 7, f1b1: 9, f1b2: 0, f2b1: 7, f2b2: 0, f3b1: 8, f3b2: 0, f4b1: 10, f4b2: 0, f5b1: 7, f5b2: 1, f6b1: 9, f6b2: 1, f7b1: 7, f7b2: 1, f8b1: 7, f8b2: 0, f9b1: 10, f9b2: 0, f10b1: 10, f10b2: 10, f10b3: 8, score: 140, strikes: 4, spares: 1, open_frames: 6, notes: "")
+Game.create(game_session_id: 7, f1b1: 7, f1b2: 3, f2b1: 8, f2b2: 1, f3b1: 10, f3b2: 0, f4b1: 9, f4b2: 1, f5b1: 7, f5b2: 3, f6b1: 8, f6b2: 1, f7b1: 10, f7b2: 0, f8b1: 7, f8b2: 1, f9b1: 6, f9b2: 3, f10b1: 10, f10b2: 10, f10b3: 7, score: 153, strikes: 4, spares: 3, open_frames: 4, notes: "")
+Game.create(game_session_id: 7, f1b1: 10, f1b2: 0, f2b1: 10, f2b2: 0, f3b1: 9, f3b2: 0, f4b1: 7, f4b2: 2, f5b1: 10, f5b2: 0, f6b1: 8, f6b2: 1, f7b1: 9, f7b2: 1, f8b1: 5, f8b2: 3, f9b1: 7, f9b2: 3, f10b1: 10, f10b2: 9, f10b3: 1, score: 157, strikes: 4, spares: 3, open_frames: 4, notes: "")
+Game.create(game_session_id: 8, f1b1: 10, f1b2: 0, f2b1: 6, f2b2: 3, f3b1: 10, f3b2: 0, f4b1: 9, f4b2: 0, f5b1: 10, f5b2: 0, f6b1: 7, f6b2: 3, f7b1: 10, f7b2: 0, f8b1: 10, f8b2: 0, f9b1: 10, f9b2: 0, f10b1: 7, f10b2: 0, f10b3: 0, score: 177, strikes: 6, spares: 1, open_frames: 3, notes: "")
+Game.create(game_session_id: 8, f1b1: 9, f1b2: 1, f2b1: 10, f2b2: 0, f3b1: 10, f3b2: 0, f4b1: 9, f4b2: 1, f5b1: 9, f5b2: 1, f6b1: 10, f6b2: 0, f7b1: 8, f7b2: 2, f8b1: 8, f8b2: 2, f9b1: 8, f9b2: 0, f10b1: 9, f10b2: 1, f10b3: 9, score: 191, strikes: 3, spares: 6, open_frames: 1, notes: "")
+Game.create(game_session_id: 8, f1b1: 8, f1b2: 2, f2b1: 10, f2b2: 0, f3b1: 6, f3b2: 3, f4b1: 10, f4b2: 0, f5b1: 7, f5b2: 1, f6b1: 6, f6b2: 3, f7b1: 7, f7b2: 3, f8b1: 6, f8b2: 2, f9b1: 6, f9b2: 3, f10b1: 10, f10b2: 10, f10b3: 10, score: 146, strikes: 5, spares: 2, open_frames: 5, notes: "")
+Game.create(game_session_id: 9, f1b1: 0, f1b2: 0, f2b1: 0, f2b2: 0, f3b1: 0, f3b2: 0, f4b1: 0, f4b2: 0, f5b1: 0, f5b2: 0, f6b1: 0, f6b2: 0, f7b1: 0, f7b2: 0, f8b1: 0, f8b2: 0, f9b1: 0, f9b2: 0, f10b1: 0, f10b2: 0, f10b3: 0, score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "")
+Game.create(game_session_id: 9, f1b1: 0, f1b2: 0, f2b1: 0, f2b2: 0, f3b1: 0, f3b2: 0, f4b1: 0, f4b2: 0, f5b1: 0, f5b2: 0, f6b1: 0, f6b2: 0, f7b1: 0, f7b2: 0, f8b1: 0, f8b2: 0, f9b1: 0, f9b2: 0, f10b1: 0, f10b2: 0, f10b3: 0, score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "")
+Game.create(game_session_id: 9, f1b1: 0, f1b2: 0, f2b1: 0, f2b2: 0, f3b1: 0, f3b2: 0, f4b1: 0, f4b2: 0, f5b1: 0, f5b2: 0, f6b1: 0, f6b2: 0, f7b1: 0, f7b2: 0, f8b1: 0, f8b2: 0, f9b1: 0, f9b2: 0, f10b1: 0, f10b2: 0, f10b3: 0, score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "")
+Game.create(game_session_id: 10, f1b1: 0, f1b2: 0, f2b1: 0, f2b2: 0, f3b1: 0, f3b2: 0, f4b1: 0, f4b2: 0, f5b1: 0, f5b2: 0, f6b1: 0, f6b2: 0, f7b1: 0, f7b2: 0, f8b1: 0, f8b2: 0, f9b1: 0, f9b2: 0, f10b1: 0, f10b2: 0, f10b3: 0, score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "")
+Game.create(game_session_id: 10, f1b1: 0, f1b2: 0, f2b1: 0, f2b2: 0, f3b1: 0, f3b2: 0, f4b1: 0, f4b2: 0, f5b1: 0, f5b2: 0, f6b1: 0, f6b2: 0, f7b1: 0, f7b2: 0, f8b1: 0, f8b2: 0, f9b1: 0, f9b2: 0, f10b1: 0, f10b2: 0, f10b3: 0, score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "")
+Game.create(game_session_id: 10, f1b1: 0, f1b2: 0, f2b1: 0, f2b2: 0, f3b1: 0, f3b2: 0, f4b1: 0, f4b2: 0, f5b1: 0, f5b2: 0, f6b1: 0, f6b2: 0, f7b1: 0, f7b2: 0, f8b1: 0, f8b2: 0, f9b1: 0, f9b2: 0, f10b1: 0, f10b2: 0, f10b3: 0, score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "")
 
 # Game.create(game_session_id: 1, f1b1: 0, f1b2: 0, f2b1: 0, f2b2: 0, f3b1: 0, f3b2: 0, f4b1: 0, f4b2: 0, f5b1: 0, f5b2: 0, f6b1: 0, f6b2: 0, f7b1: 0, f7b2: 0, f8b1: 0, f8b2: 0, f9b1: 0, f9b2: 0, f10b1: 0, f10b2: 0, f10b3: 0, score: 0, strikes: 0, spares: 0, open_frames: 0, notes: "")
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import FriendCard from './FriendCard';
 // import { useAutoLoginQuery } from '../app/services/userApi';
 // import { useGetMyFriendsQuery } from '../app/services/friendsApi';
@@ -64,7 +64,7 @@ function FriendsList({joinFriends, onGoToFriendStats, onDeleteFriend, users}) {
   // Create array of objects for self and friends stats
   // '.filter.includes': Time complexity appears to be O(n^2)
   // Refactored to improve time complexity: O(n^2) => O(n) maybe?
-  const leaderboardStats = users.filter(user => leaderboardIds.includes(user.id))
+  const leaderboardStats = (users.length !== undefined ? users.filter(user => leaderboardIds.includes(user.id)) : [])
   // const leaderboardStats = users.filter(user => (user.id in leaderboardIds)); // Alternate? O(n) => error on initial load, but works after fetched data
   // console.log('leaderboardStats', leaderboardStats)
 

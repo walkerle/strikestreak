@@ -10,4 +10,4 @@ cp -a client/build/. public/
 # backend build commands
 bundle install
 # bundle exec rails db:drop DISABLE_DATABASE_ENVIRONMENT_CHECK=1 # Reset database
-# bundle exec rails db:create db:migrate db:seed # Reset database
+bundle exec rails db:create db:migrate db:seed # Reset database

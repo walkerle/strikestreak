@@ -70,7 +70,7 @@ function App() {
     fetch(`/users`)
     .then(res => res.json())
     .then(data => setUsers(data))
-  }, [])
+  }, [user])
   
   //////////////////////////////////////////////////////////////////////////////////
   
